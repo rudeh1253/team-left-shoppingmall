@@ -15,6 +15,7 @@ import team.left.framework.context.AnnotationBasedApplicationContextFactory;
 import team.left.framework.context.ApplicationContext;
 import team.left.framework.web.action.RequestMethod;
 import team.left.framework.web.constant.CommonConstants;
+import team.left.framework.web.exception.ActionNotFoundException;
 import team.left.framework.web.resolver.argument.ArgumentResolver;
 import team.left.framework.web.resolver.argument.DefaultArgumentResolver;
 import team.left.framework.web.resolver.handler.HandlerSet;
@@ -61,11 +62,15 @@ public class DispatcherServlet extends HttpServlet {
         RequestMethod method = RequestMethod.valueOf(request.getMethod().trim().toUpperCase());
         String command = request.getParameter(CommonConstants.COMMAND_PAPRAM_NAME);
         
-        System.out.println("uri=" + uri);
-        System.out.println("method=" + method);
-        System.out.println("command=" + command);
-        
         HandlerSet handlerSet = this.actionMapping.getHandler(uri, method, command);
+        if (handlerSet == null) {
+            System.out.println("No handler for:");
+            System.out.println("uri=" + uri);
+            System.out.println("method=" + method);
+            System.out.println("command=" + command);
+            
+            throw new ActionNotFoundException(); // TODO: 에러페이지 매핑
+        }
         System.out.println("handlerSet=" + handlerSet);
         
         Object[] arguments = this.argumentResolver.resolveArguments(handlerSet.getHandlerMethod(), request, response);
