@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import team.left.framework.context.ApplicationContext;
-import team.left.framework.web.action.Command;
+import team.left.framework.web.action.Handler;
 import team.left.framework.web.action.RequestMethod;
 import team.left.framework.web.prototype.Action;
 
@@ -20,12 +20,12 @@ public class RequestMappingActionMapping {
         Map<MappingInfo, HandlerSet> handlersByMappingCache = new HashMap<>();
         for (Object handler : beanByName.values()) {
             Method[] handlerMethods = Arrays.stream(handler.getClass().getDeclaredMethods())
-                    .filter((e) -> e.isAnnotationPresent(Command.class)).toArray(Method[]::new);
+                    .filter((e) -> e.isAnnotationPresent(Handler.class)).toArray(Method[]::new);
             for (Method handlerMethod : handlerMethods) {
-                Command command = handlerMethod.getAnnotation(Command.class);
+                Handler command = handlerMethod.getAnnotation(Handler.class);
                 String path = command.path();
                 RequestMethod method = command.method();
-                String cmd = command.cmd();
+                String cmd = command.command();
 
                 handlersByMappingCache.put(new MappingInfo(path, method, cmd), new HandlerSet(handler, handlerMethod));
             }
