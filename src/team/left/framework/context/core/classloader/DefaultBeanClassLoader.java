@@ -28,7 +28,7 @@ public class DefaultBeanClassLoader implements BeanClassLoader {
     }
 
     private void searchByDfs(String path, Set<Class<?>> beanClasses) {
-        URL url = ClassLoader.getSystemClassLoader().getResource(path);
+        URL url = getClass().getClassLoader().getResource(path);
         File file;
         try {
             file = new File(url.toURI());

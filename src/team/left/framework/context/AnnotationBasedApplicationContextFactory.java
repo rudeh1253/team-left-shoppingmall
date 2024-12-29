@@ -24,6 +24,10 @@ public class AnnotationBasedApplicationContextFactory {
     
     private AnnotationBasedApplicationContextFactory() {
     }
+    
+    public static ApplicationContext getApplicationContext(Class<?> componentScanClass, Map<String, Object> additionalBeansByName) {
+        return null; // TODO
+    }
 
     public static ApplicationContext getApplicationContext(Class<?> componentScanClass) {
         String basePackage = getBasePackage(componentScanClass);
@@ -39,9 +43,9 @@ public class AnnotationBasedApplicationContextFactory {
         Set<Class<?>> beanClasses = beanClassFinder.findAllOnBasePackage(basePackage);
         BeanInfoWrapper beanInfoWrapper = beanInitializerMapper.map(beanClasses);
         Map<Class<?>, Collection<String>> beansPerType = beanTypeMapper.mapBeansToType(beanInfoWrapper.getTypePerBean());
-        ObjectGraph objectGraph = ObjectGraph.makeObjectGraph(beanInfoWrapper.getTypePerBean(), beansPerType, dependencyFinder);
+        ObjectGraph objectGraph = ObjectGraph.makeObjectGraph(beanInfoWrapper, beansPerType, dependencyFinder);
 
-        if (!dependencyGraphSearcher.isTopologicalSort(beanInfoWrapper.getTypePerBean(), beansPerType)) {
+        if (!dependencyGraphSearcher.isTopologicalSort(objectGraph)) {
             throw new AssociationCyclePresenceException("순환 참조가 존재합니다");
         }
 

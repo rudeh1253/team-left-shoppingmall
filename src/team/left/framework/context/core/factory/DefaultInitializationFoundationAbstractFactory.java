@@ -22,8 +22,7 @@ public class DefaultInitializationFoundationAbstractFactory implements Initializ
     private static final BeanInitializerMapper BEAN_INITIALIZER_MAPPER = new DefaultBeanInitializerMapper(DEPENDENCY_FINDER);
     private static final BeanTypeMapper BEAN_TYPE_MAPPER = new DefaultBeanTypeMapper(CONTEXT_CLASS_DECISION);
     private static final BeanInitializer BEAN_INITIALIZER = new DefaultBeanInitializer();
-    private static final DependencyGraphSearcher DEPENDENCY_GRAPH_SEARCHER =
-            new DefaultDependencyGraphSearcher(DEPENDENCY_FINDER);
+    private static final DependencyGraphSearcher DEPENDENCY_GRAPH_SEARCHER = new DefaultDependencyGraphSearcher();
 
     @Override
     public BeanClassLoader getBeanClassFinder() {

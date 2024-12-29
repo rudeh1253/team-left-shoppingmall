@@ -28,17 +28,18 @@ public class DefaultBeanInitializerMapper implements BeanInitializerMapper {
     public BeanInfoWrapper map(Set<Class<?>> beanClasses) {
         Map<String, BeanInstantiatable> beanInitializerByBeanName = new HashMap<>();
         Map<String, Class<?>> typePerBean = new HashMap<>();
+        Map<String, Method> methodInstantiatedBeans = new HashMap<>();
 
         for (Class<?> beanClass : beanClasses) {
             // TODO: ContextClassDecision 사용해야 함
             if (beanClass.isAnnotationPresent(Configuration.class)) {
-                addInstantiaterFromConfigClass(beanClass, beanInitializerByBeanName, typePerBean);
+                addInstantiaterFromConfigClass(beanClass, beanInitializerByBeanName, typePerBean, methodInstantiatedBeans);
             } else {
                 addInstantiaterFromComponentAnnotated(beanClass, beanInitializerByBeanName, typePerBean);
             }
         }
 
-        return new BeanInfoWrapper(beanInitializerByBeanName, typePerBean);
+        return new BeanInfoWrapper(beanInitializerByBeanName, typePerBean, methodInstantiatedBeans);
     }
 
     private String addInstantiaterFromComponentAnnotated(Class<?> componentClass,
@@ -84,7 +85,7 @@ public class DefaultBeanInitializerMapper implements BeanInitializerMapper {
     }
 
     private void addInstantiaterFromConfigClass(Class<?> configClass,
-            Map<String, BeanInstantiatable> beanInstantiaterByBeanName, Map<String, Class<?>> typePerBean) {
+            Map<String, BeanInstantiatable> beanInstantiaterByBeanName, Map<String, Class<?>> typePerBean, Map<String, Method> methodInstantiatedBeans) {
         String configBeanName = addInstantiaterFromComponentAnnotated(configClass, beanInstantiaterByBeanName,
                 typePerBean);
 
@@ -94,6 +95,7 @@ public class DefaultBeanInitializerMapper implements BeanInitializerMapper {
         for (Method beanMethod : beanMethods) {
             beanMethod.setAccessible(true);
             String beanName = NameUtils.convertToCamelCase(beanMethod.getName());
+            methodInstantiatedBeans.put(beanName, beanMethod);
             beanInstantiaterByBeanName.put(beanName,
                     (Map<Class<?>, Collection<String>> beansPerType, Map<String, Object> instancePerBeanName) -> {
                         Object configBean = instancePerBeanName.get(configBeanName);

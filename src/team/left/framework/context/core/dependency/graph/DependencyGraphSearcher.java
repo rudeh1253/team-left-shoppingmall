@@ -1,10 +1,8 @@
 package team.left.framework.context.core.dependency.graph;
 
-import java.util.Collection;
-import java.util.Map;
+import team.left.framework.context.core.graph.ObjectGraph;
 
 public interface DependencyGraphSearcher {
 
-    boolean isTopologicalSort(Map<String, Class<?>> beanTypeByBeanName,
-                              Map<Class<?>, Collection<String>> beanNamesByBeanType);
+    boolean isTopologicalSort(ObjectGraph objectGraph);
 }
