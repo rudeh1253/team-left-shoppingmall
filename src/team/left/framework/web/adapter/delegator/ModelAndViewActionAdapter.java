@@ -7,15 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import team.left.framework.web.adapter.ActionAdapter;
+import team.left.framework.web.model.ModelAndView;
 import team.left.framework.web.resolver.argument.ArgumentResolver;
 import team.left.framework.web.resolver.argument.DefaultArgumentResolver;
 import team.left.framework.web.resolver.handler.HandlerSet;
 
-public class HttpServletActionAdapter implements ActionAdapter {
+public class ModelAndViewActionAdapter implements ActionAdapter {
     private final ArgumentResolver argumentResolver = new DefaultArgumentResolver();
-    
-    public HttpServletActionAdapter() {
-    }
 
     @Override
     public String handle(HttpServletRequest request, HttpServletResponse response, HandlerSet handlerSet) {
@@ -23,7 +21,9 @@ public class HttpServletActionAdapter implements ActionAdapter {
         Method handlerMethod = handlerSet.getHandlerMethod();
         
         try {
-            return (String) handlerMethod.invoke(actionInstance, this.argumentResolver.resolveArguments(handlerMethod, request, response));
+            ModelAndView mv = (ModelAndView) handlerMethod.invoke(actionInstance, this.argumentResolver.resolveArguments(handlerMethod, request, response));
+            mv.getAttributes().forEach((k, v) -> request.setAttribute(k, v));
+            return mv.getViewName();
         } catch (InvocationTargetException e) {
             throw new RuntimeException(e.getTargetException());
         } catch (Exception e) {
@@ -33,6 +33,6 @@ public class HttpServletActionAdapter implements ActionAdapter {
 
     @Override
     public boolean supports(HandlerSet handlerSet) {
-        return true;
+        return ModelAndView.class.isAssignableFrom(handlerSet.getHandlerMethod().getReturnType());
     }
 }

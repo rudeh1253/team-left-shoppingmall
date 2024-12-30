@@ -1,9 +1,6 @@
 package team.left.framework.web;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -14,15 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import team.left.framework.context.AnnotationBasedApplicationContextFactory;
 import team.left.framework.context.ApplicationContext;
 import team.left.framework.web.action.RequestMethod;
+import team.left.framework.web.adapter.RequestMappingActionAdapter;
 import team.left.framework.web.constant.CommonConstants;
 import team.left.framework.web.exception.ActionNotFoundException;
-import team.left.framework.web.resolver.argument.ArgumentResolver;
-import team.left.framework.web.resolver.argument.DefaultArgumentResolver;
 import team.left.framework.web.resolver.handler.HandlerSet;
 import team.left.framework.web.resolver.handler.RequestMappingActionMapping;
-import team.left.framework.web.resolver.result.ResultResolver;
-import team.left.framework.web.resolver.result.StringResultResolver;
-import team.left.framework.web.resolver.result.ValidResultResolverNotExistsException;
 import team.left.framework.web.view.ViewResolver;
 
 public class DispatcherServlet extends HttpServlet {
@@ -30,10 +23,7 @@ public class DispatcherServlet extends HttpServlet {
     
     private ApplicationContext applicationContext;
     private RequestMappingActionMapping actionMapping;
-    private ArgumentResolver argumentResolver = new DefaultArgumentResolver();
-    private ResultResolver[] resultResolver = {
-            new StringResultResolver()
-    };
+    private RequestMappingActionAdapter actionAdapter;
     private ViewResolver viewResolver;
     
     @Override
@@ -48,6 +38,8 @@ public class DispatcherServlet extends HttpServlet {
         
         this.actionMapping = this.applicationContext.getBean(RequestMappingActionMapping.class);
         this.actionMapping.init(this.applicationContext);
+        
+        this.actionAdapter = this.applicationContext.getBean(RequestMappingActionAdapter.class);
         
         this.viewResolver = this.applicationContext.getBean(ViewResolver.class);
     }
@@ -69,39 +61,17 @@ public class DispatcherServlet extends HttpServlet {
             System.out.println("method=" + method);
             System.out.println("command=" + command);
             
-            throw new ActionNotFoundException(); // TODO: 에러페이지 매핑
+            throw new ActionNotFoundException();
         }
         System.out.println("handlerSet=" + handlerSet);
         
-        Object[] arguments = this.argumentResolver.resolveArguments(handlerSet.getHandlerMethod(), request, response);
-        
-        Object result;
-        try {
-            result = handlerSet.handle(arguments);
-        } catch (Exception e) {
-            throw new ServletException(e);
-        }
-        
-        String viewName = null;
-        Map<String, Object> attributes = null;
-        for (ResultResolver rs : this.resultResolver) {
-            if (rs.supports(result.getClass())) {
-                viewName = rs.resolveViewName(result);
-                attributes = rs.resolveAttributes(result);
-            }
-        }
-        if (viewName == null || attributes == null) {
-            throw new ValidResultResolverNotExistsException(result.getClass());
-        }
-        
+        String viewName = this.actionAdapter.handle(request, response, handlerSet);
         if (this.viewResolver.isRedirect(viewName)) {
             response.sendRedirect(viewName);
             return;
         }
         
         viewName = this.viewResolver.resolve(viewName);
-        
-        attributes.forEach((k, v) -> request.setAttribute(k, v));
         
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(viewName);
         requestDispatcher.forward(request, response);
