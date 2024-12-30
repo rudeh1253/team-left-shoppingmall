@@ -13,7 +13,7 @@ public class InternalResourceViewResolver implements ViewResolver {
 
     @Override
     public boolean isRedirect(String viewName) {
-        return CommonConstants.REDIRECT_PREFIX.startsWith(viewName);
+        return viewName.startsWith(CommonConstants.REDIRECT_PREFIX);
     }
 
     @Override

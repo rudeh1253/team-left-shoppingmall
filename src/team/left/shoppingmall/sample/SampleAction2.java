@@ -2,6 +2,7 @@ package team.left.shoppingmall.sample;
 
 import team.left.framework.web.action.Handler;
 import team.left.framework.web.action.RequestMethod;
+import team.left.framework.web.constant.CommonConstants;
 import team.left.framework.web.model.Model;
 import team.left.framework.web.parameter.RequestParam;
 import team.left.framework.web.parameter.RequestParamContainer;
@@ -16,6 +17,6 @@ public class SampleAction2 {
         model.addAttribute("talk", "I said: " + say);
         model.addAttribute("what", "what I did");
         model.addAttribute("dto", sampleDto);
-        return "sample/s1";
+        return CommonConstants.REDIRECT_PREFIX + "/hello.do?command=hi";
     }
 }

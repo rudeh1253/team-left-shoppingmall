@@ -67,7 +67,7 @@ public class DispatcherServlet extends HttpServlet {
         
         String viewName = this.actionAdapter.handle(request, response, handlerSet);
         if (this.viewResolver.isRedirect(viewName)) {
-            response.sendRedirect(viewName);
+            response.sendRedirect(contextPath + viewName.substring(CommonConstants.REDIRECT_PREFIX.length()));
             return;
         }
         
