@@ -1,79 +1,77 @@
 package team.left.framework.web;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import team.left.framework.context.AnnotationBasedApplicationContextFactory;
-import team.left.framework.context.ApplicationContext;
-import team.left.framework.web.action.RequestMethod;
-import team.left.framework.web.adapter.RequestMappingActionAdapter;
-import team.left.framework.web.constant.CommonConstants;
-import team.left.framework.web.exception.ActionNotFoundException;
-import team.left.framework.web.resolver.handler.HandlerSet;
-import team.left.framework.web.resolver.handler.RequestMappingActionMapping;
-import team.left.framework.web.view.ViewResolver;
-
 public class DispatcherServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private static final String VIEW_PREFIX = "/WEB-INF/views/";
+    private static final String VIEW_SUFFIX = ".jsp";
     
-    private ApplicationContext applicationContext;
-    private RequestMappingActionMapping actionMapping;
-    private RequestMappingActionAdapter actionAdapter;
-    private ViewResolver viewResolver;
+    private Map<String, CommandHandler> handlers = new HashMap<>();
     
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
-        String configClassName = servletConfig.getInitParameter("configClass");
-        System.out.println("Hello!");
+        String configFile = "/actions.properties";
+        
+        Properties props = new Properties();
+        ServletContext servletContext = servletConfig.getServletContext();  
         try {
-            this.applicationContext = AnnotationBasedApplicationContextFactory.getApplicationContext(Class.forName(configClassName));
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            props.load(servletContext.getResourceAsStream(configFile));
+        } catch (IOException e) {
+            throw new ServletException(e);
         }
         
-        this.actionMapping = this.applicationContext.getBean(RequestMappingActionMapping.class);
-        this.actionMapping.init(this.applicationContext);
-        
-        this.actionAdapter = this.applicationContext.getBean(RequestMappingActionAdapter.class);
-        
-        this.viewResolver = this.applicationContext.getBean(ViewResolver.class);
+        for (Map.Entry<Object, Object> pair : props.entrySet()) {
+            String uri = (String) pair.getKey();
+            String className = (String) pair.getValue();
+            try {
+                handlers.put(uri, (CommandHandler) Class.forName(className).getConstructor().newInstance());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+        response.setContentType("text/html");
+        response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+        
         String contextPath = request.getContextPath();
-        String uri = request.getRequestURI();
-        if (contextPath != null && contextPath.length() > 0) {
-            uri = uri.substring(contextPath.length());
-        }
-        RequestMethod method = RequestMethod.valueOf(request.getMethod().trim().toUpperCase());
-        String command = request.getParameter(CommonConstants.COMMAND_PAPRAM_NAME);
+        String requestUri = request.getRequestURI();
         
-        HandlerSet handlerSet = this.actionMapping.getHandler(uri, method, command);
-        if (handlerSet == null) {
-            System.out.println("No handler for:");
-            System.out.println("uri=" + uri);
-            System.out.println("method=" + method);
-            System.out.println("command=" + command);
-            
-            throw new ActionNotFoundException();
+        if (contextPath != null && !contextPath.isEmpty()) {
+            requestUri = requestUri.substring(contextPath.length());
         }
-        System.out.println("handlerSet=" + handlerSet);
         
-        String viewName = this.actionAdapter.handle(request, response, handlerSet);
-        if (this.viewResolver.isRedirect(viewName)) {
-            response.sendRedirect(contextPath + viewName.substring(CommonConstants.REDIRECT_PREFIX.length()));
+        String command = request.getParameter("command");
+        String method = request.getMethod().trim().toUpperCase();
+        CommandHandler handler = this.handlers.get(requestUri);
+        
+        if (handler == null) {
+            throw new HandlerNotFoundException();
+        }
+        
+        String viewName = handler.handleCommand(request, response, method, command);
+        
+        if (viewName.startsWith("redirect:")) {
+            response.sendRedirect(contextPath + viewName.substring("redirect:".length()));
             return;
         }
         
-        viewName = this.viewResolver.resolve(viewName);
-        
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(viewName);
-        requestDispatcher.forward(request, response);
+        request.getRequestDispatcher(VIEW_PREFIX + viewName + VIEW_SUFFIX)
+                .forward(request, response);
     }
 }
