@@ -6,4 +6,5 @@ import team.left.shoppingmall.global.DataSourceContainer;
 
 public class MemberDao {
     private static DataSource dataSource = DataSourceContainer.getDataSource();
+    
 }
