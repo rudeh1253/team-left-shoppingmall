@@ -3,6 +3,7 @@ package team.left.shoppingmall.global.web;
 import team.left.framework.context.annotation.Bean;
 import team.left.framework.context.annotation.ComponentScan;
 import team.left.framework.context.annotation.Configuration;
+import team.left.framework.web.adapter.RequestMappingActionAdapter;
 import team.left.framework.web.resolver.handler.RequestMappingActionMapping;
 import team.left.framework.web.view.InternalResourceViewResolver;
 
@@ -17,6 +18,11 @@ public class BaseConfig {
     
     @Bean
     public InternalResourceViewResolver viewResolver() {
-        return new InternalResourceViewResolver("/WEB-INF/views", ".jsp");
+        return new InternalResourceViewResolver("/WEB-INF/views/", ".jsp");
+    }
+    
+    @Bean
+    public RequestMappingActionAdapter requestMappingActionAdapter() {
+        return new RequestMappingActionAdapter();
     }
 }
