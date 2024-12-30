@@ -8,14 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import team.left.framework.web.CommandHandler;
 
-public class CartAction implements CommandHandler{
+public class CartAction implements CommandHandler {
 
 	@Override
 	public String handleCommand(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("여기 오는거임?");
+		return "cart.do?command=list";
 	}
 
-	
 }
