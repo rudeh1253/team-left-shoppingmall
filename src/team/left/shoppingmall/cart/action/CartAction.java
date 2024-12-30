@@ -11,9 +11,11 @@ import team.left.framework.web.CommandHandler;
 public class CartAction implements CommandHandler{
 
 	@Override
-	public String handleCommand(HttpServletRequest request, HttpServletResponse response, String method, String command)
+	public String handleCommand(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		return "jun/cart";
+		return null;
 	}
+
+	
 }

@@ -8,5 +8,5 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface CommandHandler {
 
-    String handleCommand(HttpServletRequest request, HttpServletResponse response, String method, String command) throws ServletException, IOException;
+    String handleCommand(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 }
