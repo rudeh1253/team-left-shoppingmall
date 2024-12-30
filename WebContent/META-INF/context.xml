@@ -9,7 +9,7 @@
         maxIdle="20"
         maxWaitMillis="5000"
         url="jdbc:oracle:thin:@localhost:1521:xe"
-        username="hr"
-        password="hr"
+        username="left"
+        password="1234"
         name="jdbc/Oracle" />
 </Context>
