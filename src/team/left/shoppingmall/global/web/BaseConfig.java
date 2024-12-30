@@ -1,5 +1,10 @@
 package team.left.shoppingmall.global.web;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import team.left.framework.context.annotation.Bean;
 import team.left.framework.context.annotation.ComponentScan;
 import team.left.framework.context.annotation.Configuration;
@@ -24,5 +29,11 @@ public class BaseConfig {
     @Bean
     public RequestMappingActionAdapter requestMappingActionAdapter() {
         return new RequestMappingActionAdapter();
+    }
+    
+    @Bean
+    public DataSource dataSource() throws NamingException {
+        Context context = new InitialContext();
+        return (DataSource) context.lookup("java:comp/env/jdbc/Oracle");
     }
 }
