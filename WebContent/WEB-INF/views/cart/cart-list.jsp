@@ -53,11 +53,11 @@
 						<input type="hidden" name="productId" value="${cart.productId}" />
 						<input type="hidden" name="amount" value="${cart.amount}" /> 
 						<input type="hidden" name="price" value="${cart.price}" />
-						<input type="submit" value="구매" />
-					</form>
 				</c:forEach>
 			</tbody>
 		</table>
+						<input type="submit" value="구매" />
+					</form>
 	</div>
 
 	<script>
