@@ -7,12 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script type="text/javascript">
-	$(document).ready(() => {
-		console.log("hello!");
-	});
-</script>
-
 </head>
 <body>
 <form action="/member.do?command=insert-member" method="POST">
