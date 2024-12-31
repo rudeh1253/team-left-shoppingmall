@@ -12,6 +12,7 @@
 <script src="/resources/js/member/member-form/birth-date-input.js"></script>
 <script src="/resources/js/member/member-form/validation.js"></script>
 <script src="/resources/js/member/member-form/submit.js"></script>
+<script src="/resources/js/member/member-form/form-event.js"></script>
 <script src="/resources/js/member/member-form/member-form.js"></script>
 
 </head>
@@ -37,7 +38,7 @@
 			</div>
 			<div class="input-box">
 				<label for="">이름</label>
-				<input class="form-control form-input" type="text" name="memberName" required>
+				<input class="form-control form-input" type="text" name="member-name" required>
 			</div>
 			<div class="input-box">
 				<label for="">전화번호</label>
