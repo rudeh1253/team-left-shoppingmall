@@ -8,10 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import team.left.framework.web.CommandHandler;
+import team.left.shoppingmall.cart.dao.CartDao;
 import team.left.shoppingmall.cart.dao.CartProductDto;
 
 public class TestAction implements CommandHandler {
 
+	CartDao dao = new CartDao();
+	
 	@Override
 	public String handleCommand(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -25,6 +28,10 @@ public class TestAction implements CommandHandler {
 				System.out.println(priceArray[i]);
 				System.out.println("-----------------------");
 			}
+			String[] memberArray = request.getParameterValues("memberId");
+			int memberId = Integer.parseInt(memberArray[0]);
+			dao.deleteAllCart(memberId);
+			System.out.println("삭제됨");
 		return "cart/cart-list";
 	}
 	
