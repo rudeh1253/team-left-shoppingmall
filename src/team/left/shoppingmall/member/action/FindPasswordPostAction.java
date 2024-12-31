@@ -29,10 +29,11 @@ public class FindPasswordPostAction implements CommandHandler{
 			}
 			
 			HttpSession session = request.getSession();
-			session.setAttribute("email", result);
+			session.setAttribute("type", "password");
+			session.setAttribute("result", result);
 			
 		
-			return "redirect:/member.do?command=login";
+			return "redirect:/member.do?command=member-result";
 
 	}
 

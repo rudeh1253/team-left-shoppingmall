@@ -14,7 +14,7 @@ public class FindPasswordGetAction implements CommandHandler {
 	public String handleCommand(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		return "member/find-password";
+		return "member/find-pw";
 	}
 
 }
