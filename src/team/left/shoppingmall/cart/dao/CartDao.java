@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -24,25 +26,59 @@ public class CartDao {
 		}
 	}
 	
-	public void showCart(int memberId) {
-		CartDto cart = new CartDto();
+	public List<CartProductDto> showCart(int memberId) {
+		List<CartProductDto> cartList = new ArrayList<>();
+	    Connection con = null;
+	    try {
+	        con = dataSource.getConnection();
+	        String sql = "select c.member_id, c.product_id, c.amount, p.seller_id, p.reg_date, p.product_name, "
+	        		+ "p.description, p.price, p.stock, p.thumbnail \r\n" 
+	        		+ "from cart c, product p "
+	        		+ "where member_id=? and c.product_id=p.product_id";
+	        PreparedStatement stmt = con.prepareStatement(sql);
+	        stmt.setInt(1, memberId);
+	        ResultSet rs = stmt.executeQuery();
+	        while (rs.next()) { // 여러 행을 처리
+	            CartProductDto cart = new CartProductDto();
+	            cart.setMemberId(rs.getInt("member_id"));
+	            cart.setProductId(rs.getInt("product_id"));
+	            cart.setAmount(rs.getInt("amount"));
+	            cart.setSellerId(rs.getInt("seller_id"));
+	            cart.setRegdate(rs.getDate("reg_date"));
+	            cart.setProductName(rs.getString("product_name"));
+	            cart.setDescription(rs.getString("description"));
+	            cart.setPrice(rs.getInt("price"));
+	            cart.setStock(rs.getInt("stock"));
+	            cart.setThumbnail(rs.getString("thumbnail"));
+	            cartList.add(cart);
+	        }
+	        if (cartList.isEmpty()) {
+	            throw new RuntimeException("아이디가 없습니다.");
+	        }
+	    } catch (SQLException e) {
+	        System.out.println(e.getMessage());
+	        throw new RuntimeException(e);
+	    } finally {
+	        closeConnection(con);
+	    }
+	    
+	    return cartList;
+	}
+	
+	public void addCart(CartDto cart) {
 		Connection con = null;
-		System.out.println("이건 왔지");
 		try {
 			con = dataSource.getConnection();
-			String sql = "SELECT * FROM cart WHERE member_id=?";
+			String sql = "insert into cart values(?, ?, ?)";
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setInt(1, memberId);
+			stmt.setInt(1, cart.getMemberId());
+			stmt.setInt(2, cart.getProductId());
+			stmt.setInt(3, cart.getAmount());
 			ResultSet rs = stmt.executeQuery();
-			System.out.println("여기까지는 옴");
-			if(rs.next()) {
-				cart.setMemberId(memberId);
-				cart.setProductId(rs.getInt("product_id"));
-				cart.setAmount(rs.getInt("amount"));
-				System.out.println(cart.getProductId());
-				System.out.println(cart.getAmount());
-			}else {
-				throw new RuntimeException("아이디가 없습니다.");
+			int rowCount = stmt.executeUpdate();
+			System.out.println(rowCount + "개 행이 추가되었습니다.");
+			if (rowCount<=0) {
+				throw new SQLException("저장된 행이 없습니다.");
 			}
 		} catch(SQLException e) {
 			System.out.println(e.getMessage());
@@ -51,8 +87,6 @@ public class CartDao {
 			closeConnection(con);
 		}
 	}
-	
-	
 	
 	
 	

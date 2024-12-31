@@ -34,12 +34,9 @@ public class DispatcherServlet extends HttpServlet {
         
         for (Map.Entry<Object, Object> pair : props.entrySet()) {
             String uri = (String) pair.getKey();
-            String[] arr = ((String) pair.getValue()).split(":");
-            String className = arr[0];
-            String method = arr[1];
-            String command = arr[2];
+            String className = (String) pair.getValue();
             try {
-                handlers.put(uri + ":" + method + ":" + command, (CommandHandler) Class.forName(className).getConstructor().newInstance());
+                handlers.put(uri, (CommandHandler) Class.forName(className).getConstructor().newInstance());
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -61,7 +58,7 @@ public class DispatcherServlet extends HttpServlet {
         
         String command = request.getParameter("command");
         String method = request.getMethod().trim().toUpperCase();
-        CommandHandler handler = this.handlers.get(requestUri + ":" + method.trim().toUpperCase() + ":" + command);
+        CommandHandler handler = this.handlers.get(requestUri + "," + method.trim().toUpperCase() + "," + command);
         
         if (handler == null) {
             throw new HandlerNotFoundException();
