@@ -65,6 +65,22 @@ public class CartDao {
 	    return cartList;
 	}
 	
+	public void deleteAllCart(int memberId) {
+		Connection con = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "delete from cart where member_id=?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1, memberId);
+			int rowCount = stmt.executeUpdate();
+		} catch(SQLException e) {
+			System.out.println(e.getMessage());
+			throw new RuntimeException(e);
+		} finally {
+			closeConnection(con);
+		}
+	}
+	
 	public void addCart(CartDto cart) {
 		Connection con = null;
 		try {
@@ -88,7 +104,73 @@ public class CartDao {
 	}
 	
 	
+	public int increaseCartAmount(int productId) {
+	    int updatedAmount = 0;
+	    try (Connection con = dataSource.getConnection()) {
+	        String sql = "UPDATE cart SET amount = amount + 1 WHERE product_id = ?";
+	        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+	            stmt.setInt(1, productId);
+	            stmt.executeUpdate();
+	        }
+
+	        // Fetch updated amount
+	        sql = "SELECT amount FROM cart WHERE product_id = ?";
+	        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+	            stmt.setInt(1, productId);
+	            try (ResultSet rs = stmt.executeQuery()) {
+	                if (rs.next()) {
+	                    updatedAmount = rs.getInt("amount");
+	                }
+	            }
+	        }
+	    } catch (SQLException e) {
+	        throw new RuntimeException(e);
+	    }
+	    return updatedAmount;
+	}
+
+	public int decreaseCartAmount(int productId) {
+	    int updatedAmount = 0;
+	    try (Connection con = dataSource.getConnection()) {
+	        String sql = "UPDATE cart SET amount = amount - 1 WHERE product_id = ? AND amount > 1";
+	        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+	            stmt.setInt(1, productId);
+	            stmt.executeUpdate();
+	        }
+
+	        // Fetch updated amount
+	        sql = "SELECT amount FROM cart WHERE product_id = ?";
+	        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+	            stmt.setInt(1, productId);
+	            try (ResultSet rs = stmt.executeQuery()) {
+	                if (rs.next()) {
+	                    updatedAmount = rs.getInt("amount");
+	                }
+	            }
+	        }
+	    } catch (SQLException e) {
+	        throw new RuntimeException(e);
+	    }
+	    return updatedAmount;
+	}
 	
+	public boolean deleteProductFromCart(int productId) {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        try {
+            con = dataSource.getConnection();
+            String sql = "DELETE FROM cart WHERE product_id = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, productId);
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;  // 성공적으로 삭제되면 true 반환
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+        	closeConnection(con);
+        }
+    }
 	
 	
 	private void closeConnection(Connection con) {

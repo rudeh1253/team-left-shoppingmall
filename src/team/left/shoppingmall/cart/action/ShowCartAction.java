@@ -21,7 +21,6 @@ public class ShowCartAction implements CommandHandler {
 		
 		int memberId = 1234567;
 		List<CartProductDto> cartList = dao.showCart(memberId);
-		System.out.println(cartList);
 		request.setAttribute("cartList", cartList);
 
 		return "cart/cart-list";
