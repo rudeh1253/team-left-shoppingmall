@@ -7,10 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/member.do?command=login" method="POST">
-	이메일 <input type="text" name="email">
-	패스워드 <input type="password" name="password">
-	<input type="submit" value="제출">
-</form>
+	<h1>삭제 실패</h1>
 </body>
 </html>

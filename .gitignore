@@ -9,7 +9,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
-actions.properties
+WebContent/actions.properties
 
 # External tool builders
 .externalToolBuilders/

@@ -23,4 +23,17 @@ public class MapUtil {
         map.put(k, v);
         return Collections.unmodifiableMap(map);
     }
+    
+    public static Map<Integer, Object> getParamsOf(Object... vals) {
+        Integer[] nums = new Integer[vals.length];
+        for (int i = 0; i < vals.length; i++) {
+            int num = i + 1;
+            nums[i] = num;
+        }
+        return of(nums, vals);
+    }
+    
+    public static <K, V> Map<K, V> empty() {
+        return Collections.unmodifiableMap(new HashMap<>());
+    }
 }
