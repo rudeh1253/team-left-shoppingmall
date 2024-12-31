@@ -12,39 +12,34 @@ import team.left.shoppingmall.global.CommonConstants;
 import team.left.shoppingmall.member.dao.SelectMemberDao;
 import team.left.shoppingmall.member.dao.SelectMemberDto;
 
-public class SelectMemberGetAction implements CommandHandler{
+public class SelectMemberGetAction implements CommandHandler {
 
 	@Override
 	public String handleCommand(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		SelectMemberDto member = new SelectMemberDto();
 		SelectMemberDao dao = new SelectMemberDao();
-		
+
 		int id = 0;
-		
-		int userid = Integer.parseInt(request.getParameter("userid"));
-		
-		if( userid == 0 ) {
-			id = userid;
-		} else {
+
+		if (request.getParameter("userid") != null) {
+			id = Integer.parseInt(request.getParameter("userid"));
+		} else if (request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY) != null) {
 			id = (Integer) request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY);
-		}
-		if(id == 0) {
+		} else {
 			return "member/login";
 		}
-		System.out.println(id);
+
 		try {
 			dao.selectMember(member, id);
 		} catch (SQLException e) {
 			e.getMessage();
 		}
-		
-		
+
 		request.setAttribute("member", member);
-		
-		
-		 return "member/profile";
+
+		return "member/profile";
 	}
 
 }
