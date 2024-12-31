@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@include file="/WEB-INF/views/common/common.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	HELLO
+	<%@include file="/WEB-INF/views/common/header.jsp"%>
+	<div class="container">
+		<h1>여기에 작성하시면 됩니다.</h1>
+	</div>
+	<%@include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>
