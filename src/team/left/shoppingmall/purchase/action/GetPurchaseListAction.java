@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import team.left.framework.web.CommandHandler;
+import team.left.shoppingmall.global.PaginationTool;
 import team.left.shoppingmall.purchase.dao.PurchaseDao;
 import team.left.shoppingmall.purchase.model.ReceiptDto;
 
@@ -23,7 +24,7 @@ public class GetPurchaseListAction implements CommandHandler{
 			throws ServletException, IOException {
 		
 		String command = request.getParameter("command");
-		// int userid = (Integer)request.getSession().getAttribute("userid");
+		// int userid = (Integer)request.getSession().getAttribute(CommonConstants.MEMBER_SISSION_KEY);
 		List<ReceiptDto> receiptList = null;
 		
 		if("purchase".equals(command)) {
@@ -33,8 +34,17 @@ public class GetPurchaseListAction implements CommandHandler{
 			receiptList = purchaseDao.getSellReceipt(2);
 			request.setAttribute("title", "판매내역");
 		}
+		int pageCount = receiptList.size() / 7;
+		if(receiptList.size() % 7 != 0) pageCount++;
+		request.setAttribute("pageCount", pageCount);
 		
-		request.setAttribute("receiptList", receiptList);
+		int page = 1;
+		String pageStr = request.getParameter("page");
+		if(pageStr != null) page = Integer.parseInt(pageStr);
+
+		List<ReceiptDto> paginatedList = PaginationTool.getPaginatedList(receiptList, 7, page);
+		request.setAttribute("receiptList", paginatedList);
+		request.setAttribute("page", page);
 		return "purchase/purchaselist";
 	}
 
