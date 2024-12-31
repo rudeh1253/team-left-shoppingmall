@@ -19,9 +19,8 @@ public class ShowCartAction implements CommandHandler {
 	public String handleCommand(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		int memberId = 1234567;
+		int memberId = 1;
 		List<CartProductDto> cartList = dao.showCart(memberId);
-		System.out.println(cartList);
 		request.setAttribute("cartList", cartList);
 
 		return "cart/cart-list";

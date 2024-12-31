@@ -13,7 +13,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 </head>
 <body>
-	<form action="/purchase.do?command=purchase-test" method="POST">
+	<form action="/purchase.do?command=purchase-product" method="POST">
 	<div class="container mt-4">
 		<h2>게시판</h2>
 		<div class="mb-3">
@@ -37,7 +37,7 @@
 			
 				<c:forEach var="cart" items="${cartList}">
 					<tr>
-						<td>${cart.thumbnail}</td>
+						<td><img src="${cart.thumbnail}" alt="상품 이미지" /></td>
 						<td>${cart.productId}</td>
 						<td>${cart.amount}</td>
 						<td>${cart.sellerId}</td>
