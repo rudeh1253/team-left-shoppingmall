@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/member.do?command=edit-member" method="POST">
+<form action="/member.do?command=edit-member" method="POST">
 	이름 <input type="text" name="member-name">
 	이메일 <input type="text" name="email">
 	주소 <input type="text" name="address">
