@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/member.do?command=insert-member" method="POST">
+<form action="<%= request.getContextPath() %>/member.do?command=insert-member" method="POST">
 	이메일: <input type="text" name="email">
 	패스워드: <input type="password" name="password">
 	회원 이름: <input type="text" name="memberName">
