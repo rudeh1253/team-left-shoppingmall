@@ -20,5 +20,5 @@
 	<div>${member.company}</div> <br/>
 	<button class="btn">눌러줭</button>
 	
-</body
+</body>
 </html>
