@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="/resources/css/member-form.css">
 
 <script src="/resources/js/member/member-form/birth-date-input.js"></script>
+<script src="/resources/js/member/member-form/validation.js"></script>
 <script src="/resources/js/member/member-form/member-form.js"></script>
 
 </head>
@@ -20,34 +21,34 @@
 			<div class="input-box">
 				<label for="">이메일</label>
 				<div class="horizontal-input-set">
-					<input class="form-input" type="text" name="{email}" required>
+					<input class="form-control form-input" type="text" name="email-account" required>
 					<p>@</p>
-					<input class="form-input" type="text">
+					<input class="form-control form-input" type="text" name="email-host" required>
 				</div>
 			</div>
 			<div class="input-box">
 				<label for="">비밀번호</label>
-				<input class="form-input" type="password" name="{password}" required>
+				<input class="form-control form-input" type="password" name="password" required>
 			</div>
 			<div class="input-box">
 				<label for="">비밀번호 확인</label>
-				<input class="form-input" type="password" name="{password_check}" required>
+				<input class="form-control form-input" type="password" name="password-check" required>
 			</div>
 			<div class="input-box">
 				<label for="">이름</label>
-				<input class="form-input" type="text" name="{name}" required>
+				<input class="form-control form-input" type="text" name="memberName" required>
 			</div>
 			<div class="input-box">
 				<label for="">전화번호</label>
-				<input class="form-input" type="text" name="{phoneNum}" required>
+				<input class="form-control form-input" type="text" name="tel" required>
 			</div>
 			<div class="input-box">
 				<label for="">주소</label>
-				<input class="form-input" type="text" name="{address}" required>
+				<input class="form-control form-input" type="text" name="address" required>
 			</div>
 			<div class="input-box">
 				<label for="">생년월일</label>
-				<div class="horizontal-input-set">
+				<div class="form-control horizontal-input-set">
 					<select class="form-select" id="year-select">
 					</select>
 					<p class="date-label">년</p>
@@ -64,11 +65,11 @@
 				<div class="radio-box" class="form-check">
 					<div class="radio-item">
 						<label class="form-check-label">남</label>
-						<input class="form-check-input" type="radio" name="sex" value="{male}" checked>
+						<input class="form-check-input" type="radio" name="gender" value="{male}" checked>
 					</div>
 					<div class="radio-item">
 						<label class="form-check-label">여</label>
-						<input class="form-check-input" type="radio" name="sex" value="{female}">
+						<input class="form-check-input" type="radio" name="gender" value="{female}">
 					</div>
 				</div>
 			</div>
