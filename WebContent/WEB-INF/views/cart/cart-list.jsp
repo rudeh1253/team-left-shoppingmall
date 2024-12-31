@@ -13,6 +13,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 </head>
 <body>
+	<form action="/purchase.do?command=purchase-test" method="POST">
 	<div class="container mt-4">
 		<h2>게시판</h2>
 		<div class="mb-3">
@@ -33,6 +34,7 @@
 				</tr>
 			</thead>
 			<tbody>
+			
 				<c:forEach var="cart" items="${cartList}">
 					<tr>
 						<td>${cart.thumbnail}</td>
@@ -43,10 +45,15 @@
 						<td>${cart.productName}</td>
 						<td>${cart.price}</td>
 					</tr>
+					<input type="hidden" name="productId" value="${cart.productId}" />
+					<input type="hidden" name="amount" value="${cart.amount}" />
+					<input type="hidden" name="price" value="${cart.price}" />
 				</c:forEach>
 			</tbody>
 		</table>
+			<input type="submit" value="구매" />
 	</div>
+	</form>
 	<!-- Bootstrap JS CDN -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

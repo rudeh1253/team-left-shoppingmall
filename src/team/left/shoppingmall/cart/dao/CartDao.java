@@ -74,7 +74,6 @@ public class CartDao {
 			stmt.setInt(1, cart.getMemberId());
 			stmt.setInt(2, cart.getProductId());
 			stmt.setInt(3, cart.getAmount());
-			ResultSet rs = stmt.executeQuery();
 			int rowCount = stmt.executeUpdate();
 			System.out.println(rowCount + "개 행이 추가되었습니다.");
 			if (rowCount<=0) {

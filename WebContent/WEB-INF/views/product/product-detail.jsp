@@ -14,7 +14,7 @@
     String formattedDate = today.toString(); // yyyy-MM-dd 형식
 %>
 
-<form action="Cart.do" method="post">
+<form action="cart.do?command=add-cart" method="post">
 	member id: <input type="number" name="member_id"><br>
 	product id: <input type="number" name="product_id"><br>
 	seller id: <input type="number" name="seller_id"><br>
