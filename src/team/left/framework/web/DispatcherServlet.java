@@ -60,6 +60,9 @@ public class DispatcherServlet extends HttpServlet {
         String method = request.getMethod().trim().toUpperCase();
         CommandHandler handler = this.handlers.get(requestUri + "," + method.trim().toUpperCase() + "," + command);
         
+        System.out.println("k=" + requestUri + "," + method.trim().toUpperCase() + "," + command);
+        System.out.println("handler=" + handler);
+        
         if (handler == null) {
             throw new HandlerNotFoundException();
         }
