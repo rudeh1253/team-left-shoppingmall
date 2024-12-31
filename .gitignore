@@ -13,6 +13,7 @@ WebContent/actions.properties
 actions.properties
 *.properties
 
+
 # External tool builders
 .externalToolBuilders/
 
