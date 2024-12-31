@@ -81,10 +81,10 @@ public class PurchaseDao {
 		
 		try {
 			conn = DataSourceContainer.getDataSource().getConnection();
-			String sql = "SELECT pr.thumbnail, pr.product_name, pr.price, pupr.amount, pupr.price, pu.state "
+			String sql = "SELECT pr.thumbnail AS thumbnail, pr.product_name AS product_name, pr.price AS price, pupr.amount AS amount, pupr.price AS total_price, pu.state AS state "
 					+ "FROM product pr "
-					+ "LEFT JOIN purchase_product pupr ON pr.product_id = pupr.product_id "
-					+ "LEFT JOIN purchase pu ON pupr.purchase_id = pu.purchase_id "
+					+ "JOIN purchase_product pupr ON pr.product_id = pupr.product_id "
+					+ "JOIN purchase pu ON pupr.purchase_id = pu.purchase_id "
 					+ "WHERE pu.buyer_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userid);
@@ -92,16 +92,16 @@ public class PurchaseDao {
 			ResultSet result = pstmt.executeQuery();
 			while(result.next()) {
 				ReceiptDto dto = new ReceiptDto(
-					result.getString("pr.thumbnail"),
-					result.getString("pr.product_name"),
-					result.getInt("pr.price"),
-					result.getInt("pupr.amont"),
-					result.getInt("pupr.price"),
-					result.getString("pu.state")
+					result.getString("thumbnail"),
+					result.getString("product_name"),
+					result.getInt("price"),
+					result.getInt("amount"),
+					result.getInt("total_price"),
+					convertState(result.getString("state"))
 				);
 				list.add(dto);
-			}
-			
+				System.out.println(dto.toString());
+			}	
 		}catch(SQLException e) {
 			throw new RuntimeException(e);
 		}finally {
@@ -120,10 +120,10 @@ public class PurchaseDao {
 		
 		try {
 			conn = DataSourceContainer.getDataSource().getConnection();
-			String sql = "SELECT pr.thumbnail, pr.product_name, pr.price, pupr.amount, pupr.price, pu.state "
+			String sql = "SELECT pr.thumbnail AS thumbnail, pr.product_name AS product_name, pr.price AS price, pupr.amount AS amount, pupr.price AS total_price, pu.state AS state "
 					+ "FROM product pr "
-					+ "LEFT JOIN purchase_product pupr ON pr.product_id = pupr.product_id "
-					+ "LEFT JOIN purchase pu ON pupr.purchase_id = pu.purchase_id "
+					+ "JOIN purchase_product pupr ON pr.product_id = pupr.product_id "
+					+ "JOIN purchase pu ON pupr.purchase_id = pu.purchase_id "
 					+ "WHERE pr.seller_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userid);
@@ -131,16 +131,15 @@ public class PurchaseDao {
 			ResultSet result = pstmt.executeQuery();
 			while(result.next()) {
 				ReceiptDto dto = new ReceiptDto(
-					result.getString("pr.thumbnail"),
-					result.getString("pr.product_name"),
-					result.getInt("pr.price"),
-					result.getInt("pupr.amont"),
-					result.getInt("pupr.price"),
-					result.getString("pu.state")
+					result.getString("thumbnail"),
+					result.getString("product_name"),
+					result.getInt("price"),
+					result.getInt("amount"),
+					result.getInt("total_price"),
+					convertState(result.getString("state"))
 				);
 				list.add(dto);
-			}
-			
+			}	
 		}catch(SQLException e) {
 			throw new RuntimeException(e);
 		}finally {
@@ -151,7 +150,7 @@ public class PurchaseDao {
 	}
 	
 	// 연결 끊기
-	public void closeConnection(Connection conn, PreparedStatement pstmt) {
+	private void closeConnection(Connection conn, PreparedStatement pstmt) {
 		if(conn != null) {
 			try {
 				conn.close();
@@ -167,5 +166,25 @@ public class PurchaseDao {
 				throw new RuntimeException(e);
 			}
 		}
+	}
+	
+	// 배송 상태 데이터 변환
+	private String convertState(String state) {
+		String result = "";
+		switch(state) {
+			case "before":
+				result = "배송 전";
+				break;
+			case "progress":
+				result = "배송 중";
+				break;
+			case "done":
+				result = "배송 완료";
+				break;
+			default:
+				break;
+		}
+		
+		return result;
 	}
 }
