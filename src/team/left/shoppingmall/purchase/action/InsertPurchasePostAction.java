@@ -29,12 +29,19 @@ public class InsertPurchasePostAction implements CommandHandler{
 		// 구매 성공 여부 판단
 		boolean isSuccess = "success".equals(request.getParameter("isSuccess"));
 		if(isSuccess) {
-			String userid = (String)request.getSession().getAttribute("userid");
+			int userid = (Integer)request.getSession().getAttribute("userid");
 			int totalPrice = 0;
 			
 			String[] idArray = request.getParameterValues("productId");
 			String[] amountArray = request.getParameterValues("productAmount");
 			String[] priceArray = request.getParameterValues("productPrice");
+			
+			for(String price: priceArray) {
+				totalPrice += Integer.parseInt(price);
+			}
+			
+			int rowCount = purchaseDao.insertPurchase(totalPrice, userid);
+			System.out.println("purchase 테이블에 " + rowCount + "개 행이 삽입되었습니다.");
 			
 			for(int i = 0; i < idArray.length; i++) {
 				PurchaseProductDto dto = new PurchaseProductDto(
@@ -43,9 +50,10 @@ public class InsertPurchasePostAction implements CommandHandler{
 					Integer.parseInt(amountArray[i]),
 					Integer.parseInt(priceArray[i])
 				);
-				totalPrice += Integer.parseInt(priceArray[i]);
+				
+				rowCount = purchaseDao.insertPurchaseProduct(dto);
+				System.out.println("purchase_product 테이블에 " + rowCount + "개 행이 삽입되었습니다.");
 			}
-			
 			
 			return "redirect:/purchase.do?command=success";
 		}else {
