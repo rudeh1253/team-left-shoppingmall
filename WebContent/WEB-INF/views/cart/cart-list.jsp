@@ -10,7 +10,6 @@
 
 </head>
 <body>
-
 	<div class="container mt-4">
 		<h2>게시판</h2>
 		<div class="mb-3">
@@ -34,7 +33,7 @@
 
 				<c:forEach var="cart" items="${cartList}">
 					<tr>
-						<td>${cart.thumbnail}</td>
+						<td><img src="${cart.thumbnail}" alt="상품 이미지" /></td>
 						<td>${cart.productId}</td>
 						<td>
 							<button id="${cart.productId}" class="btn btn-sm increase-btn">▲</button>
@@ -52,14 +51,13 @@
 					<form action="/purchase.do?command=purchase-test" method="POST">
 						<input type="hidden" name="memberId" value="${cart.memberId}" />
 						<input type="hidden" name="productId" value="${cart.productId}" />
-						<input type="hidden" name="amount" value="${cart.amount}" /> <input
-							type="hidden" name="price" value="${cart.price}" />
+						<input type="hidden" name="amount" value="${cart.amount}" /> 
+						<input type="hidden" name="price" value="${cart.price}" />
+						<input type="submit" value="구매" />
+					</form>
 				</c:forEach>
 			</tbody>
 		</table>
-						<input type="submit" value="구매" />
-					</form>
-		
 	</div>
 
 	<script>

@@ -15,7 +15,6 @@ public class MainCartAction implements CommandHandler{
 			throws ServletException, IOException {
 		
 		return "cart/cartButton";
-		
 	}
 
 }
