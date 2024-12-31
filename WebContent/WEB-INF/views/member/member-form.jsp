@@ -11,6 +11,7 @@
 
 <script src="/resources/js/member/member-form/birth-date-input.js"></script>
 <script src="/resources/js/member/member-form/validation.js"></script>
+<script src="/resources/js/member/member-form/submit.js"></script>
 <script src="/resources/js/member/member-form/member-form.js"></script>
 
 </head>
