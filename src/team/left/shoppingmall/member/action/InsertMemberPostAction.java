@@ -13,7 +13,7 @@ import team.left.shoppingmall.member.dao.MemberCreationDto;
 import team.left.shoppingmall.member.dao.MemberDao;
 
 public class InsertMemberPostAction implements CommandHandler {
-    private final MemberDao memberDao = new MemberDao();
+    private final MemberDao memberDao = MemberDao.getInstance();
 
     @Override
     public String handleCommand(HttpServletRequest request, HttpServletResponse response)

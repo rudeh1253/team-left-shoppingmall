@@ -67,8 +67,9 @@ public class JdbcSupport {
             while (rs.next()) {
                 Map<String, Object> map = new HashMap<>();
                 for (int i = 0; i < rsmd.getColumnCount(); i++) {
-                    String columnName = rsmd.getColumnName(i);
-                    map.put(columnName, rs.getObject(i));
+                    int colNum = i + 1;
+                    String columnName = rsmd.getColumnName(colNum);
+                    map.put(columnName.toLowerCase(), rs.getObject(colNum));
                 }
                 result.add(map);
             }
