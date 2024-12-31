@@ -7,10 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/member.do?command=login" method="POST">
-	이메일 <input type="text" name="email">
-	패스워드 <input type="password" name="password">
-	<input type="submit" value="제출">
+<form action="cart.do" method="GET">
+	<input type="hidden" name="command" value="show-cart">
+	<button type="submit">장바구니 보기</button>
 </form>
 </body>
 </html>

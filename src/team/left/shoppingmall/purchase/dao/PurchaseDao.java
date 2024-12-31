@@ -100,6 +100,7 @@ public class PurchaseDao {
 					convertState(result.getString("state"))
 				);
 				list.add(dto);
+				System.out.println(dto.toString());
 			}	
 		}catch(SQLException e) {
 			throw new RuntimeException(e);
