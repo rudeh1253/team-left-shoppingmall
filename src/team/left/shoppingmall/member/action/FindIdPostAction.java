@@ -29,10 +29,11 @@ public class FindIdPostAction implements CommandHandler{
 			}
 			
 			HttpSession session = request.getSession();
-			session.setAttribute("email", result);
+			session.setAttribute("type", "id");
+			session.setAttribute("result", result);
 			
 		
-			return "redirect:/member.do?command=login";
+			return "redirect:/member.do?command=member-result";
 
 	}
 

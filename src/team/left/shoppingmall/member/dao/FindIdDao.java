@@ -35,6 +35,7 @@ public class FindIdDao {
 			throw new RuntimeException("멤버 찾기 실패 : " + e.getMessage());
 		} finally {
 			conn.close();
+		
 		}
 		System.out.println(findedEmail);
 		return findedEmail;
