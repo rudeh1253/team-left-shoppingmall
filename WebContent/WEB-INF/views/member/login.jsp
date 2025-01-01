@@ -7,10 +7,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/resources/css/member/login.css">
+
+<script src="/resources/js/member/login/login.js"></script>
 </head>
 <body>
 <div class="outer-box">
-	<form action="/member.do?command=login" method="POST">
+	<form action="/member.do?command=login" method="POST" id="login-form">
 		<div class="login-form-box">
 			<div class="form-input-box-set">
 				<div class="form-input-box">
@@ -21,7 +23,7 @@
 				</div>
 			</div>
 			<div>
-				<button class="login-button" type="button">로그인</button>
+				<button class="login-button" type="button" id="login-btn">로그인</button>
 			</div>
 		</div>
 	</form>
