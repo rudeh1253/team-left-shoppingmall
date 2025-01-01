@@ -4,13 +4,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Left 쇼핑몰</title>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp"%>
-	<div class="container">
-		<h1>여기에 작성하시면 됩니다.</h1>
+	
+	<div class="container d-flex flex-column align-items-center justify-content-center" style="height: 60vh;">
+	    <div class="p-5 text-center">
+	        <h1 class="mb-3">갤럭시와 애플, 당신이 원하는 스마트폰을 한곳에서!</h1>
+	        <p class="mb-4 text-muted">최신 갤럭시와 아이폰을 비교하고, 최고의 가격으로 만나보세요.</p>
+	        <a href="/product.do?command=list-product" class="btn btn-primary btn-lg">지금 쇼핑하기</a>
+	    </div>
 	</div>
+
 	<%@include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>
