@@ -1,5 +1,7 @@
 package team.left.shoppingmall.product.model;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,23 +12,34 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
-
 public class ProductSpecDto {
-		
-		private int productId;
-		
-		private int weight;
-		private int screenSize;
-		
-		private int refreshSize;
-		
-		private int displayResolution;
-		@NonNull
-		private String chipset;
-		
-		private int cameraResolution;
-		private int batteryCapacity;
-		
-	
-	
+
+	@NonNull
+	private int productId;
+	@NonNull
+	private int sellerId;
+	private Date regDate;
+	@NonNull
+	private String productName;
+	@NonNull
+	private String description;
+	@NonNull
+	private int price;
+	@NonNull
+	private int stock;
+	private String thumbnail;
+	@NonNull
+	private int weight;
+	@NonNull
+	private int screenSize;
+	@NonNull
+	private String refreshRate;
+	@NonNull
+	private String displayResolution;
+	@NonNull
+	private String chipset;
+	@NonNull
+	private String cameraResolution;
+	@NonNull
+	private int batteryCapacity;
 }
