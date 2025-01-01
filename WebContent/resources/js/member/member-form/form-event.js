@@ -1,42 +1,43 @@
 function initFormEvents() {
-    [
-        {
-            input: "input[name='email-account']",
-            func: validateEmailAccount
-        },
-        {
-            input: "input[name='email-host']",
-            func: validateEmailHost
-        },
-        {
-            input: "input[name='password']",
-            func: validatePasswordInput
-        },
-        {
-            input: "input[name='password-check']",
-            func: validatePasswordCheck
-        },
-        {
-            input: "input[name='member-name']",
-            func: validateMemberName
-        },
-        {
-            input: "input[name='tel']",
-            func: validateTel
-        },
-        {
-            input: "input[name='address']",
-            func: validateAddress
-        }
-    ].forEach((item) => {
+    elementSelectorToValidationCallback.forEach((item) => {
         $(item.input).on("change", (e) => {
-            if (item.func()) {
-                $(e.target).removeClass("is-invalid");
-                $(e.target).addClass("is-valid");
+            const isValid = item.func();
+            const targetElem = $(e.target);
+            if (isValid) {
+                targetElem.removeClass("is-invalid");
+                targetElem.addClass("is-valid");
             } else {
-                $(e.target).removeClass("is-valid");
-                $(e.target).addClass("is-invalid");
+                targetElem.removeClass("is-valid");
+                targetElem.addClass("is-invalid");
             }
+            setFormValidationFeedback(targetElem, isValid, item.message);
         })
     });
+
+    $("input[name='role']").on("change", (e) => {
+        const isSeller = e.target.value === "sell";
+        if (isSeller) {
+            $("#role-input-box").after(`
+                <div class="input-box" id="company-input-box">
+                    <label for="">회사</label>
+                    <div class="form-input-wrapper">
+                        <input class="form-control form-input" type="text" name="company" required>
+                    </div>
+                </div>
+            `);
+        } else {
+            $("#company-input-box").remove();
+        }
+    });
+}
+
+function setFormValidationFeedback(element, isValid, message) {
+    element.siblings(".form-feedback").remove();
+    if (!isValid) {
+        element.after(`
+            <div class="invalid-feedback feedback-box">
+                ${message}
+            </div>
+        `);
+    }
 }

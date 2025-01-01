@@ -3,6 +3,7 @@ package team.left.shoppingmall.member.action;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,12 @@ public class InsertMemberPostAction implements CommandHandler {
     @Override
     public String handleCommand(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Enumeration<String> names = request.getParameterNames();
+        while (names.hasMoreElements()) {
+            String n = names.nextElement();
+            System.out.println(n + "=" + request.getParameter(n));
+        }
+        
         MemberCreationDto memberCreationDto = new MemberCreationDto();
         Arrays.stream(MemberCreationDto.class.getDeclaredFields()).forEach((f) -> {
             f.setAccessible(true);
