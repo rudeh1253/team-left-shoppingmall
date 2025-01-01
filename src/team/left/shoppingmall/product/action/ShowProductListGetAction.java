@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import team.left.framework.web.CommandHandler;
+import team.left.shoppingmall.global.PaginationTool;
 import team.left.shoppingmall.product.dao.ProductDao;
 import team.left.shoppingmall.product.model.ProductDto;
+import team.left.shoppingmall.purchase.model.ReceiptDto;
 
 public class ShowProductListGetAction implements CommandHandler {
 
@@ -22,17 +24,21 @@ public class ShowProductListGetAction implements CommandHandler {
     @Override
     public String handleCommand(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            // 상품 목록 조회
-            List<ProductDto> productList = dao.showAllProducts();
+    	String command = request.getParameter("command");
+        List<ProductDto> productList = dao.getProductList();
+        
+        int pageCount = productList.size() / 7;
+		if(productList.size() % 7 != 0) pageCount++;
+		request.setAttribute("pageCount", pageCount);
+		
+		int page = 1;
+		String pageStr = request.getParameter("page");
+		if(pageStr != null) page = Integer.parseInt(pageStr);
 
-            // 요청 객체에 상품 목록 추가
-            request.setAttribute("productList", productList);
-            
-            return "product/product-list";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "error/error-page"; 
-        }
+		List<ProductDto> paginatedList = PaginationTool.getPaginatedList(productList, 7, page);
+		request.setAttribute("productList", paginatedList);
+		request.setAttribute("page", page);
+
+        return "product/productList";
     }
 }

@@ -13,6 +13,8 @@
 				</a>
 				<c:if test="${sessionScope.member eq null }">
 					<ul class="dropdown-menu text-small">
+						<li><a class="dropdown-item" href="/product.do?command=list-product">상품 목록</a></li>
+						<li><hr class="dropdown-divider"></li>
 						<li><a class="dropdown-item" href="/member.do?command=login">로그인</a></li>
 						<li><a class="dropdown-item" href="/member.do?command=insert-member">회원가입</a></li>
 					</ul>
@@ -20,7 +22,7 @@
 				<c:if test="${sessionScope.member ne null }">
 					<ul class="dropdown-menu text-small">
 						<li><a class="dropdown-item" href="/member.do?command=profile">마이페이지</a></li>
-						<li><a class="dropdown-item" href="#">상품 목록</a></li>
+						<li><a class="dropdown-item" href="/product.do?command=list-product">상품 목록</a></li>
 						<li><hr class="dropdown-divider"></li>
 						<li><a class="dropdown-item" href="#">로그아웃</a></li>
 					</ul>

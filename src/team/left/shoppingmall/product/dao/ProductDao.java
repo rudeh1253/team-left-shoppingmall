@@ -19,7 +19,7 @@ public class ProductDao {
     
     // 상품 등록
     public void insertProduct(ProductDto product) {
-    	String sql = "INSERT INTO PRODUCT VALUES(PRODUCT_PK_SEQ.NEXTVAL, ?, SYSDATE, ?, ?, ?, ?, null, 'N')";
+    	String sql = "INSERT INTO product VALUES(PRODUCT_PK_SEQ.NEXTVAL, ?, SYSDATE, ?, ?, ?, ?, null, 'N')";
     	try (
 			Connection con = dataSource.getConnection();
 	    	PreparedStatement stmt = con.prepareStatement(sql);
@@ -41,7 +41,7 @@ public class ProductDao {
     
     // 상품 수정
     public void updateProduct(ProductDto product) {
-    	String sql = "UPDATE PRODUCT SET PRODUCT_NAME=?, DESCRIPTION=?, PRICE=?, STOCK=?, THUMBNAIL=null WHERE PRODUCT_ID=?";
+    	String sql = "UPDATE product SET product_name=?, description=?, price=?, stock=?, thumbnail=null WHERE product_id=?";
     	try (
 			Connection con = dataSource.getConnection();
 	    	PreparedStatement stmt = con.prepareStatement(sql);
@@ -63,7 +63,7 @@ public class ProductDao {
     
     // 상품 삭제
     public void deleteProduct(int productId) {
-    	String sql = "UPDATE PRODUCT SET IS_DELETED='Y' WHERE PRODUCT_ID=?";
+    	String sql = "UPDATE product SET is_deleted='Y' WHERE product_id=?";
     	try (
 			Connection con = dataSource.getConnection();
 	    	PreparedStatement stmt = con.prepareStatement(sql);
@@ -80,7 +80,7 @@ public class ProductDao {
     
     // 상품아이디로 상품 조회
     public ProductDto getProductById(int productId) {
-    	String sql = "SELECT * FROM PRODUCT WHERE product_id=?";
+    	String sql = "SELECT * FROM product WHERE product_id=? AND is_deleted = 'N'";
     	try (
 			Connection con = dataSource.getConnection();
 	    	PreparedStatement stmt = con.prepareStatement(sql);
@@ -114,7 +114,7 @@ public class ProductDao {
 	    String sql = "SELECT * "
 	    		+"FROM product p "
 	    		+"JOIN product_spec ps ON p.product_id = ps.product_id "
-	    		+"WHERE p.product_id=?";
+	    		+"WHERE p.product_id=? AND is_deleted = 'N'";
 	    try (
     		Connection conn = dataSource.getConnection();
     		PreparedStatement pstmt = conn.prepareStatement(sql)
@@ -153,7 +153,7 @@ public class ProductDao {
 	} // end getProductSpecById
 
 	// 상품 목록 조회
-    public List<ProductDto> showAllProducts() {
+    public List<ProductDto> getProductList() {
         List<ProductDto> productList = new ArrayList<>();
         String sql = "SELECT * FROM product WHERE is_deleted = 'N'";
         try (
