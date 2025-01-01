@@ -12,7 +12,11 @@ import team.left.shoppingmall.product.model.ProductDto;
 
 public class DeleteProductGetAction implements CommandHandler {
 	
-	ProductDao dao = new ProductDao();
+	private ProductDao dao;
+
+    public DeleteProductGetAction() {
+        this.dao = new ProductDao();
+    }
 
 	@Override
 	public String handleCommand(HttpServletRequest request, HttpServletResponse response)
