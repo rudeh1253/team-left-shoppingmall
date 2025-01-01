@@ -179,6 +179,34 @@ public class ProductDao {
         return productList;
     } // end showAllProducts
     
+    // 상품 이름으로 상품 목록 가져오기
+    public List<ProductDto> getProductsByName(String productName){
+    	 List<ProductDto> productList = new ArrayList<>();
+         String sql = "SELECT * FROM product WHERE is_deleted = 'N' AND product_name LIKE '%" + productName + "%'";
+         
+         try (
+         		Connection con = dataSource.getConnection();
+         		PreparedStatement stmt = con.prepareStatement(sql);
+     			ResultSet rs = stmt.executeQuery()
+             ) {
+             	while (rs.next()) {
+             		ProductDto product = new ProductDto();
+             		product.setProductId(rs.getInt("product_id"));
+             		product.setSellerId(rs.getInt("seller_id"));
+             		product.setRegDate(rs.getDate("reg_date"));
+             		product.setProductName(rs.getString("product_name"));
+             		product.setDescription(rs.getString("description"));
+             		product.setPrice(rs.getInt("price"));
+             		product.setStock(rs.getInt("stock"));
+             		product.setThumbnail(rs.getString("thumbnail")); // 썸네일 추가
+             		productList.add(product);
+             	}
+     		}  catch (Exception e) {
+     			throw new RuntimeException("Error fetching products by product name: " + productName, e);
+     		}
+         return productList;
+    }
+    
     // show Register product
     public List<ProductDto> getProductsBySellerId(int sellerId) {
         List<ProductDto> productList = new ArrayList<>();

@@ -6,14 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${ title }</title>
-    <style>
-    	.m-t{
-    		margin-top: 100px;
-    	}
-    </style>
 </head>
 <body>
-    <div class="container-sm m-t">
+	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+    <div class="container-sm">
         <h2>${ title }</h2>
         <table class="table table-bordered text-center align-middle">
             <thead class="table-light">
@@ -58,6 +54,7 @@
             </ul>
         </nav>
     </div>
+    <%@include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>
 
