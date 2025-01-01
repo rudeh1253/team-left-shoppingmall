@@ -1,7 +1,7 @@
 function initSubmit() {
     $("#submit-button").on("click", () => {
         if (validate()) {
-            submit();
+            uploadFile(submit);
         }
     });
 }
@@ -25,7 +25,36 @@ function validate() {
     return isAllValid;
 }
 
+function uploadFile(callback) {
+    const filename = $("#profile-image").data("filename");
+    console.log("filename=" + filename);
+    if (filename !== "default-profile-image.png") {
+        const file = $("#profile-image-file-select")[0].files[0];
+        $.ajax({
+            url: `/file.do?command=upload-file&filename=${filename}`,
+            type: "POST",
+            data: file,
+            dataType: "json",
+            cache: false,
+            contentType: file.type,
+            processData: false,
+            success: (data) => {
+                console.log(data);
+                callback();
+            },
+            error: (jqXHR, status, errorThrown) => {
+                console.error(jqXHR);
+                console.error(status);
+                console.error(errorThrown);
+            }
+        });
+    } else {
+        callback();
+    }
+}
+
 function submit() {
+    const filename = $("#profile-image").data("filename"); 
     const submitData = {
         email: `${$("input[name='email-account']").val()}@${$("input[name='email-host']").val()}`,
         password: $("input[name='password']").val(),
@@ -38,7 +67,8 @@ function submit() {
         gender: $("input[name='gender']:checked").val(),
         role: $("input[name='role']:checked").val(),
         company: $("input[name='company']").val() || null,
-        answer: $("input[name='answer']").val()
+        answer: $("input[name='answer']").val(),
+        profileImg: `/resources/images/${filename}`
     }
 
     const signUpForm = $("#sign-up-form");

@@ -76,6 +76,36 @@
 	padding: 8px 12px;
 }
 
+.profile-image-box {
+	display: flex;
+	flex-direction: column;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+}
+
+.profile-image-box img {
+	width: 150px;
+	height: 180px;
+	cursor: pointer;
+}
+
+.profile-image-box button {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	font-size: 9px;
+	border: none;
+	text-decoration: underline;
+	background-color: #ffc9c9;
+	padding: 3px 4px;
+	border-radius: 2px;
+}
+
+.profile-image-box input[type="file"] {
+	display: none;
+}
+
 .feedback-box {
 	position: absolute;
 }

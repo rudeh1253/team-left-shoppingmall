@@ -21,6 +21,13 @@
 		<div class="page-title">계정 생성</div>
 		<form action="/member.do?command=insert-member" method="POST" class="form-box" id="sign-up-form">
 			<div class="input-box">
+				<label for="">프로필 사진</label>
+				<div class="profile-image-box">
+					<img id="profile-image" src="/resources/images/default-profile-image.png" data-filename="default-profile-image.png">
+					<input id="profile-image-file-select" type="file" accept=".jpg,.png,.jpeg,.gif,.webp,.bmp">
+				</div>
+			</div>
+			<div class="input-box">
 				<label for="">이메일</label>
 				<div class="horizontal-input-set">
 					<div class="form-input-wrapper">

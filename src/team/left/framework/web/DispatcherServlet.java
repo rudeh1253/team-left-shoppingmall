@@ -36,11 +36,13 @@ public class DispatcherServlet extends HttpServlet {
             String uri = (String) pair.getKey();
             String className = (String) pair.getValue();
             try {
-                handlers.put(uri, (CommandHandler) Class.forName(className).getConstructor().newInstance());
+                this.handlers.put(uri, (CommandHandler) Class.forName(className).getConstructor().newInstance());
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
+        
+        this.handlers.values().forEach((h) -> h.init(servletConfig));
     }
 
     @Override
@@ -68,6 +70,10 @@ public class DispatcherServlet extends HttpServlet {
         }
         
         String viewName = handler.handleCommand(request, response);
+        
+        if (viewName == null) {
+            return;
+        }
         
         if (viewName.startsWith("redirect:")) {
             response.sendRedirect(contextPath + viewName.substring("redirect:".length()));
