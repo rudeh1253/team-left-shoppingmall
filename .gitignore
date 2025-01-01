@@ -9,9 +9,13 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+<<<<<<< HEAD
 WebContent/actions.properties
 actions.properties
 *.properties
+=======
+actions.properties
+>>>>>>> refs/remotes/origin/main
 
 # External tool builders
 .externalToolBuilders/
