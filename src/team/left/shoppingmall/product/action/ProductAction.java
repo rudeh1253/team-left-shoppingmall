@@ -13,8 +13,7 @@ public class ProductAction implements CommandHandler {
 	@Override
 	public String handleCommand(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		int productId = Integer.parseInt(request.getParameter("productId"));
-		int productId = 1;
+		// TODO Auto-generated method stub
 		return "product/productResult";
 	}
 

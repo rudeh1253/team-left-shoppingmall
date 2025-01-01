@@ -22,8 +22,8 @@ public class UpdateProductGetAction implements CommandHandler {
 	public String handleCommand(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 //		int productId = Integer.parseInt(request.getParameter("productId"));
-		int productId = 7;
-		ProductDto product = dao.selectProduct(productId);
+		int productId = 1;
+		ProductDto product = dao.getProductById(productId);
 		request.setAttribute("product", product);
 		request.setAttribute("command", request.getParameter("command"));
 		return "product/productForm";

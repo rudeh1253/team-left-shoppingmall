@@ -1,0 +1,144 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.page-title {
+	font-weight: 900;
+	font-size: 40px;
+	text-align: center;
+}
+
+.outer-box {
+	padding-top: 54px;
+	padding-bottom: 54px;
+	display: flex;
+	width: 100%;
+	padding-left: 10%;
+	padding-right: 10%;
+	flex-direction: column;
+	align-items: center;
+}
+
+.inner-box {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+}
+
+.form-box {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	gap: 40px;
+	flex-grow: 1;
+}
+
+.input-box {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	position:relative;
+}
+
+.horizontal-input-set {
+	display: flex;
+	width: 100%;
+	gap: 8px;
+	justify-content: center;
+	align-items: center;
+}
+
+.horizontal-input-set p {
+	margin: 0px;
+	font-size: 18px;
+}
+
+.form-input-wrapper {
+	flex-grow: 1;
+	position: relative;
+}
+
+.horizontal-input-set .form-input {
+	flex-grow: 1;
+}
+
+.horizontal-input-set .form-input .year {
+	flex-grow 2;
+}
+
+.form-input {
+	border-radius: 12px;
+	border: 1px solid #e9ecef;
+	font-size: 16px;
+	padding: 8px 12px;
+}
+
+.profile-image-box {
+	display: flex;
+	flex-direction: column;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+}
+
+.profile-image-box img {
+	width: 150px;
+	height: 180px;
+	cursor: pointer;
+}
+
+.profile-image-box button {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	font-size: 9px;
+	border: none;
+	text-decoration: underline;
+	background-color: #ffc9c9;
+	padding: 3px 4px;
+	border-radius: 2px;
+}
+
+.profile-image-box input[type="file"] {
+	display: none;
+}
+
+.feedback-box {
+	position: absolute;
+}
+
+.date-label {
+	font-size: 16px;
+	color: #adb5bd;
+}
+
+.form-box label {
+	color: #767676
+}
+
+.radio-box {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.radio-item {
+	display: flex;
+	color: #767676;
+	gap: 18px;
+}
+
+/*.form-box input[type="submit"] {*/
+#submit-button {
+	width: 100%;
+	height: 46px;
+	background-color: #94A5EB;
+	border-radius: 12px;
+	font-size: x-large;
+	border: 0;
+	opacity: 1;
+	color: #ffffff;
+}
