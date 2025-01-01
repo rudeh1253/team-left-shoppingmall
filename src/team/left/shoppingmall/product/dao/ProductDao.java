@@ -107,7 +107,7 @@ public class ProductDao {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-    } // end selectProduct
+    } // end getProductById
 
     // 상품아이디로 상품 스펙을 포함한 상품 상세 조회
 	public ProductSpecDto getProductSpecById(int productId) {
@@ -150,90 +150,63 @@ public class ProductDao {
 	    } catch (Exception e) {
 	    	throw new RuntimeException(e);
 		}
-	}
+	} // end getProductSpecById
 
 	// 상품 목록 조회
     public List<ProductDto> showAllProducts() {
         List<ProductDto> productList = new ArrayList<>();
-
-        Connection con = null;
-        PreparedStatement stmt = null;
-        try {
-            con = dataSource.getConnection();
-            String sql = "SELECT * FROM product WHERE is_deleted = 'N'";
-            stmt = con.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                ProductDto product = new ProductDto();
-                product.setProductId(rs.getInt("product_id"));
-                product.setSellerId(rs.getInt("seller_id"));
-                product.setRegDate(rs.getDate("reg_date"));
-                product.setProductName(rs.getString("product_name"));
-                product.setDescription(rs.getString("description"));
-                product.setPrice(rs.getInt("price"));
-                product.setStock(rs.getInt("stock"));
-                product.setThumbnail(rs.getString("thumbnail")); // 썸네일 추가
-                productList.add(product);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Error fetching all products", e);
-        } finally {
-            closePreparedStatement(stmt);
-            closeConnection(con);
-        }
-
+        String sql = "SELECT * FROM product WHERE is_deleted = 'N'";
+        try (
+    		Connection con = dataSource.getConnection();
+    		PreparedStatement stmt = con.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery()
+        ) {
+        	while (rs.next()) {
+        		ProductDto product = new ProductDto();
+        		product.setProductId(rs.getInt("product_id"));
+        		product.setSellerId(rs.getInt("seller_id"));
+        		product.setRegDate(rs.getDate("reg_date"));
+        		product.setProductName(rs.getString("product_name"));
+        		product.setDescription(rs.getString("description"));
+        		product.setPrice(rs.getInt("price"));
+        		product.setStock(rs.getInt("stock"));
+        		product.setThumbnail(rs.getString("thumbnail")); // 썸네일 추가
+        		productList.add(product);
+        	}
+		} catch (Exception e) {
+			throw new RuntimeException("Error fetching all products", e);
+		}
         return productList;
-    }
+    } // end showAllProducts
     
     // show Register product
     public List<ProductDto> getProductsBySellerId(int sellerId) {
         List<ProductDto> productList = new ArrayList<>();
-
-        Connection con = null;
-        PreparedStatement stmt = null;
-        try {
-            con = dataSource.getConnection();
-            String sql = "SELECT * FROM product WHERE seller_id = ? AND is_deleted = 'N'";
-            stmt = con.prepareStatement(sql);
-            stmt.setInt(1, sellerId);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                ProductDto product = new ProductDto();
-                product.setProductId(rs.getInt("product_id"));
-                product.setSellerId(rs.getInt("seller_id"));
-                product.setRegDate(rs.getDate("reg_date"));
-                product.setProductName(rs.getString("product_name"));
-                product.setDescription(rs.getString("description"));
-                product.setPrice(rs.getInt("price"));
-                product.setStock(rs.getInt("stock"));
-                product.setThumbnail(rs.getString("thumbnail")); // 썸네일 추가
-                productList.add(product);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Error fetching products by seller ID " + sellerId, e);
-        } finally {
-            closePreparedStatement(stmt);
-            closeConnection(con);
-        }
-
+        String sql = "SELECT * FROM product WHERE seller_id = ? AND is_deleted = 'N'";
+        try (
+    		Connection con = dataSource.getConnection();
+    		PreparedStatement stmt = con.prepareStatement(sql);
+		) {
+        	stmt.setInt(1, sellerId);
+        	try (
+    			ResultSet rs = stmt.executeQuery();
+        	) {
+        		while (rs.next()) {
+        			ProductDto product = new ProductDto();
+        			product.setProductId(rs.getInt("product_id"));
+        			product.setSellerId(rs.getInt("seller_id"));
+        			product.setRegDate(rs.getDate("reg_date"));
+        			product.setProductName(rs.getString("product_name"));
+        			product.setDescription(rs.getString("description"));
+        			product.setPrice(rs.getInt("price"));
+        			product.setStock(rs.getInt("stock"));
+        			product.setThumbnail(rs.getString("thumbnail")); // 썸네일 추가
+        			productList.add(product);
+        		}
+        	}
+		} catch (Exception e) {
+			throw new RuntimeException("Error fetching products by seller ID " + sellerId, e);
+		}
         return productList;
-    }
-    
-    private void closeConnection(Connection con) {
-		if (con!=null) {
-			try {
-				con.close();
-			} catch (Exception e) {}
-		}
-	} // end closeConnection
-
-	private void closePreparedStatement(PreparedStatement stmt) {
-		if (stmt != null) {
-			try {
-				stmt.close();
-			} catch (Exception e) {}
-		}
-	} // end closePreparedStatement
+    } // end getProductsBySellerId
 }
