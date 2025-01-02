@@ -19,20 +19,27 @@ public class EditMemberPostAction implements CommandHandler {
     @Override
     public String handleCommand(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String memberName = request.getParameter("member-name");
+        String memberName = request.getParameter("memberName");
         String email = request.getParameter("email");
         String address = request.getParameter("address");
-        LocalDate birthDate = LocalDate.of(Integer.parseInt(request.getParameter("year")), Integer.parseInt(request.getParameter("month")), Integer.parseInt(request.getParameter("day-of-month")));
+        LocalDate birthDate = LocalDate.of(Integer.parseInt(request.getParameter("year")), Integer.parseInt(request.getParameter("month")), Integer.parseInt(request.getParameter("dayOfMonth")));
         String tel = request.getParameter("tel");
         String gender = request.getParameter("gender");
+        String company = request.getParameter("company");
+        String role = request.getParameter("role");
+        String answer = request.getParameter("answer");
+        String profileImg = request.getParameter("profileImg");
         
         MemberEditDto dto = MemberEditDto.builder()
                 .memberName(memberName)
-                .email(email)
                 .address(address)
                 .birthDate(birthDate)
                 .tel(tel)
                 .gender(gender)
+                .company(company)
+                .role(role)
+                .answer(answer)
+                .profileImg(profileImg)
                 .build();
         
         HttpSession session = request.getSession();

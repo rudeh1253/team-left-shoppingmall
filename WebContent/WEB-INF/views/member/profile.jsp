@@ -77,7 +77,7 @@
 
 					</div>
 					<div class="input-box">
-						<label for="">비밀번호 찾기 질문: 후배가 마라탕후루 사달라고 하면 뭐라고 하실 겁니까?<label
+						<label for="">비밀번호 찾기 질문: 고향이 어디세요<label
 							style="font-size: 12px">* 수정 가능</label></label> <span
 							class="form-control form-input">${empty member.answer ? 'NULL' : member.answer}</span>
 
