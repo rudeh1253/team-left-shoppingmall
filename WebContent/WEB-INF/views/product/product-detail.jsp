@@ -55,7 +55,7 @@
 <h1>제품 상세 정보</h1>
 <div class="product-detail-container">
     <div class="thumbnail">
-        <p>${product.thumbnail}</p>
+        <img src="${product.thumbnail}" />
     </div>
     <div class="product-info">
         <p><strong>상품명:</strong>${product.productName}</p>
