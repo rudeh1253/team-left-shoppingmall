@@ -13,9 +13,6 @@
 <%@include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="container mt-4" style="min-height: 76vh">
 		<h2>장바구니</h2>
-		<div class="mb-3">
-			<a href="write.jsp" class="btn btn-primary">글 작성</a>
-		</div>
 
 		<!-- 게시글 목록 -->
 		<table class="table table-bordered">
@@ -30,7 +27,7 @@
 					<th>가격</th>
 				</tr>
 			</thead>
-			<form action="/purchase.do?command=purchase-product" method="POST">
+		<form action="/purchase.do?command=purchase-product" method="POST">
 			<tbody>
 
 				<c:forEach var="cart" items="${cartList}">
@@ -56,11 +53,12 @@
 						<input type="hidden" name="amount" value="${cart.amount}" /> 
 						<input type="hidden" name="price" value="${cart.price}" />
 				</c:forEach>
-				
 			</tbody>
 		</table>
-						<input type="submit" value="구매" />
-					</form>
+		<div class="text-end">
+			<input type="submit" value="구매" class="btn btn-primary" />
+		</div>
+	</form>
 	</div>
 
 	<script>
