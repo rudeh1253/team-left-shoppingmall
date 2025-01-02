@@ -29,7 +29,7 @@
 					<th>가격</th>
 				</tr>
 			</thead>
-			<form action="/purchase.do?command=purchase-test" method="POST">
+			<form action="/purchase.do?command=purchase-product" method="POST">
 			<tbody>
 
 				<c:forEach var="cart" items="${cartList}">
