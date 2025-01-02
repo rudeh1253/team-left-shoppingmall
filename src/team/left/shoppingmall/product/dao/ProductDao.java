@@ -3,12 +3,14 @@ package team.left.shoppingmall.product.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import team.left.shoppingmall.global.DataSourceContainer;
+import team.left.shoppingmall.member.dao.SelectMemberDto;
 import team.left.shoppingmall.product.model.ProductDto;
 import team.left.shoppingmall.product.model.ProductSpecDto;
 
@@ -303,4 +305,40 @@ public class ProductDao {
 			throw new RuntimeException(e);
 		}
     } // end setProductStock
+    
+    
+    public SelectMemberDto showMember(int memberId) throws SQLException {
+		
+		Connection conn = null;
+		SelectMemberDto member = new SelectMemberDto();
+
+		try {
+			conn = dataSource.getConnection();
+			String sql = "SELECT * FROM member WHERE member_id = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, memberId);
+			ResultSet result = pstmt.executeQuery();
+			if (result.next()) {
+				member.setEmail(result.getString("email"));
+				member.setPassword(result.getString("password"));
+				member.setMember_name(result.getString("member_name"));
+				member.setProfile_img(result.getString("profile_img"));
+				member.setBirth_date(result.getString("birth_date"));
+				member.setTel(result.getString("tel"));
+				member.setAddress(result.getString("address"));
+				member.setGender(result.getString("gender"));
+				member.setPoint(result.getString("point"));
+				member.setRole(result.getString("role"));
+				member.setCompany(result.getString("company"));
+				member.setAnswer(result.getString("answer"));
+			}
+
+		} catch (SQLException e) {
+			throw new SQLException("유저 찾기 실패 ");
+		} finally {
+			conn.close();
+		}
+		return member;
+		
+	}
 }
