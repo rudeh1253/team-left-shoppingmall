@@ -18,4 +18,5 @@ public class SelectMemberDto {
 	private String point;
 	private String role;
 	private String company;
+	private String answer;
 }

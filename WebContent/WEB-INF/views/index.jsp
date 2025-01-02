@@ -20,3 +20,21 @@
 	<%@include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>
+
+
+<!--
+사이드 바 예시
+<body>
+	<div style="flex: 1; display: flex; overflow: hidden;">
+		<%//@include file="/WEB-INF/views/common/sidebar.jsp"%>
+		<div class="d-flex justify-content-center" style="flex: 1; padding: 1rem; overflow: auto; margin: 50px 0 100px 0">
+			<div class="outer-box" style="padding: 0px; width: 600px">
+				<div class="container">
+					input data here 가운데 정렬은 이미 돼있음.
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+-->

@@ -1,6 +1,6 @@
 .outer-box {
 	width: 550px;
-	margin-top: 24px;
+	margin-top: 120px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -41,7 +41,8 @@
 
 .navigation-box {
 	display: flex;
-	justify-content: space-evenly;
+	width: 300px;
+	justify-content: center;
 	align-items: center;
 }
 

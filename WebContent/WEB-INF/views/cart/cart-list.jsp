@@ -10,8 +10,9 @@
 
 </head>
 <body>
-	<div class="container mt-4">
-		<h2>게시판</h2>
+<%@include file="/WEB-INF/views/common/header.jsp"%>
+	<div class="container mt-4" style="min-height: 76vh">
+		<h2>장바구니</h2>
 		<div class="mb-3">
 			<a href="write.jsp" class="btn btn-primary">글 작성</a>
 		</div>
@@ -29,6 +30,7 @@
 					<th>가격</th>
 				</tr>
 			</thead>
+			<form action="/purchase.do?command=purchase-product" method="POST">
 			<tbody>
 
 				<c:forEach var="cart" items="${cartList}">
@@ -36,24 +38,25 @@
 						<td><img src="${cart.thumbnail}" alt="상품 이미지" /></td>
 						<td>${cart.productId}</td>
 						<td>
-							<button id="${cart.productId}" class="btn btn-sm increase-btn">▲</button>
+							<button type="button" id="${cart.productId}" class="btn btn-sm increase-btn">▲</button>
 							<span id="amount-${cart.productId}">${cart.amount}</span>
-							<button id="${cart.productId}" class="btn btn-sm decrease-btn">▼</button>
+							<button type="button" id="${cart.productId}" class="btn btn-sm decrease-btn">▼</button>
 						</td>
 						<td>${cart.sellerId}</td>
 						<td>${cart.regdate}</td>
 						<td>${cart.productName}</td>
 						<td>${cart.price}</td>
 						<td>
-							<button class="btn btn-sm delete-btn" data-product-id="${cart.productId}">X</button>
+							<button type="button" class="btn btn-sm delete-btn" data-product-id="${cart.productId}">X</button>
 						</td>
 					</tr>
-					<form action="/purchase.do?command=purchase-test" method="POST">
+					
 						<input type="hidden" name="memberId" value="${cart.memberId}" />
 						<input type="hidden" name="productId" value="${cart.productId}" />
 						<input type="hidden" name="amount" value="${cart.amount}" /> 
 						<input type="hidden" name="price" value="${cart.price}" />
 				</c:forEach>
+				
 			</tbody>
 		</table>
 						<input type="submit" value="구매" />
@@ -77,18 +80,34 @@
 				});
 
 				$(".decrease-btn").on("click",function(e) {
-					let requestUrl = "/cart.do?command=decrease&productid="+ $(this).attr("id");
 					const productId = $(this).attr("id");
-					const amountElement = $("#amount-"+ productId);
-					let currentAmount = parseInt(amountElement.text(),10); // 현재 수량
-					currentAmount -= 1; // 수량 증가
-					amountElement.text(currentAmount);
-					$.ajax({
-						url : requestUrl, // 서버에서 수량을 업데이트하는 URL
-						type : 'GET'
-					});
+				    const amountElement = $("#amount-" + productId);
+				    let currentAmount = parseInt(amountElement.text(), 10);
+				    
+				    currentAmount -= 1;
 
-								});
+				    if (currentAmount <= 0) {
+				        requestUrl = "/cart.do?command=delete&productid=" + productId;
+				        alert("상품이 삭제되었습니다.");
+				        
+				        $.ajax({
+				            url: requestUrl,
+				            type: 'GET',
+				            success: function () {
+				                location.reload();
+				            }
+				        });
+				    } else {
+				        requestUrl = "/cart.do?command=decrease&productid=" + productId;
+				        amountElement.text(currentAmount);
+				        
+				        $.ajax({
+				            url: requestUrl,
+				            type: 'GET'
+				        });
+				    }
+				});
+				
 				$(".delete-btn").on("click", function() {
 			        var productId = $(this).data("product-id");
 			        let requestUrl = "/cart.do?command=delete&productid="+ $(this).attr("data-product-id");
@@ -101,5 +120,6 @@
 			    });
 			});
 	</script>
+	<%@include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>

@@ -36,6 +36,7 @@ public class SelectMemberDao {
 				member.setPoint(result.getString("point"));
 				member.setRole(result.getString("role"));
 				member.setCompany(result.getString("company"));
+				member.setAnswer(result.getString("answer"));
 			}
 
 		} catch (SQLException e) {
