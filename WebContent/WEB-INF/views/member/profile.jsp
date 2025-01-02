@@ -26,7 +26,7 @@
 					<div class="input-box">
 						<label for="">프로필 사진</label>
 						<div class="profile-image-box">
-							<img id="profile-image" src="/resources/images/default-profile-image.png" data-filename="default-profile-image.png"> 
+							<img id="profile-image" src="${member.profile_img}" data-filename="default-profile-image.png"> 
 								<input id="profile-image-file-select" type="file" accept=".jpg,.png,.jpeg,.gif,.webp,.bmp">
 						</div>
 					</div>
