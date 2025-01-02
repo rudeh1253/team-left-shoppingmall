@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import team.left.framework.web.CommandHandler;
 import team.left.shoppingmall.cart.dao.CartDao;
 import team.left.shoppingmall.global.CommonConstants;
+import team.left.shoppingmall.product.dao.ProductDao;
 import team.left.shoppingmall.purchase.dao.PurchaseDao;
 import team.left.shoppingmall.purchase.model.PurchaseProductDto;
 
@@ -16,10 +17,12 @@ public class InsertPurchasePostAction implements CommandHandler{
 	
 	private PurchaseDao purchaseDao;
 	private CartDao cartDao;
+	private ProductDao productDao;
 	
 	public InsertPurchasePostAction() {
 		this.purchaseDao = new PurchaseDao();
 		this.cartDao = new CartDao();
+		this.productDao = new ProductDao();
 	}
 
 	@Override
@@ -50,8 +53,12 @@ public class InsertPurchasePostAction implements CommandHandler{
 			
 			rowCount = purchaseDao.insertPurchaseProduct(dto);
 			System.out.println("purchase_product 테이블에 " + rowCount + "개 행이 삽입되었습니다.");
+			
+			// 상품 재고수 변경
+			productDao.setProductStock(Integer.parseInt(idArray[i]), Integer.parseInt(amountArray[i]));
 		}
 		
+		// 장바구니 데이터 삭제
 		cartDao.deleteAllCart(memberId);
 		
 		// 얘는 장바구니 데이터를 지우는 액션으로 보냄.
