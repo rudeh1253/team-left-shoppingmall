@@ -169,6 +169,28 @@ public class CartDao {
         }
     }
 	
+	public int checkCart(int productId) {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        int count = 0;
+        try {
+            con = dataSource.getConnection();
+            String sql = "select count(*) from cart WHERE product_id = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, productId);
+            ResultSet rs = stmt.executeQuery();
+	        while (rs.next()) { // 여러 행을 처리
+	            count = rs.getInt("count(*)");
+	        }
+	    } catch (SQLException e) {
+	        System.out.println(e.getMessage());
+	        throw new RuntimeException(e);
+	    } finally {
+	        closeConnection(con);
+	    }
+        return count;
+        
+    }
 	
 	private void closeConnection(Connection con) {
 		if(con!=null) {

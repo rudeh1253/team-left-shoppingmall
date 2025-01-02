@@ -25,6 +25,14 @@
   </style>
 </head>
 <body>
+<c:if test="${not empty sessionScope.alertMessage}">
+    <script>
+        alert("${sessionScope.alertMessage}");
+        window.location.href = '/cart.do?command=show-cart'; // 리디렉션
+    </script>
+    <c:set var="alertMessage" value="${sessionScope.alertMessage}" />
+    <c:remove var="alertMessage" scope="session" />
+</c:if>
 	<div class="container mt-4" style="min-height: 76vh">
 	<form action="/purchase.do?command=purchase-product" method="POST">
 		<h2>장바구니</h2>
