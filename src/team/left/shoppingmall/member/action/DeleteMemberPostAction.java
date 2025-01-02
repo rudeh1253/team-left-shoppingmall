@@ -25,7 +25,7 @@ public class DeleteMemberPostAction implements CommandHandler {
         
         if (this.memberDao.existsByMemberIdAndPassword(memberId, password)) {
             this.memberDao.deleteByMemberId(memberId);
-            return "redirect:/member.do?command=main";
+            return "redirect:/";
         }
         return "member/delete-fail";
     }
