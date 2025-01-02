@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import team.left.framework.web.CommandHandler;
+import team.left.shoppingmall.global.CommonConstants;
 import team.left.shoppingmall.global.PaginationTool;
 import team.left.shoppingmall.purchase.dao.PurchaseDao;
 import team.left.shoppingmall.purchase.model.ReceiptDto;
@@ -24,14 +25,14 @@ public class FindPurchaseListGetAction implements CommandHandler{
 			throws ServletException, IOException {
 		
 		String command = request.getParameter("command");
-		// int userid = (Integer)request.getSession().getAttribute(CommonConstants.MEMBER_SISSION_KEY);
+		int memberId = (Integer)request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY);
 		List<ReceiptDto> receiptList = null;
 		
 		if("purchase".equals(command)) {
-			receiptList = purchaseDao.getPurchaseReceipt(1);
+			receiptList = purchaseDao.getPurchaseReceipt(memberId);
 			request.setAttribute("title", "구매내역");
 		}else {
-			receiptList = purchaseDao.getSellReceipt(2);
+			receiptList = purchaseDao.getSellReceipt(memberId);
 			request.setAttribute("title", "판매내역");
 		}
 		int pageCount = receiptList.size() / 7;
