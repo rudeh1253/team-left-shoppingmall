@@ -13,47 +13,64 @@
 <%@include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="container mt-4" style="min-height: 76vh">
 		<h2>장바구니</h2>
-
+<form action="/purchase.do?command=purchase-product" method="POST">
 		<!-- 게시글 목록 -->
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>썸네일</th>
+					<th>상품 이미지</th>
 					<th>상품ID</th>
-					<th>개수</th>
+					<th>상품명</th>
 					<th>판매자</th>
 					<th>담은 날짜</th>
-					<th>상품명</th>
+					<th>수량</th>
+					<th></th>
 					<th>가격</th>
+					<th></th>
 				</tr>
 			</thead>
-		<form action="/purchase.do?command=purchase-product" method="POST">
 			<tbody>
-
 				<c:forEach var="cart" items="${cartList}">
-					<tr>
-						<td><img src="${cart.thumbnail}" alt="상품 이미지" /></td>
-						<td>${cart.productId}</td>
-						<td>
-							<button type="button" id="${cart.productId}" class="btn btn-sm increase-btn">▲</button>
-							<span id="amount-${cart.productId}">${cart.amount}</span>
-							<button type="button" id="${cart.productId}" class="btn btn-sm decrease-btn">▼</button>
+					<tr class="align-middle" data-product-id="${cart.productId}" data-price="${cart.price}" data-amount="${cart.amount}">
+						<td class="d-flex align-items-center justify-content-center">
+							<img src="${cart.thumbnail}" alt="상품 이미지" style="width: 150px;"/>
 						</td>
-						<td>${cart.sellerId}</td>
-						<td>${cart.regdate}</td>
-						<td>${cart.productName}</td>
-						<td>${cart.price}</td>
+						<td style="width: 80px;">${cart.productId}</td>
+						<td style="width: 200px;">${cart.productName}</td>
+						<td style="width: 80px;">${cart.sellerId}</td>
+						<td style="width: 110px;">${cart.regdate}</td>
+						<td class="align-items-center justify-content-center" >
+		                    <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
+		                        <span id="amount-${cart.productId}" class="d-flex align-items-center justify-content-center">${cart.amount}</span>
+		                        <div class="d-flex flex-column ms-2 justify-content-center align-items-center">
+		                            <button type="button" id="${cart.productId}" class="btn btn-sm increase-btn">▲</button>
+		                            <button type="button" id="${cart.productId}" class="btn btn-sm decrease-btn">▼</button>
+		                        </div>
+		                    </div>
+		                </td>
+						<td style="width: 300px;"></td>
+						<td style="width: 150px;"><fmt:formatNumber value="${cart.price}" pattern="#,###" /></td>
 						<td>
-							<button type="button" class="btn btn-sm delete-btn" data-product-id="${cart.productId}">X</button>
+							<button type="button" class="btn btn-danger btn-sm rounded-pill shadow-sm" data-product-id="${cart.productId}">
+								<i class="bi bi-trash-fill"></i> 삭제
+							</button>
 						</td>
 					</tr>
-					
 						<input type="hidden" name="memberId" value="${cart.memberId}" />
 						<input type="hidden" name="productId" value="${cart.productId}" />
 						<input type="hidden" name="amount" value="${cart.amount}" /> 
 						<input type="hidden" name="price" value="${cart.price}" />
 				</c:forEach>
 			</tbody>
+			<tfoot>
+	            <tr class="align-middle">
+	                <td colspan="7" class="text-end"><strong>총 가격:</strong></td>
+	                <td>
+	                    <span id="totalPrice">0</span>
+	                </td>
+	                <td></td>
+	            </tr>
+        	</tfoot>
 		</table>
 		<div class="text-end">
 			<input type="submit" value="구매" class="btn btn-primary" />
@@ -71,6 +88,8 @@
 					let currentAmount = parseInt(amountElement.text(),10); // 현재 수량
 					currentAmount += 1; // 수량 증가
 					amountElement.text(currentAmount);
+					$("tr[data-product-id='" + productId + "']").attr("data-amount", currentAmount);
+					calculateTotalPrice();
 					$.ajax({
 						url : requestUrl, // 서버에서 수량을 업데이트하는 URL
 						type : 'GET'
@@ -81,13 +100,12 @@
 					const productId = $(this).attr("id");
 				    const amountElement = $("#amount-" + productId);
 				    let currentAmount = parseInt(amountElement.text(), 10);
-				    
 				    currentAmount -= 1;
-
 				    if (currentAmount <= 0) {
 				        requestUrl = "/cart.do?command=delete&productid=" + productId;
 				        alert("상품이 삭제되었습니다.");
-				        
+				        $("tr[data-product-id='" + productId + "']").attr("data-amount", currentAmount);
+					    calculateTotalPrice();
 				        $.ajax({
 				            url: requestUrl,
 				            type: 'GET',
@@ -98,12 +116,14 @@
 				    } else {
 				        requestUrl = "/cart.do?command=decrease&productid=" + productId;
 				        amountElement.text(currentAmount);
-				        
+				        $("tr[data-product-id='" + productId + "']").attr("data-amount", currentAmount);
+					    calculateTotalPrice();
 				        $.ajax({
 				            url: requestUrl,
 				            type: 'GET'
 				        });
 				    }
+
 				});
 				
 				$(".delete-btn").on("click", function() {
@@ -117,6 +137,23 @@
 			        $("button[data-product-id='" + productId + "']").closest("tr").remove();
 			    });
 			});
+		
+		function calculateTotalPrice() {
+	        let totalPrice = 0;
+	        // 모든 상품을 순회하면서 가격과 수량을 곱한 값을 totalPrice에 더함
+	        $("tr[data-price]").each(function() {
+	            const price = parseFloat($(this).attr('data-price'));
+	            const amount = parseInt($(this).attr('data-amount'));
+	            totalPrice += price * amount;
+	        });
+
+	        // 총합을 화면에 출력 (천 단위 구분 기호 추가)
+	        $('#totalPrice').text(totalPrice.toLocaleString());
+	    }
+
+	    // 페이지 로딩 시, 총합 계산
+	    window.onload = calculateTotalPrice;
+		
 	</script>
 	<%@include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
