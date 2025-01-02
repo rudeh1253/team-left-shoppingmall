@@ -52,6 +52,7 @@
     String formattedDate = today.toString(); // yyyy-MM-dd 형식
 %>
 <%@include file="/WEB-INF/views/common/header.jsp"%>
+<form action="/cart.do?command=add-cart" method="POST">
 <h1>제품 상세 정보</h1>
 <div class="product-detail-container">
     <div class="thumbnail">
@@ -68,7 +69,10 @@
         <p><strong>카메라 해상도:</strong>${product.cameraResolution}</p>
         <p><strong>배터리 용량:</strong>${product.batteryCapacity}</p>
     </div>
+    <input type="hidden" name="productId" value="${product.productId}" />
+    <input type="submit"  value="장바구니 담기">
 </div>
+</form>
 <!--
 <form action="cart.do?command=add-cart" method="post">
 	member id: <input type="number" name="member_id"><br>

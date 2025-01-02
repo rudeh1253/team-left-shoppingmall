@@ -19,7 +19,7 @@ public class ShowCartAction implements CommandHandler {
 	@Override
 	public String handleCommand(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int memberId = (int) request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY);;
+		int memberId = (int) request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY);
 		System.out.println("memberId = " + memberId);
 		List<CartProductDto> cartList = dao.showCart(memberId);
 		request.setAttribute("cartList", cartList);

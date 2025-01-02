@@ -13,6 +13,8 @@ import team.left.framework.web.CommandHandler;
 import team.left.shoppingmall.cart.dao.CartDao;
 import team.left.shoppingmall.cart.dao.CartDto;
 import team.left.shoppingmall.cart.dao.CartProductDto;
+import team.left.shoppingmall.global.CommonConstants;
+import team.left.shoppingmall.product.model.ProductSpecDto;
 
 public class AddCartAction implements CommandHandler{
 
@@ -23,16 +25,18 @@ public class AddCartAction implements CommandHandler{
 			throws ServletException, IOException {
 		String method = request.getMethod();
 		String command = request.getParameter("command");
+		System.out.println("들어옴1");
 		if("GET".equals(method)) {
+			
 			return "product/product-detail";
 		}else {
+			System.out.println("들어옴2");
 			request.setCharacterEncoding("utf-8");
-			int member_id = Integer.parseInt(request.getParameter("member_id"));
-			int product_id = Integer.parseInt(request.getParameter("product_id"));
-			int amount = Integer.parseInt(request.getParameter("amount"));
-			CartDto cart = new CartDto(member_id, product_id, amount);
+			int memberId = (int) request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY);
+			int productId = Integer.parseInt(request.getParameter("productId"));
+			int amount = 1;
+			CartDto cart = new CartDto(memberId, productId, amount);
 			dao.addCart(cart);
-		    int productId = Integer.parseInt(request.getParameter("productId"));
 		    int updatedAmount = 0;
 
 		    response.setContentType("application/json");
