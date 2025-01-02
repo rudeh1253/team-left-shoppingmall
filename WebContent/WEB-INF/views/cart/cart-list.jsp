@@ -1,41 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
-
+<%@include file="/WEB-INF/views/common/header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
 
+	td.xButton {
+	    position: absolute;
+	    border: none;
+	    background: transparent;  /* 배경을 투명으로 설정 */
+	    box-shadow: none;  /* 그림자 없애기 */
+	}
+	
+
+	table tfoot td{
+		background-color: #e9f1f7 !important;
+	}
+
+
+  </style>
 </head>
 <body>
-<%@include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="container mt-4" style="min-height: 76vh">
 		<h2>장바구니</h2>
 <form action="/purchase.do?command=purchase-product" method="POST">
 		<!-- 게시글 목록 -->
-		<table class="table table-bordered">
-			<thead>
+		<table class="table table-hover text-center mt-3 align-middle">
+			<thead class="table-light">
 				<tr>
-					<th>상품 이미지</th>
-					<th>상품ID</th>
+					<th class="align-center" style="text-align: center;">이미지</th>
 					<th>상품명</th>
 					<th>판매자</th>
 					<th>담은 날짜</th>
 					<th>수량</th>
 					<th></th>
 					<th>가격</th>
-					<th></th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="table-group-divider">
 				<c:forEach var="cart" items="${cartList}">
 					<tr class="align-middle" data-product-id="${cart.productId}" data-price="${cart.price}" data-amount="${cart.amount}">
 						<td class="d-flex align-items-center justify-content-center">
-							<img src="${cart.thumbnail}" alt="상품 이미지" style="width: 150px;"/>
+							<img src="${cart.thumbnail}" alt="상품 이미지" style="height: 150px;"/>
 						</td>
-						<td style="width: 80px;">${cart.productId}</td>
 						<td style="width: 200px;">${cart.productName}</td>
 						<td style="width: 80px;">${cart.sellerId}</td>
 						<td style="width: 110px;">${cart.regdate}</td>
@@ -48,11 +59,11 @@
 		                        </div>
 		                    </div>
 		                </td>
-						<td style="width: 300px;"></td>
+						<td style="width: 400px;"></td>
 						<td style="width: 150px;"><fmt:formatNumber value="${cart.price}" pattern="#,###" /></td>
-						<td>
-							<button type="button" class="btn btn-danger btn-sm rounded-pill shadow-sm" data-product-id="${cart.productId}">
-								<i class="bi bi-trash-fill"></i> 삭제
+						<td class="xButton d-flex align-center align-items-center" style="height: 168px">
+							<button type="button" class="btn delete-btn btn-sm rounded-pill shadow-sm" data-product-id="${cart.productId}">
+								<i class="bi bi-x"></i>
 							</button>
 						</td>
 					</tr>
@@ -63,12 +74,11 @@
 				</c:forEach>
 			</tbody>
 			<tfoot>
-	            <tr class="align-middle">
-	                <td colspan="7" class="text-end"><strong>총 가격:</strong></td>
+	            <tr class="totla-price align-middle">
+	                <td colspan="6" class="text-end"><strong>총 가격:</strong></td>
 	                <td>
 	                    <span id="totalPrice">0</span>
 	                </td>
-	                <td></td>
 	            </tr>
         	</tfoot>
 		</table>
