@@ -79,7 +79,7 @@
 	    <c:when test="${product.sellerId==memberId}">
 	        <form action="/product.do?command=edit-detail" method="POST">
 	    </c:when>
-	    <c:when test="${member.role=='sell'}">
+	    <c:when test="${(member.role).equals('sell')}">
 	    </c:when>
 	    <c:otherwise>
 		    <form action="/cart.do?command=add-cart" method="POST">
