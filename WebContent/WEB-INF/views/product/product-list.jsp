@@ -8,7 +8,7 @@
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp"%>
-	<div class="container">
+	<div class="container" style="min-height: 76vh">
 		<div class="row justify-content-between mt-5 align-items-center">
 			<div class="col fs-1">상품 목록</div>
 			<c:if test="${sessionScope.member ne null }">
