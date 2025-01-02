@@ -85,7 +85,7 @@
 		    <form action="/cart.do?command=add-cart" method="POST">
 	    </c:otherwise>
 	</c:choose>
-	<h1>제품 상세 정보</h1>
+	<h1 style="margin-left: 350px;">제품 상세 정보</h1>
 	<div class="product-detail-container">
 	    <div class="thumbnail">
 	        <img src="/resources/images/default-product-image.png" data-filename="default-product-image.png" alt="상품 이미지"/>
