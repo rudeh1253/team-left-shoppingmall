@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>장바구니</title>
 <style>
 
 	td.xButton {
@@ -84,6 +84,7 @@
 								</td>
 							</tr>
 								<input type="hidden" name="memberId" value="${cart.memberId}" />
+								<input type="hidden" name="sellerId" value="${cart.sellerId}" />
 								<input type="hidden" name="productId" value="${cart.productId}" />
 								<input type="hidden" name="amount" value="${cart.amount}" /> 
 								<input type="hidden" name="price" value="${cart.price}" />
