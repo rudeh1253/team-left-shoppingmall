@@ -17,17 +17,23 @@ function initFormEvents() {
     $("input[name='role']").on("change", (e) => {
         const isSeller = e.target.value === "sell";
         if (isSeller) {
+            const company = $(e.target).data("company");
             $("#role-input-box").after(`
                 <div class="input-box" id="company-input-box">
                     <label for="">회사</label>
                     <div class="form-input-wrapper">
-                        <input class="form-control form-input" type="text" name="company" required>
+                        <input class="form-control form-input" type="text" name="company" value="${company}" required>
                     </div>
                 </div>
             `);
         } else {
             $("#company-input-box").remove();
         }
+    });
+
+    $("input[name='company']").on("change", (e) => {
+        const val = e.target.value;
+        $("#seller-select").data("company", val);
     });
 
     $("#profile-image").on("click", (e) => {
@@ -39,6 +45,12 @@ function initFormEvents() {
         fileReader.onload = () => {
             $("#profile-image").attr("src", fileReader.result);
             $("#profile-image").data("filename", getRandomImageName(e.target.files[0].name));
+            
+            const isEdit = $("body").data("is-edit") === true;
+            if (isEdit) {
+                $("#profile-image").data("has-changed", true);
+            }
+
             console.log($("#profile-image").data("filename"));
         };
         fileReader.readAsDataURL(e.target.files[0]);

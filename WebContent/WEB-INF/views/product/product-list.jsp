@@ -7,13 +7,16 @@
 <title>상품 목록</title>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
-	<div class="container">
+
+	<%@include file="/WEB-INF/views/common/header.jsp"%>
+	<div class="container" style="min-height: 76vh">
 		<div class="row justify-content-between mt-5 align-items-center">
 			<div class="col fs-1">상품 목록</div>
-			<div class="col text-end">
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">등록하기</button>
-			</div>
+			<c:if test="${sessionScope.member ne null }">
+				<div class="col text-end">
+					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">등록하기</button>
+				</div>
+			</c:if>
 		</div>
 		<table class="table table-hover text-center mt-3 align-middle">
 			<thead class="table-light">
@@ -44,23 +47,24 @@
 		<nav aria-label="Page navigation example"
 			class="d-flex justify-content-center">
 			<ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="/product.do?command=<%= request.getParameter("command") %>&page=1" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <c:forEach var="i" begin="1" end="${pageCount}">
-            		<li class="page-item"><a class="page-link <c:if test='${page == i}'>active</c:if>" href="/product.do?command=<%= request.getParameter("command") %>&page=${i}">${i}</a></li>
-           		</c:forEach>
-                <li class="page-item">
-                    <a class="page-link" href="/product.do?command=<%= request.getParameter("command") %>&page=${pageCount}" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
+
+				<li class="page-item"><a class="page-link"
+					href="/product.do?command=<%= request.getParameter("command") %>&page=1"
+					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+				</a></li>
+				<c:forEach var="i" begin="1" end="${pageCount}">
+					<li class="page-item"><a
+						class="page-link <c:if test='${page == i}'>active</c:if>"
+						href="/product.do?command=<%= request.getParameter("command") %>&page=${i}">${i}</a></li>
+				</c:forEach>
+				<li class="page-item"><a class="page-link"
+					href="/product.do?command=<%= request.getParameter("command") %>&page=${pageCount}"
+					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+				</a></li>
+			</ul>
 		</nav>
 	</div>
-	<%@include file="/WEB-INF/views/product/productFormModal.jsp"%>
+	<%@include file="/WEB-INF/views/product/product-form-modal.jsp"%>
 	<%@include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>

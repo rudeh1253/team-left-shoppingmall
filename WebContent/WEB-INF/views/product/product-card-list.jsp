@@ -8,8 +8,8 @@
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp"%>
-	<div class="container">
-        <div class="row row-cols-1 row-cols-md-3 g-4 my-4 w-75 mx-auto">
+	<div class="container" style="min-height: 76vh">
+        <div class="row row-cols-1 row-cols-md-4 g-4 my-4 w-75 mx-auto">
         	<c:forEach var="product" items="${productList }">
 	            <div class="col">
 	                <div class="card h-100">
@@ -26,16 +26,16 @@
 			class="d-flex justify-content-center">
 			<ul class="pagination">
 				<li class="page-item"><a class="page-link"
-					href="/product.do?command=<%= request.getParameter("command") %>&page=1"
+					href="/product.do?command=<%= request.getParameter("command") %>&page=1&keyword=<%= request.getParameter("keyword") %>"
 					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 				</a></li>
 				<c:forEach var="i" begin="1" end="${pageCount}">
 					<li class="page-item"><a
 						class="page-link <c:if test='${page == i}'>active</c:if>"
-						href="/product.do?command=<%= request.getParameter("command") %>&page=${i}">${i}</a></li>
+						href="/product.do?command=<%= request.getParameter("command") %>&page=${i}&keyword=<%= request.getParameter("keyword") %>">${i}</a></li>
 				</c:forEach>
 				<li class="page-item"><a class="page-link"
-					href="/product.do?command=<%= request.getParameter("command") %>&page=${pageCount}"
+					href="/product.do?command=<%= request.getParameter("command") %>&page=${pageCount}&keyword=<%= request.getParameter("keyword") %>"
 					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 				</a></li>
 			</ul>

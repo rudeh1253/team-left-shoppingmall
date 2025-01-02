@@ -38,6 +38,8 @@ public class ShowProductListGetAction implements CommandHandler {
 		List<ProductDto> paginatedList = PaginationTool.getPaginatedList(productList, 7, page);
 		request.setAttribute("productList", paginatedList);
 		request.setAttribute("page", page);
+		
+		request.setAttribute("cmd", "add-product");
 
         return "product/product-list";
     }
