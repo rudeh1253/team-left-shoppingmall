@@ -26,6 +26,7 @@ public class ShowProductListGetAction implements CommandHandler {
             throws ServletException, IOException {
     	
         List<ProductDto> productList = dao.getProductList();
+        int userid = Integer.parseInt(request.getParameter("userid"));
         
         int pageCount = productList.size() / 7;
 		if(productList.size() % 7 != 0) pageCount++;
@@ -40,6 +41,7 @@ public class ShowProductListGetAction implements CommandHandler {
 		request.setAttribute("page", page);
 		
 		request.setAttribute("isEdit", false);
+		request.setAttribute("userid", userid);
 
         return "product/product-list";
     }

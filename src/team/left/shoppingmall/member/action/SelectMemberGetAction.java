@@ -29,7 +29,8 @@ public class SelectMemberGetAction implements CommandHandler {
 			id = (Integer) request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY);
 		} else {
 			return "member/login";
-		}
+		} 
+		
 
 		try {
 			dao.selectMember(member, id);
@@ -38,6 +39,7 @@ public class SelectMemberGetAction implements CommandHandler {
 		}
 
 		request.setAttribute("member", member);
+		request.setAttribute("userid", id);
 
 		return "member/profile";
 	}

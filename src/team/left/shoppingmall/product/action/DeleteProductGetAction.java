@@ -24,7 +24,7 @@ public class DeleteProductGetAction implements CommandHandler {
 		int productId = Integer.parseInt(request.getParameter("productId"));
 		request.setAttribute("productId", productId);
 		dao.deleteProduct(productId);
-		return "product/productResult";
+		return "redirect:/product.do?command=show-register-list";
 	}
 
 }
