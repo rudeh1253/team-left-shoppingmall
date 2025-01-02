@@ -117,7 +117,7 @@ function deleteItem(index) {
 									<tr class="align-items-center" style="position: relative">
 										<td class="w-25 h-25">
 											<div class="w-50 mx-auto">
-												<img src="/resources/images/default-product-image.png"
+												<img src="${product.thumbnail }"
 													data-filename="default-product-image.png" alt="상품 이미지"
 													class="img-fluid" />
 											</div>

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet" href="/resources/css/product/product-form-modal.css">
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
@@ -9,15 +10,18 @@
             </div>
             <div class="modal-body">
                 <div class="p-5">
-                    <div class="text-center">
-                        <img src="/resources/images/default-product-image.png" data-filename="default-product-image.png" alt="상품 이미지" class="img-fluid" />
-                    </div>
                     <c:if test="${cmd eq 'add-product' }">
 	            		<form action="/product.do?command=add-product" method="post" id="productModal">
 	            	</c:if>
 	            	<c:if test="${cmd eq 'edit-product' }">
 	            		<form action="/product.do?command=edit-product" method="post" id="productModal">
 	            	</c:if>
+	                    <div class="text-center">
+	                        <img id="profile-image" src="/resources/images/default-product-image.png" data-filename="default-product-image.png" alt="상품 이미지" class="img-fluid" data-has-changed="false"/>
+	                        <!-- <img id="profile-image" src="/default-product-image.png" data-filename="default-product-image.png" alt="상품 이미지" class="img-fluid"  data-has-changed="false"/> -->
+	                        <input id="profile-image-file-select" type="file" accept=".jpg,.png,.jpeg,.gif,.webp,.bmp">
+	                    </div>
+	                    <input type="hidden" name="thumbnail" id="thumbnail">
                         <div class="row align-items-center mb-3">
                             <label for="productName" class="col-3 col-form-label fs-4 fw-bolder">상품명</label>
                             <div class="col-9">
@@ -87,8 +91,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                <button type="submit" class="btn btn-primary" form="productModal">등록</button>
+                <button id="submit-button" type="button" class="btn btn-primary" form="productModal">등록</button>
             </div>
         </div>
     </div>
 </div>
+<script src="/resources/js/product/product-form-modal.js"></script>

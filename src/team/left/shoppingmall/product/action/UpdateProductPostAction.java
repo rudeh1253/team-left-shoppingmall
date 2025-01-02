@@ -23,12 +23,11 @@ public class UpdateProductPostAction implements CommandHandler {
 	public String handleCommand(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int sellerId = (Integer) request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY);
-//		int productId = Integer.parseInt(request.getParameter("productId"));
-		int productId = 1;
+		int productId = Integer.parseInt(request.getParameter("productId"));
 		String productName = request.getParameter("productName");
 		int price = Integer.parseInt(request.getParameter("price"));
 		int stock = Integer.parseInt(request.getParameter("stock"));
-		String thumbnail = "1";
+		String thumbnail = request.getParameter("thumbnail");
 		int weight = Integer.parseInt(request.getParameter("weight"));
 		int screenSize = Integer.parseInt(request.getParameter("screenSize"));
 		String refreshRate = request.getParameter("refreshRate");
