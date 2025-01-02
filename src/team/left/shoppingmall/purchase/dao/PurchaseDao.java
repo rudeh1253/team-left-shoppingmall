@@ -85,7 +85,8 @@ public class PurchaseDao {
 					+ "FROM product pr "
 					+ "JOIN purchase_product pupr ON pr.product_id = pupr.product_id "
 					+ "JOIN purchase pu ON pupr.purchase_id = pu.purchase_id "
-					+ "WHERE pu.buyer_id = ?";
+					+ "WHERE pu.buyer_id = ? "
+					+ "ORDER BY pu.purchase_date";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userid);
 			
@@ -123,7 +124,8 @@ public class PurchaseDao {
 					+ "FROM product pr "
 					+ "JOIN purchase_product pupr ON pr.product_id = pupr.product_id "
 					+ "JOIN purchase pu ON pupr.purchase_id = pu.purchase_id "
-					+ "WHERE pr.seller_id = ?";
+					+ "WHERE pr.seller_id = ? "
+					+ "ORDER BY pu.purchase_date";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userid);
 			
