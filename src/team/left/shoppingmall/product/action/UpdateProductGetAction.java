@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import team.left.framework.web.CommandHandler;
 import team.left.shoppingmall.product.dao.ProductDao;
-import team.left.shoppingmall.product.model.ProductDto;
+import team.left.shoppingmall.product.model.ProductSpecDto;
 
 public class UpdateProductGetAction implements CommandHandler {
 
@@ -23,7 +23,7 @@ public class UpdateProductGetAction implements CommandHandler {
 			throws ServletException, IOException {
 //		int productId = Integer.parseInt(request.getParameter("productId"));
 		int productId = 1;
-		ProductDto product = dao.getProductById(productId);
+		ProductSpecDto product = dao.getProductSpecById(productId);
 		request.setAttribute("product", product);
 		request.setAttribute("command", request.getParameter("command"));
 		return "product/productForm";

@@ -9,9 +9,6 @@
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="container">
-		<table class="table table-hover  text-center align-middle">
-			<thead>
-
 		<div class="row justify-content-between mt-5 align-items-center">
 			<div class="col fs-1">상품 목록</div>
 			<div class="col text-end">
@@ -31,7 +28,11 @@
 			<tbody class="table-group-divider">
 				<c:forEach var="product" items="${productList }">
 					<tr class="align-items-center">
-						<td><img src="" alt="상품 이미지" class="img-thumbnail" /></td>
+						<td class="w-25 h-25">
+							<div class="w-50 mx-auto">
+								<img src="/resources/images/default-product-image.png" data-filename="default-product-image.png" alt="상품 이미지" class="img-fluid" />
+							</div>
+						</td>
 						<td><a href="${product.productId}" class="link-underline link-underline-opacity-0">${product.productName }</a></td>
 						<td>${product.price }</td>
 						<td>${product.stock }</td>

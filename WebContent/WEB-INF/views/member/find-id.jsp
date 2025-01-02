@@ -1,16 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/common.jsp" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>아이디 찾기</title>
+<link rel="stylesheet" href="/resources/css/member/find-id-pw.css">
 </head>
 <body>
-	<form action="member.do?command=find-id" method="POST">
-		<input name="name">
-		<input name="tel">
-		<input type="submit">
-	</form>
+	<div class="container">
+	    <div class="login-container">
+	      <form action="/member.do?command=find-id" method="POST">"member.do?command=find-password"
+		      <fieldset>
+		      	<legend class="text-center mb-4" style="font-size: 24px;">아이디 찾기</legend>
+		      	<div class="mb-3">
+		          <input type="text" class="form-control" name="name" placeholder="이름을 입력하세요 (대소문자 구분)">
+		        </div>
+		        <div class="mb-3">
+		          <input type="text" class="form-control" name="tel" placeholder="전화번호를 입력하세요 (ex: 010-1111-1111)">
+		        </div>
+		        <button type="submit" class="btn btn-custom w-100">제출</button>
+	      	</fieldset>
+	      </form>
+	    </div>
+	  </div>
 </body>
 </html>
