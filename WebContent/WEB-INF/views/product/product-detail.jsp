@@ -122,35 +122,9 @@
        </form>
       </div>
 	</div>
-		
 	</div>
-</div>
 </form>
-<!--
-<form action="cart.do?command=add-cart" method="post">
-	member id: <input type="number" name="member_id"><br>
-	product id: <input type="number" name="product_id"><br>
-	seller id: <input type="number" name="seller_id"><br>
-	date: <input type="date" name="reg_date" value="<%= formattedDate %>"><br>
-	product name: <input type="text" name="product_name"><br>
-	description: <input type="text" name="description"><br>
-	price: <input type="number" name="price"><br>
-	
-	weight: <input type="number" name="weight">
-	화면 크기(inch): <input type="number" name="screen_size">
-	주사율(Hz): <input type="number" name="refresh_rate">
-	화면 해상도: <input type="number" name="display_resolution">
-	칩셋: <input type="text" name="chipset">
-	카메라 해상도: <input type="number" name="camera_resolution">
-	배터리 용량: <input type="number" name="battery_capacity">
-	stock: <input type="number" name="stock"><br>
-	thumbnail: <input type="text" name="thumbnail"><br>
-	개수 : <input type="number" name="amount"><br>
-	
-	<input type="hidden" name="command" value="add-cart">
-	<button type="submit">상품등록</button>
-</form>
- -->
+
+ <%@include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
-<%@include file="/WEB-INF/views/common/footer.jsp"%>
 </html>
