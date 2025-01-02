@@ -28,7 +28,7 @@
 						</a>
 						<ul class="dropdown-menu text-small">
 							<li><a class="dropdown-item" href="/member.do?command=profile">마이페이지</a></li>
-							<li><a class="dropdown-item" href="/product.do?command=list-product">상품 목록</a></li>
+							<li><a class="dropdown-item" href="/product.do?command=show-register-list&userid=${sessionScope.member}">상품 목록</a></li>
 							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="/member.do?command=logout">로그아웃</a></li>
 						</ul>

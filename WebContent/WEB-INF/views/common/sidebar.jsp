@@ -57,7 +57,7 @@
 						class="bi me-2" width="16" height="16">
 						<span id="profile" style="color: #94A5EB"></span></svg> 내 정보
 			</a></li>
-			<li class="nav-item"><a href="/purchase.do?command=purchase"
+			<li class="nav-item"><a href="/purchase.do?command=purchase&userid=${ userid }"
 				class="nav-link link-dark" aria-current="page"> <svg
 						class="bi me-2" width="16" height="16">
 						<span id="purchase" style="color: #94A5EB"></span></svg> 구매 내역
@@ -68,13 +68,13 @@
 						</svg> 판매자
 			</a></li>
 			<hr>
-			<li class="nav-item"><a href="/purchase.do?command=sell"
+			<li class="nav-item"><a href="/purchase.do?command=sell&userid=${ userid }"
 				class="nav-link link-dark" aria-current="purchase"> <svg
 						class="bi me-2" width="16" height="16">
 						<span id="sell" style="color: #94A5EB"></span></svg> 판매 내역
 			</a></li>
 			<li class="nav-item"><a
-				href="/product.do?command=show-register-list"
+				href="/product.do?command=show-register-list&userid=${ userid }"
 				class="nav-link link-dark" aria-current="page"> <svg
 						class="bi me-2" width="16" height="16">
 						<span id="show-register-list" style="color: #94A5EB"></span></svg> 물품 내역
