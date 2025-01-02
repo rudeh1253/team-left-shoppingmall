@@ -10,15 +10,23 @@
             </div>
             <div class="modal-body">
                 <div class="p-5">
-                    <c:if test="${cmd eq 'add-product' }">
-	            		<form action="/product.do?command=add-product" method="post" id="productModal">
-	            	</c:if>
-	            	<c:if test="${cmd eq 'edit-product' }">
-	            		<form action="/product.do?command=edit-product" method="post" id="productModal">
-	            	</c:if>
+                	<form method="post" id="productModal"
+	                	<c:if test="${isEdit }">
+	                		action="/product.do?command=edit-product"
+	                	</c:if>
+	                	<c:if test="${!isEdit }">
+	                		action="/product.do?command=add-product"
+	                	</c:if>
+                	></form>
 	                    <div class="text-center">
-	                        <img id="profile-image" src="/resources/images/default-product-image.png" data-filename="default-product-image.png" alt="상품 이미지" class="img-fluid" data-has-changed="false"/>
-	                        <!-- <img id="profile-image" src="/default-product-image.png" data-filename="default-product-image.png" alt="상품 이미지" class="img-fluid"  data-has-changed="false"/> -->
+	                        <img id="profile-image"
+								<c:if test="${isEdit }">
+									src="${product.thumbnail}" data-filename="${product.thumbnail}" data-has-changed="false"
+								</c:if>
+								<c:if test="${!isEdit }">
+									src="/resources/images/default-product-image.png" data-filename="default-product-image.png"
+								</c:if>            	
+							alt="상품 이미지" class="img-fluid" />
 	                        <input id="profile-image-file-select" type="file" accept=".jpg,.png,.jpeg,.gif,.webp,.bmp">
 	                    </div>
 	                    <input type="hidden" name="thumbnail" id="thumbnail">
@@ -91,7 +99,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                <button id="submit-button" type="button" class="btn btn-primary" form="productModal">등록</button>
+                <button id="submit-button" type="button" class="btn btn-primary" form="productModal" data-is-edit="${isEdit}">등록</button>
             </div>
         </div>
     </div>
