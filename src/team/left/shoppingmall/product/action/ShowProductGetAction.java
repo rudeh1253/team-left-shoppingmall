@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import team.left.framework.web.CommandHandler;
 import team.left.shoppingmall.product.dao.ProductDao;
-import team.left.shoppingmall.product.model.ProductDto;
+import team.left.shoppingmall.product.model.ProductSpecDto;
 
 public class ShowProductGetAction implements CommandHandler {
 
@@ -27,12 +27,13 @@ public class ShowProductGetAction implements CommandHandler {
             if (productId == null || productId.isEmpty()) {
                 throw new IllegalArgumentException("상품 ID가 누락되었습니다.");
             }
-            
+            System.out.println(productId);
             // 상품 상세 정보 조회
-            //ProductSpecDto product = dao.getProductSpecByProductId(Integer.parseInt(productId));
-
+            ProductSpecDto product = dao.getProductSpecById(Integer.parseInt(productId));
+            System.out.println(product.toString());
+            
             // 조회 결과를 요청에 추가
-            //request.setAttribute("product", product);
+            request.setAttribute("product", product);
 
             // JSP로 포워딩
             return "product/product-detail";

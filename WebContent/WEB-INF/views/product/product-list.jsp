@@ -29,7 +29,7 @@
 				<c:forEach var="product" items="${productList}">
 					<tr>
 						<td><img src="${product.thumbnail}" alt="상품 이미지" class="img-thumbnail" /></td>
-						<td><a href="${product.productId}">${product.productName }</a></td>
+						<td><a href="/product.do?command=detail-product&productId=${product.productId}">${product.productName }</a></td>
 						<td>${product.price}</td>
 						<td>${product.stock}</td>
 						<td>${product.regDate}</td>
