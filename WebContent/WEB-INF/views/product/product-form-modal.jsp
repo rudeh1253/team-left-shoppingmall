@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
@@ -8,83 +9,85 @@
             </div>
             <div class="modal-body">
                 <div class="p-5">
-                    <div class="text-center my-5">
-                        <!-- <img src="/NISI20240103_0001451604_web.jpg" class="img-fluid" alt="*"> -->
+                    <div class="text-center">
+                        <img src="/resources/images/default-product-image.png" data-filename="default-product-image.png" alt="상품 이미지" class="img-fluid" />
                     </div>
-                    <form action="/product.do?command=add-product" method="post" id="insertProduct">
+                    <c:if test="${cmd eq 'add-product' }">
+	            		<form action="/product.do?command=add-product" method="post" id="productModal">
+	            	</c:if>
+	            	<c:if test="${cmd eq 'edit-product' }">
+	            		<form action="/product.do?command=edit-product" method="post" id="productModal">
+	            	</c:if>
                         <div class="row align-items-center mb-3">
                             <label for="productName" class="col-3 col-form-label fs-4 fw-bolder">상품명</label>
                             <div class="col-9">
-                                <input type="text" class="form-control" name="productName" id="productName">
+                                <input type="text" class="form-control" name="productName" id="productName" value="${product.productName }">
                             </div>
                         </div>
                         <div class="row align-items-center mb-3">
                             <label for="price" class="col-3 col-form-label fs-4 fw-bolder">가격</label>
                             <div class="col-9">
-                                <input type="text" class="form-control" name="price" id="price">
+                                <input type="number" class="form-control" name="price" id="price" min=0 value="${product.price }">
                             </div>
                         </div>
                         <div class="row align-items-center mb-3">
                             <label for="stock" class="col-3 col-form-label fs-4 fw-bolder">재고</label>
                             <div class="col-9">
-                                <input type="text" class="form-control" name="stock" id="stock">
+                                <input type="number" class="form-control" name="stock" id="stock" min=0 value="${product.stock }">
                             </div>
                         </div>
                         <div class="row align-items-center mb-3">
                             <label for="weight" class="col-3 col-form-label fs-4 fw-bolder">무게(g)</label>
                             <div class="col-9">
-                                <input type="text" class="form-control" name="weight" id="weight">
+                                <input type="number" class="form-control" name="weight" id="weight" min=0 value="${product.weight }">
                             </div>
                         </div>
                         <div class="row align-items-center mb-3">
                             <label for="screenSize" class="col-3 col-form-label fs-5 fw-bolder">화면 크기(inch)</label>
                             <div class="col-9">
-                                <input type="text" class="form-control" name="screenSize" id="screenSize">
+                                <input type="text" class="form-control" name="screenSize" id="screenSize" value="${product.screenSize }">
                             </div>
                         </div>
                         <div class="row align-items-center mb-3">
                             <label for="refreshRate" class="col-3 col-form-label fs-4 fw-bolder">주사율(Hz)</label>
                             <div class="col-9">
-                                <input type="text" class="form-control" name="refreshRate" id="refreshRate">
+                                <input type="text" class="form-control" name="refreshRate" id="refreshRate" value="${product.refreshRate }">
                             </div>
                         </div>
                         <div class="row align-items-center mb-3">
                             <label for="displayResolution" class="col-3 col-form-label fs-4 fw-bolder">화면 해상도</label>
                             <div class="col-9">
-                                <input type="text" class="form-control" name="displayResolution" id="displayResolution">
+                                <input type="text" class="form-control" name="displayResolution" id="displayResolution" value="${product.displayResolution }">
                             </div>
                         </div>
                         <div class="row align-items-center mb-3">
                             <label for="chipset" class="col-3 col-form-label fs-4 fw-bolder">칩셋</label>
                             <div class="col-9">
-                                <input type="text" class="form-control" name="chipset" id="chipset">
+                                <input type="text" class="form-control" name="chipset" id="chipset" value="${product.chipset }">
                             </div>
                         </div>
                         <div class="row align-items-center mb-3">
                             <label for="cameraResolution" class="col-3 col-form-label fs-5 fw-bolder">카메라 해상도(pixel)</label>
                             <div class="col-9">
-                                <input type="text" class="form-control" name="cameraResolution" id="cameraResolution">
+                                <input type="text" class="form-control" name="cameraResolution" id="cameraResolution" value="${product.cameraResolution }">
                             </div>
                         </div>
                         <div class="row align-items-center mb-3">
                             <label for="batteryCapacity" class="col-3 col-form-label fs-5 fw-bolder">배터리 용량(mAh)</label>
                             <div class="col-9">
-                                <input type="text" class="form-control" name="batteryCapacity" id="batteryCapacity">
+                                <input type="text" class="form-control" name="batteryCapacity" id="batteryCapacity" value="${product.batteryCapacity }">
                             </div>
                         </div>
                         <div class="form-group mb-3">
                             <label for="description" class="form-label fs-3 fw-semibold">설명</label>
-                            <textarea class="form-control" id="description" name="description" rows="5"></textarea>
+                            <textarea class="form-control" id="description" name="description" rows="5">${product.description }</textarea>
                         </div>
-                        <!-- <div class="text-center">
-                            <button type="submit" class="btn btn-primary btn-lg fs-5 w-25">등록</button>
-                        </div> -->
                     </form>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                <button type="submit" class="btn btn-primary" form="insertProduct">등록</button>
+                <button type="submit" class="btn btn-primary" form="productModal">등록</button>
             </div>
         </div>
     </div>
