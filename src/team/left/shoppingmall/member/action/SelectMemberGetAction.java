@@ -18,32 +18,25 @@ public class SelectMemberGetAction implements CommandHandler {
 	public String handleCommand(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		SelectMemberDto member = new SelectMemberDto();
+		
 		SelectMemberDao dao = new SelectMemberDao();
+		Integer loginMemberId = (Integer) request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY);
+		String memberIdFromParameter = request.getParameter("userid");
 		
-		int sessionId = (int)request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY);
+		boolean isMyProfile = memberIdFromParameter == null || loginMemberId.equals(Integer.parseInt(memberIdFromParameter));
+		Integer memberIdToSelect = memberIdFromParameter != null ? Integer.parseInt(memberIdFromParameter) : loginMemberId;
 
-		int id = 0;
-
-		if (request.getParameter("userid") != null) {
-			id = Integer.parseInt(request.getParameter("userid"));
-		} else if (request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY) != null) {
-			id = sessionId;
-		} else {
-			return "member/login";
-		} 
-		
-
+		SelectMemberDto member = new SelectMemberDto();
 		try {
-			dao.selectMember(member, id);
+			dao.selectMember(member, memberIdToSelect);
 		} catch (SQLException e) {
 			e.getMessage();
 		}
 
 		request.setAttribute("member", member);
-		request.setAttribute("userid", id);
-		request.setAttribute("sessionid", sessionId);
-
+		request.setAttribute("userid", memberIdToSelect);
+		request.setAttribute("isMyProfile", isMyProfile);
+		request.setAttribute("role", member.getRole());
 		return "member/profile";
 	}
 
