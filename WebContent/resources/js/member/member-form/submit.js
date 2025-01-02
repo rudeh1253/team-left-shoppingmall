@@ -20,7 +20,7 @@ function validate() {
         }
         console.log(targetElem);
         setFormValidationFeedback(targetElem, isValid, item.message);
-        isAllValid &&= isValid;
+        isAllValid = isAllValid && isValid;
     }
     return isAllValid;
 }

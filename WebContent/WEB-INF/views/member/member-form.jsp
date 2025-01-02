@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link rel="stylesheet" href="/resources/css/member-form.css">
+<link rel="stylesheet" href="/resources/css/member/member-form.css">
 
 <script src="/resources/js/member/member-form/birth-date-input.js"></script>
 <script src="/resources/js/member/member-form/validation.js"></script>

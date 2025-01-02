@@ -17,8 +17,8 @@ public class LoginMemberPostAction implements CommandHandler {
     @Override
     public String handleCommand(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = (String) request.getParameter("email");
-        String password = (String) request.getParameter("password");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
         try {
             Integer memberId = this.memberDao.findMemberIdByEmailPassword(email, password)
                     .orElseThrow(NoSuchElementException::new);

@@ -12,10 +12,10 @@ import team.left.shoppingmall.global.PaginationTool;
 import team.left.shoppingmall.purchase.dao.PurchaseDao;
 import team.left.shoppingmall.purchase.model.ReceiptDto;
 
-public class GetPurchaseListAction implements CommandHandler{
+public class FindPurchaseListGetAction implements CommandHandler{
 	PurchaseDao purchaseDao;
 
-	public GetPurchaseListAction() {
+	public FindPurchaseListGetAction() {
 		this.purchaseDao = new PurchaseDao();
 	}
 	
@@ -45,7 +45,7 @@ public class GetPurchaseListAction implements CommandHandler{
 		List<ReceiptDto> paginatedList = PaginationTool.getPaginatedList(receiptList, 7, page);
 		request.setAttribute("receiptList", paginatedList);
 		request.setAttribute("page", page);
-		return "purchase/purchaselist";
+		return "purchase/purchase-list";
 	}
 
 }
