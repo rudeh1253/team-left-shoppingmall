@@ -48,7 +48,7 @@ function deleteItem(index) {
 	height: 30px;
 	position: absolute;
 	right: -55px;
-	top: 25px;
+	top: 25%;
 	cursor: pointer;
 	border: 1px solid grey;
 	user-select: none;
@@ -93,7 +93,7 @@ function deleteItem(index) {
 				<div class="container">
 					<div class="container" style="min-height: 50vh">
 						<div class="row justify-content-between mt-5 align-items-center">
-							<div class="col fs-1">상품 목록</div>
+							<div class="col fs-1 fw-bolder">상품 목록</div>
 							<c:if test="${sessionScope.member ne null }">
 								<div class="col text-end">
 									<button type="button" class="btn btn-primary"
@@ -117,7 +117,7 @@ function deleteItem(index) {
 									<tr class="align-items-center" style="position: relative">
 										<td class="w-25 h-25">
 											<div class="w-50 mx-auto">
-												<img src="${product.thumbnail }"
+												<img src="${product.thumbnail }" width="70px"
 													data-filename="default-product-image.png" alt="상품 이미지"
 													class="img-fluid" />
 											</div>

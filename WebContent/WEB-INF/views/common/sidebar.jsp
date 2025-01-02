@@ -30,6 +30,9 @@
 		} else if (command === 'show-register-list') {
 			document.getElementById('show-register-list').innerText = '▶';
 			active("seller");
+		} else if (command === 'sell') {
+			document.getElementById('sell').innerText = '▶';
+			active("seller");
 		}
 	};
 </script>
@@ -65,10 +68,10 @@
 						</svg> 판매자
 			</a></li>
 			<hr>
-			<li class="nav-item"><a href="/purchase.do?command=purchase"
+			<li class="nav-item"><a href="/purchase.do?command=sell"
 				class="nav-link link-dark" aria-current="purchase"> <svg
 						class="bi me-2" width="16" height="16">
-						<span id="sellingList" style="color: #94A5EB"></span></svg> 판매 내역
+						<span id="sell" style="color: #94A5EB"></span></svg> 판매 내역
 			</a></li>
 			<li class="nav-item"><a
 				href="/product.do?command=show-register-list"
