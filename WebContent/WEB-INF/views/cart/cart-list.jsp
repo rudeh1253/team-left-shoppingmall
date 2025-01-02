@@ -55,12 +55,12 @@
 						<c:forEach var="cart" items="${cartList}">
 							<tr class="align-middle" data-product-id="${cart.productId}" data-price="${cart.price}" data-amount="${cart.amount}">
 								<td class="d-flex align-items-center justify-content-center">
-								    <a href="/productDetail.do?productId=${cart.productId}" class="d-flex align-items-center justify-content-center" style="text-decoration: none; color: inherit;">
+								    <a href="/product.do?command=detail-product&productId=${cart.productId}" class="d-flex align-items-center justify-content-center" style="text-decoration: none; color: inherit;">
 								        <img src="${cart.thumbnail}" alt="상품 이미지" style="height: 150px;" />
 								    </a>
 								</td>
 								<td style="width: 200px;">
-								    <a href="/productDetail.do?productId=${cart.productId}" class="text-decoration-none text-dark">
+								    <a href="/product.do?command=detail-product&productId=${cart.productId}" class="text-decoration-none text-dark">
 								        ${cart.productName}
 								    </a>
 								</td>
