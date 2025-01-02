@@ -1,5 +1,5 @@
 .login-container {
-    max-width: 400px;
+    max-width: 500px;
     margin: 50px auto;
     padding: 20px;
     border: 1px solid #ddd;
@@ -32,3 +32,23 @@
   .btn-custom:hover {
     background-color: #8e9cd1; /* 호버 시 색상 변경 */
   }
+  
+  .navigation-box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 50px;
+}
+
+.navigation-box * {
+	color: #868e96;
+}
+
+.navigation-box p {
+	margin: 0px;
+	padding: 0px;
+}
+
+.navigation-box a {
+	text-decoration: none;
+}

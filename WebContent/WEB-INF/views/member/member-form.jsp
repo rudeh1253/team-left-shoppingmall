@@ -17,6 +17,7 @@
 
 </head>
 <body>
+	<%@include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="outer-box">
 		<div class="page-title">계정 생성</div>
 		<form action="/member.do?command=insert-member" method="POST" class="form-box" id="sign-up-form">
@@ -124,5 +125,6 @@
 			<button type="button" id="submit-button">회원가입</button>
 		</form>
 	</div>
+	<%@include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>
