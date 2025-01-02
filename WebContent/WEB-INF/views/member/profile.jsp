@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>마이페이지</title>
+<title>회원 정보</title>
 <link rel="stylesheet" href="/resources/css/member/member-form.css">
 
 </head>

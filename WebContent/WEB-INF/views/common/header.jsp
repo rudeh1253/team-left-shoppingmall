@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <header class="p-3 mb-3 border-bottom">
-	<div class="container">
+	<div class="container z-3">
 		<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
 			<a href="/" class="d-flex align-items-center fs-24 mb-2 mb-lg-0 link-body-emphasis text-decoration-none">Team Left</a>
 

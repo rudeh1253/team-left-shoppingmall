@@ -12,6 +12,10 @@
         <%@include file="/WEB-INF/views/common/sidebar.jsp"%>
 		<div class="d-flex justify-content-center"
 			style="flex: 1; padding: 1rem; overflow: auto; margin: 0 70px 60px 0">
+			<c:if test="${empty productList}">
+				<h1 class="text-center">거래한 물품이 없습니다!</h1>
+			</c:if>
+			<c:if test="${!empty productList}">
 			<div class="outer-box" style="padding: 0px; width: 52vw">
                 <div class="container">
                     <div class="row justify-content-between mt-5 align-items-center">
@@ -69,6 +73,7 @@
                     </nav>
                 </div>
             </div>
+            </c:if>
         </div>
     </div>
 </body>
