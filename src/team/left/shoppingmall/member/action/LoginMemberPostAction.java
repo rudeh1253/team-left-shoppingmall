@@ -1,6 +1,7 @@
 package team.left.shoppingmall.member.action;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.util.NoSuchElementException;
 
 import javax.servlet.ServletException;
@@ -19,15 +20,27 @@ public class LoginMemberPostAction implements CommandHandler {
             throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        System.out.println("email=" + email);
+        System.out.println("password=" + password);
+        
+        String result;
         try {
             Integer memberId = this.memberDao.findMemberIdByEmailPassword(email, password)
                     .orElseThrow(NoSuchElementException::new);
             request.getSession().setAttribute(CommonConstants.MEMBER_SESSION_KEY, memberId);
-            return "redirect:/member.do?command=main";
+            
+            result = "{\"success\":true}";
+            response.setStatus(HttpServletResponse.SC_OK);
         } catch (NoSuchElementException e) {
             System.out.println(e.getMessage());
-            request.setAttribute("message", "비밀번호가 맞지 않네요!");
-            return "member/login-fail";
+            result = "{\"success\":false}";
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
+        response.setContentType("application/json");
+        try (Writer writer = response.getWriter()) {
+            writer.write(result);
+        }
+        
+        return null;
     }
 }
