@@ -65,7 +65,7 @@ public class CartDao {
 	public void deleteAllCart(int memberId) {
 		Connection con = null;
 		try {
-			con = dataSource.getConnection();
+			con = DataSourceContainer.getDataSource().getConnection();
 			String sql = "delete from cart where member_id=?";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setInt(1, memberId);

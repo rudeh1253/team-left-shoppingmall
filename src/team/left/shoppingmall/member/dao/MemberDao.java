@@ -1,5 +1,8 @@
 package team.left.shoppingmall.member.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -7,6 +10,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import team.left.shoppingmall.global.DataSourceContainer;
 import team.left.shoppingmall.global.JdbcSupport;
 import team.left.shoppingmall.global.MapUtil;
 
@@ -167,5 +171,41 @@ public class MemberDao {
         } catch (NoSuchElementException e) {
             return Optional.empty();
         } 
+    }
+    
+    // 멤버 포인트 업데이트하기
+    public int updatePointByMemberId(int sellerId, int price) {
+    	int rowCount = 0;
+    	
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	try {
+    		conn = DataSourceContainer.getDataSource().getConnection();
+    		String sql = "UPDATE member SET point=point+" + price + " WHERE member_id=" + sellerId;
+    		System.out.println(sql);
+    		pstmt = conn.prepareStatement(sql);
+    		rowCount = pstmt.executeUpdate();
+    		
+    	}catch(Exception e) {
+    		throw new RuntimeException("멤버 포인트 업데이트 오류 발생");
+    	}finally {
+    		if(conn != null) {
+    			try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+    		}
+    		
+    		if(pstmt != null) {
+    			try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+    		}
+    	}
+    	
+    	return rowCount;
     }
 }
