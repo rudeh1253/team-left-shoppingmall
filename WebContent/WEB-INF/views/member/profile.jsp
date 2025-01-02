@@ -14,23 +14,20 @@
 </head>
 <body
 	style="height: 100%; margin: 0; display: flex; flex-direction: column;">
-	<% //@include file="/WEB-INF/views/common/header.jsp"%>
+	<%
+		//@include file="/WEB-INF/views/common/header.jsp"
+	%>
 	<div style="flex: 1; display: flex; overflow: hidden;">
 		<%@include file="/WEB-INF/views/common/sidebar.jsp"%>
-		<div class="d-flex justify-content-center"
-			style="flex: 1; padding: 1rem; overflow: auto; margin: 50px 0 100px 0">
+		<div class="d-flex justify-content-center" style="flex: 1; padding: 1rem; overflow: auto; margin: 50px 0 100px 0">
 			<div class="outer-box" style="padding: 0px; width: 600px">
 				<div class="page-title" style="padding: 20px">계정 보기</div>
-				<form action="/member.do?command=insert-member" method="POST"
-					class="form-box" id="sign-up-form">
+				<form action="/member.do?command=insert-member" method="POST" class="form-box" id="sign-up-form">
 					<div class="input-box">
 						<label for="">프로필 사진</label>
 						<div class="profile-image-box">
-							<img id="profile-image"
-								src="/resources/images/default-profile-image.png"
-								data-filename="default-profile-image.png"> <input
-								id="profile-image-file-select" type="file"
-								accept=".jpg,.png,.jpeg,.gif,.webp,.bmp">
+							<img id="profile-image" src="/resources/images/default-profile-image.png" data-filename="default-profile-image.png"> 
+								<input id="profile-image-file-select" type="file" accept=".jpg,.png,.jpeg,.gif,.webp,.bmp">
 						</div>
 					</div>
 					<div class="input-box">
