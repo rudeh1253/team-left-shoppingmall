@@ -8,7 +8,7 @@
 
 			<form action="product.do" method="GET" class="col-6 mb-2 mb-md-0 form-control-lg d-flex gap-2 flex-row" role="search">
 				<input type="search" class="form-control col-8" placeholder="상품 관련 검색어를 입력하세요!" name="keyword">
-				<input type="hidden" name="command" value="search-product" />
+				<input type="hidden" name="command" value="search-product"/>
 				<input type="submit" class="form-control" value="검색" />
 			</form>
 			<c:if test="${sessionScope.member eq null }">
@@ -24,7 +24,7 @@
 					</a>
 					<div class="dropdown text-end ms-2">
 						<a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-							<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+							<img src="/resources/images/default-profile-image.png" data-filename="default-profile-image.png" alt="프로필 이미지" width="32" height="32" class="rounded-circle">
 						</a>
 						<ul class="dropdown-menu text-small">
 							<li><a class="dropdown-item" href="/member.do?command=profile">마이페이지</a></li>

@@ -13,7 +13,7 @@
 	    <div class="p-5 text-center">
 	        <h1 class="mb-3">갤럭시와 애플, 당신이 원하는 스마트폰을 한곳에서!</h1>
 	        <p class="mb-4 text-muted">최신 갤럭시와 아이폰을 비교하고, 최고의 가격으로 만나보세요.</p>
-	        <a href="/product.do?command=list-product" class="btn btn-primary btn-lg">지금 쇼핑하기</a>
+	        <a href="/product.do?command=card-list-product" class="btn btn-primary btn-lg">지금 쇼핑하기</a>
 	    </div>
 	</div>
 

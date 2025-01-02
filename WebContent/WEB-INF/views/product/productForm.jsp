@@ -150,7 +150,7 @@
 	            </div>
 	        </div>
 	    </div>
-	    <%@include file="/WEB-INF/views/product/productFormModal.jsp"%>
+	    <%@include file="/WEB-INF/views/product/product-form-modal.jsp"%>
 	    <%@include file="/WEB-INF/views/common/footer.jsp"%>
 	</body>
 </html>
