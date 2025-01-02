@@ -113,7 +113,7 @@
 			    <c:when test="${product.sellerId==memberId}">
 			        <input type="submit"  value="상세정보 수정" style="background-color: #007bff; color: white; font-size: 16px; padding: 10px 20px; border: none; border-radius: 25px; cursor: pointer;">
 			    </c:when>
-			    <c:when test="${member.role=='sell'}">
+			    <c:when test="${(member.role).equals('sell')}">
 			    </c:when>
 			    <c:otherwise>
 				    <input type="submit"  value="장바구니 담기" style="background-color: #007bff; color: white; font-size: 16px; padding: 10px 20px; border: none; border-radius: 25px; cursor: pointer;">
