@@ -30,7 +30,7 @@ public class AddCartAction implements CommandHandler{
 		}else {
 			request.setCharacterEncoding("utf-8");
 			int memberId = (int) request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY);
-			int productId = Integer.parseInt(request.getParameter("productId"));
+			int productId = Integer.parseInt(request.getParameter("product_id"));
 			int count = dao.checkCart(productId);
 			if(count!=0) {
 				HttpSession session = request.getSession();

@@ -3,12 +3,14 @@ package team.left.shoppingmall.product.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import team.left.shoppingmall.global.DataSourceContainer;
+import team.left.shoppingmall.member.dao.SelectMemberDto;
 import team.left.shoppingmall.product.model.ProductDto;
 import team.left.shoppingmall.product.model.ProductSpecDto;
 
@@ -17,7 +19,7 @@ public class ProductDao {
     
     // 상품 등록
     public void insertProduct(ProductSpecDto product) {
-    	String sql1 = "INSERT INTO product VALUES(PRODUCT_PK_SEQ.NEXTVAL, ?, SYSDATE, ?, ?, ?, ?, null, 'N')";
+    	String sql1 = "INSERT INTO product VALUES(PRODUCT_PK_SEQ.NEXTVAL, ?, SYSDATE, ?, ?, ?, ?, ?, 'N')";
     	String sql2 = "INSERT INTO product_spec VALUES(PRODUCT_PK_SEQ.CURRVAL, ?, ?, ?, ?, ?, ?, ?)";
     	try (
 			Connection con = dataSource.getConnection();
@@ -29,7 +31,7 @@ public class ProductDao {
 			stmt1.setString(3, product.getDescription());
 			stmt1.setInt(4, product.getPrice());
 			stmt1.setInt(5, product.getStock());
-//			stmt1.setString(6, product.getThumbnail());
+			stmt1.setString(6, product.getThumbnail());
 			
 			stmt2.setInt(1, product.getWeight());
 			stmt2.setInt(2, product.getScreenSize());
@@ -51,7 +53,7 @@ public class ProductDao {
     
     // 상품 수정
     public void updateProduct(ProductSpecDto product) {
-    	String sql1 = "UPDATE product SET product_name=?, description=?, price=?, stock=?, thumbnail=null WHERE product_id=?";
+    	String sql1 = "UPDATE product SET product_name=?, description=?, price=?, stock=?, thumbnail=? WHERE product_id=?";
     	String sql2 = "UPDATE product_spec SET weight=?, screen_size=?, refresh_rate=?, display_resolution=?, chipset=?, camera_resolution=?, battery_capacity=? WHERE product_id=?";
     	try (
 			Connection con = dataSource.getConnection();
@@ -62,8 +64,8 @@ public class ProductDao {
     		stmt1.setString(2, product.getDescription());
     		stmt1.setInt(3, product.getPrice());
     		stmt1.setInt(4, product.getStock());
-//			stmt1.setString(5, product.getThumbnail());
-    		stmt1.setInt(5, product.getProductId());
+			stmt1.setString(5, product.getThumbnail());
+    		stmt1.setInt(6, product.getProductId());
     		
     		stmt2.setInt(1, product.getWeight());
     		stmt2.setInt(2, product.getScreenSize());
@@ -178,7 +180,7 @@ public class ProductDao {
 	// 상품 목록 조회
     public List<ProductDto> getProductList() {
         List<ProductDto> productList = new ArrayList<>();
-        String sql = "SELECT * FROM product WHERE is_deleted = 'N'";
+        String sql = "SELECT * FROM product WHERE is_deleted = 'N' ORDER BY reg_date DESC";
         try (
     		Connection con = dataSource.getConnection();
     		PreparedStatement stmt = con.prepareStatement(sql);
@@ -303,4 +305,40 @@ public class ProductDao {
 			throw new RuntimeException(e);
 		}
     } // end setProductStock
+    
+    
+    public SelectMemberDto showMember(int memberId) throws SQLException {
+		
+		Connection conn = null;
+		SelectMemberDto member = new SelectMemberDto();
+
+		try {
+			conn = dataSource.getConnection();
+			String sql = "SELECT * FROM member WHERE member_id = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, memberId);
+			ResultSet result = pstmt.executeQuery();
+			if (result.next()) {
+				member.setEmail(result.getString("email"));
+				member.setPassword(result.getString("password"));
+				member.setMember_name(result.getString("member_name"));
+				member.setProfile_img(result.getString("profile_img"));
+				member.setBirth_date(result.getString("birth_date"));
+				member.setTel(result.getString("tel"));
+				member.setAddress(result.getString("address"));
+				member.setGender(result.getString("gender"));
+				member.setPoint(result.getString("point"));
+				member.setRole(result.getString("role"));
+				member.setCompany(result.getString("company"));
+				member.setAnswer(result.getString("answer"));
+			}
+
+		} catch (SQLException e) {
+			throw new SQLException("유저 찾기 실패 ");
+		} finally {
+			conn.close();
+		}
+		return member;
+		
+	}
 }
