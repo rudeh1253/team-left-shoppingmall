@@ -19,6 +19,8 @@ public class AuthenticationFilter implements Filter {
     
     static {
         Set<CommandRequestInfo> blackList = new HashSet<>();
+        blackList.add(new CommandRequestInfo("/member.do", GET, "profile"));
+        blackList.add(new CommandRequestInfo("/product.do", GET, "add-product"));
         BLACK_LIST = blackList;
     }
 
@@ -30,7 +32,6 @@ public class AuthenticationFilter implements Filter {
     
     private void process(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
-        System.out.println("doFilter=");
         if (request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY) != null
                 || !BLACK_LIST.contains(CommandRequestInfo.from(request))) {
             filterChain.doFilter(request, response);
