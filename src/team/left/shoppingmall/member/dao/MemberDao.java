@@ -173,6 +173,11 @@ public class MemberDao {
         } 
     }
     
+    public String findRoleByMemberId(Integer memberId) {
+        String sql = "SELECT role FROM member WHERE member_id = ?";
+        return (String) JdbcSupport.selectOne(sql, MapUtil.getParamsOf(memberId)).get("role");
+    }
+
     // 멤버 포인트 업데이트하기
     public int updatePointByMemberId(int sellerId, int price) {
     	int rowCount = 0;

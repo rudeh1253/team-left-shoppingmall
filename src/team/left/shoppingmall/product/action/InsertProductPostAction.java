@@ -37,7 +37,7 @@ public class InsertProductPostAction implements CommandHandler {
 		String description = request.getParameter("description");
 		ProductSpecDto product = new ProductSpecDto(1, sellerId, productName, description, price, stock, thumbnail, weight, screenSize, refreshRate, displayResolution, chipset, cameraResolution, batteryCapacity);
 		dao.insertProduct(product);
-		return "redirect:/product.do?command=product";
+		return "redirect:/product.do?command=show-register-list";
 	}
 
 }
