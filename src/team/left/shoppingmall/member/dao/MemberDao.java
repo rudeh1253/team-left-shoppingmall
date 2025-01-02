@@ -168,4 +168,9 @@ public class MemberDao {
             return Optional.empty();
         } 
     }
+    
+    public String findRoleByMemberId(Integer memberId) {
+        String sql = "SELECT role FROM member WHERE member_id = ?";
+        return (String) JdbcSupport.selectOne(sql, MapUtil.getParamsOf(memberId)).get("role");
+    }
 }
