@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@include file="/WEB-INF/views/common/common.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -20,3 +20,8 @@
 	<%@include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>
+
+
+<%
+	//사이드바 @include file="/WEB-INF/views/common/sidebar.jsp"
+%>
