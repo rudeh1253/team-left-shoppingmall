@@ -237,4 +237,47 @@ public class ProductDao {
 		}
         return productList;
     } // end getProductsBySellerId
+    
+    // 상품아이디로 재고수 조회
+    public int getProductStock(int productId) {
+    	String sql = "SELECT stock FROM product WHERE product_id=? AND is_deleted = 'N'";
+    	try (
+			Connection con = dataSource.getConnection();
+	    	PreparedStatement stmt = con.prepareStatement(sql);
+    	) {
+    		stmt.setInt(1, productId);
+    		try (
+				ResultSet rs = stmt.executeQuery();    				
+    		) {
+    			if (rs.next()) {
+    				int count = rs.getInt("stock");
+    				return count;
+    			} else {
+    				throw new RuntimeException("행이 조회되지 않았습니다.");
+    			}
+    		}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+    } // end getProductStock
+    
+    // 상품 재고수 수정
+    public void setProductStock(int productId, int chageStock) {
+    	int stock = getProductStock(productId);
+    	stock -= chageStock;
+    	String sql = "UPDATE product SET stock=? WHERE product_id=?";
+    	try (
+			Connection con = dataSource.getConnection();
+	    	PreparedStatement stmt = con.prepareStatement(sql);
+    	) {
+    		stmt.setInt(1, stock);
+    		stmt.setInt(2, productId);
+    		int count = stmt.executeUpdate();
+    		if (count <= 0) {
+    			throw new RuntimeException("행이 수정되지 않았습니다.");
+    		}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+    } // end setProductStock
 }
