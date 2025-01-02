@@ -8,10 +8,9 @@
 <script>
 //메뉴 토글
 function toggleMenu(menuId) {
-    // 모든 메뉴 닫기
     const menus = document.querySelectorAll('.menu');
     menus.forEach(menu => {
-        if (menu.id !== menuId) {  // 현재 클릭한 메뉴를 제외한 나머지 메뉴는 숨김
+        if (menu.id !== menuId) { 
             menu.classList.add('hidden');
         }
     });
@@ -19,23 +18,7 @@ function toggleMenu(menuId) {
     // 클릭된 메뉴 가져오기
     const currentMenu = document.getElementById(menuId);
     if (currentMenu) {
-        // currentMenu가 숨겨져 있지 않으면 숨기고, 숨겨져 있으면 열기
         currentMenu.classList.toggle('hidden');
-    }
-}
-
-
-// 수정하기
-function editItem(index) {
-    alert(`수정하기: ${index}`);
-    // 수정 로직 추가
-}
-
-// 삭제하기
-function deleteItem(index) {
-    if (confirm('정말 삭제하시겠습니까?')) {
-        alert(`삭제하기: ${index}`);
-        // 삭제 로직 추가
     }
 }
 
@@ -138,7 +121,7 @@ function deleteItem(index) {
 											href="/purchase.do?id=${product.productId}"
 											class="text-decoration-none active bg-primary rounded text-light">수정하기</a>
 											<hr style="margin: 5px"> <a
-											href="/delete.do?id=${product.productId}"
+											href="/product.do?command=delete-product&productId=${product.productId}"
 											class="text-decoration-none active bg-danger rounded text-light">삭제하기</a></td>
 									</tr>
 								</c:forEach>
