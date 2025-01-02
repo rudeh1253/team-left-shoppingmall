@@ -15,7 +15,7 @@
 			<div class="outer-box" style="padding: 0px; width: 52vw">
                 <div class="container">
                     <div class="row justify-content-between mt-5 align-items-center">
-                        <div class="col fs-1">${title}</div>
+                        <div class="col fs-1 fw-bolder">${title}</div>
                     </div>
                     <table class="table table-hover text-center mt-3 align-middle">
                         <thead class="table-light">

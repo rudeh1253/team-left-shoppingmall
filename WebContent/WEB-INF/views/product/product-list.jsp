@@ -93,7 +93,7 @@ function deleteItem(index) {
 				<div class="container">
 					<div class="container" style="min-height: 50vh">
 						<div class="row justify-content-between mt-5 align-items-center">
-							<div class="col fs-1">상품 목록</div>
+							<div class="col fs-1 fw-bolder">상품 목록</div>
 							<c:if test="${sessionScope.member ne null }">
 								<div class="col text-end">
 									<button type="button" class="btn btn-primary"

@@ -18,7 +18,7 @@
 		<div class="d-flex justify-content-center"
 			style="flex: 1; padding: 1rem; overflow: auto; margin: 50px 0 100px 0">
 			<div class="outer-box" style="padding: 0px; width: 600px">
-				<div class="page-title" style="padding: 20px">계정 보기</div>
+				<div class="page-title fw-bolder" style="padding: 20px">계정 보기</div>
 				<form class="form-box" id="sign-up-form">
 					<div class="input-box">
 						<label for="">프로필 사진</label>
