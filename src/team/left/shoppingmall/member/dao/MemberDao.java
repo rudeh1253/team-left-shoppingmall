@@ -1,5 +1,7 @@
 package team.left.shoppingmall.member.dao;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -62,20 +64,31 @@ public class MemberDao {
     }
     
     public void updateMember(Integer memberId, MemberEditDto dto) {
+        System.out.println("dto=" + dto);
         String sql = "UPDATE member "
                 + "SET member_name = ?, "
-                + "    email = ?, "
                 + "    address = ?, "
                 + "    birth_date = ?, "
-                + "    tel = ? "
+                + "    tel = ?, "
                 + "    gender = ?, "
+                + "    company = ?, "
+                + "    role = ?, "
+                + "    answer = ?, "
+                + "    profile_img = ? "
                 + "WHERE member_id = ?";
         
-        JdbcSupport.update(sql, MapUtil.of(
-                new Integer[] { 1, 2, 3, 4, 5, 6, 7 },
-                new Object[] { dto.getMemberName(), dto.getEmail(), dto.getAddress(),
-                        dto.getBirthDate(), dto.getTel(), dto.getGender(), memberId }
-        ));
+        JdbcSupport.update(sql, MapUtil.getParamsOf(new Object[] {
+                dto.getMemberName(),
+                dto.getAddress(),
+                dto.getBirthDate(),
+                dto.getTel(),
+                dto.getGender(),
+                dto.getCompany(),
+                dto.getRole(),
+                dto.getAnswer(),
+                dto.getProfileImg(),
+                memberId
+        }));
     }
     
     public boolean existsByMemberIdAndPassword(Integer memberId, String password) {
@@ -94,5 +107,45 @@ public class MemberDao {
                 + "WHERE member_id = ?";
         
         JdbcSupport.update(sql, MapUtil.getParamsOf(memberId));
+    }
+    
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    
+    public Optional<EditMemberFormDataDto> findEditMemberFormDataById(Integer memberId) {
+        String sql = "SELECT "
+                + "    member_id, "
+                + "    email, "
+                + "    member_name, "
+                + "    profile_img, "
+                + "    TO_CHAR(birth_date, 'yyyy-MM-dd') AS birth_date, "
+                + "    tel, "
+                + "    address, "
+                + "    gender, "
+                + "    role, "
+                + "    company, "
+                + "    answer "
+                + "FROM member "
+                + "WHERE member_id = ? "
+                + "    AND is_deleted = 'N'";
+        
+        try {
+            Map<String, Object> result = JdbcSupport.selectOne(sql, MapUtil.of(1, memberId));
+            EditMemberFormDataDto resultDto = EditMemberFormDataDto.builder()
+                    .memberId((Integer) result.get("member_id"))
+                    .email((String) result.get("email"))
+                    .memberName((String) result.get("member_name"))
+                    .profileImg((String) result.get("profile_img"))
+                    .tel((String) result.get("tel"))
+                    .address((String) result.get("address"))
+                    .birthDate(LocalDate.parse((CharSequence) result.get("birth_date"), formatter))
+                    .gender((String) result.get("gender"))
+                    .role((String) result.get("role"))
+                    .company((String) result.get("company"))
+                    .answer((String) result.get("answer"))
+                    .build();
+            return Optional.of(resultDto);
+        } catch (NoSuchElementException e) {
+            return Optional.empty();
+        }
     }
 }
