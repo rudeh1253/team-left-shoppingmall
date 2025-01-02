@@ -6,28 +6,28 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인</title>
-<link rel="stylesheet" href="/resources/css/member/login.css">
+<link rel="stylesheet" href="/resources/css/member/login-find-id-pw.css">
 
 <script src="/resources/js/member/login/login.js"></script>
 </head>
 <body>
-	<div class="outer-box">
-		<form action="/member.do?command=login" method="POST" id="login-form">
-			<div class="login-form-box">
-				<div class="form-input-box-set">
-					<div class="form-input-box">
-						<input type="email" class="form-control form-input" id="email-input" name="email" placeholder="이메일">
-					</div>
-					<div class="form-input-box">
-						<input type="password" class="form-control form-input" id="password-input" name="password" placeholder="패스워드">
-					</div>
-				</div>
-				<div>
-					<button class="login-button" type="button" id="login-btn">로그인</button>
-				</div>
-			</div>
-		</form>
-		<div class="navigation-box">
+	<%@include file="/WEB-INF/views/common/header.jsp"%>
+	<div class="container">
+	    <div class="login-container mt-5">
+	      <form action="/member.do?command=login" method="POST">
+		      <fieldset>
+		      	<legend class="text-center mb-4" style="font-size: 24px;">로그인</legend>
+		      	<div class="mb-3">
+		          <input type="email" class="form-control" name="email" placeholder="이메일을 입력하세요">
+		        </div>
+		        <div class="mb-3">
+		          <input type="password" class="form-control" name="password" placeholder="비밀번호를 입력하세요">
+		        </div>
+		        <button type="button" id="login-btn" class="btn btn-custom w-100">로그인</button>
+	      	</fieldset>
+	      </form>
+	    </div>
+	    <div class="navigation-box mb-5">
 			<div>
 				<a href="/member.do?command=insert-member">회원가입</a>
 			</div>
@@ -40,6 +40,7 @@
 				<a href="/member.do?command=find-password">비밀번호 찾기</a>
 			</div>
 		</div>
-	</div>
+  </div>
+  <%@include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>
