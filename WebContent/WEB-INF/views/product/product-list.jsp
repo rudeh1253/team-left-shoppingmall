@@ -7,6 +7,7 @@
 <title>상품 목록</title>
 </head>
 <body>
+
 	<%@include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="container" style="min-height: 76vh">
 		<div class="row justify-content-between mt-5 align-items-center">
@@ -46,6 +47,7 @@
 		<nav aria-label="Page navigation example"
 			class="d-flex justify-content-center">
 			<ul class="pagination">
+
 				<li class="page-item"><a class="page-link"
 					href="/product.do?command=<%= request.getParameter("command") %>&page=1"
 					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
