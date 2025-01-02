@@ -8,7 +8,7 @@
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp"%>
-	<div class="container">
+	<div class="container" style="min-height: 76vh">
         <div class="row row-cols-1 row-cols-md-4 g-4 my-4 w-75 mx-auto">
         	<c:forEach var="product" items="${productList }">
 	            <div class="col">

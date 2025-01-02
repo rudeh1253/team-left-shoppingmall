@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@include file="/WEB-INF/views/common/common.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -9,7 +9,7 @@
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp"%>
 	
-	<div class="container d-flex flex-column align-items-center justify-content-center" style="height: 60vh;">
+	<div class="container d-flex flex-column align-items-center justify-content-center" style="min-height: 76vh">
 	    <div class="p-5 text-center">
 	        <h1 class="mb-3">갤럭시와 애플, 당신이 원하는 스마트폰을 한곳에서!</h1>
 	        <p class="mb-4 text-muted">최신 갤럭시와 아이폰을 비교하고, 최고의 가격으로 만나보세요.</p>
