@@ -7,12 +7,6 @@
 <title>마이페이지</title>
 <link rel="stylesheet" href="/resources/css/member/member-form.css">
 
-<script src="/resources/js/member/member-form/birth-date-input.js"></script>
-<script src="/resources/js/member/member-form/validation.js"></script>
-<script src="/resources/js/member/member-form/submit.js"></script>
-<script src="/resources/js/member/member-form/form-event.js"></script>
-<script src="/resources/js/member/member-form/member-form.js"></script>
-
 </head>
 <body style="height: 100%; margin: 0; display: flex; flex-direction: column;">
 	<% //@include file="/WEB-INF/views/common/header.jsp"%>
@@ -72,7 +66,7 @@
 							style="font-size: 12px">* 수정 가능</label></label> <span
 							class="form-control form-input">${empty member.answer ? 'NULL' : member.answer}</span>
 					</div>
-					<button style="" type="button" id="submit-button">수정하기</button>
+					<button style="" type="button" id="submit-button" onClick="location.href = '/member.do?command=edit-member'">수정하기</button>
 					<%@include file="/WEB-INF/views/common/footer.jsp"%>
 				</form>
 			</div>
