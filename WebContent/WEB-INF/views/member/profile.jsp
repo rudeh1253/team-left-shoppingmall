@@ -29,17 +29,8 @@
 								accept=".jpg,.png,.jpeg,.gif,.webp,.bmp">
 						</div>
 					</div>
-					<div class="input-box">
-						<label for="">이메일 <label style="font-size: 12px">*수정
-								가능</label></label>
-						<div class="horizontal-input-set">
-							<span class="form-control form-input">${empty member.email ? 'NULL' : member.email}</span>
-						</div>
-					</div>
-					<div class="input-box">
-						<label for="">비밀번호<label style="font-size: 12px">*수정
-								가능</label></label> <span class="form-control form-input">${empty member.password ? 'NULL' : member.password}</span>
-					</div>
+
+
 					<div class="input-box">
 						<label for="">이름</label> <span class="form-control form-input">${empty member.member_name ? 'NULL' : member.member_name}</span>
 					</div>
@@ -48,21 +39,12 @@
 								가능</label></label> <span class="form-control form-input">${empty member.tel ? 'NULL' : member.tel}</span>
 
 					</div>
-					<div class="input-box">
-						<label for="">주소<label style="font-size: 12px">*수정
-								가능</label></label> <span class="form-control form-input">${empty member.address ? 'NULL' : member.address}</span>
-					</div>
+
 					<div class="input-box">
 						<label for="">포인트</label> <span class="form-control form-input">${empty member.point ? 'NULL' : member.point}</span>
 					</div>
-					<div class="input-box">
-						<label for="">생년월일<label style="font-size: 12px">*수정
-								가능</label></label> <span class="form-control form-input">${empty member.birth_date ? 'NULL' : member.birth_date}</span>
-					</div>
-					<div class="input-box">
-						<label>성별<label style="font-size: 12px">* 수정 가능</label></label> <span
-							class="form-control form-input">${empty member.gender ? 'NULL' : member.gender}</span>
-					</div>
+
+
 					<div class="input-box" id="role-input-box">
 						<label>역할<label style="font-size: 12px">* 수정 가능</label></label> <span
 							class="form-control form-input">${empty member.role ? 'NULL' : member.role}</span>
@@ -71,14 +53,12 @@
 						<label for="">회사<label style="font-size: 12px">*수정
 								가능</label></label> <span class="form-control form-input">${empty member.company ? "NULL" : member.company}</span>
 					</div>
-					<div class="input-box">
-						<label for="">비밀번호 찾기 질문: 고향이 어디세요<label
-							style="font-size: 12px">* 수정 가능</label></label> <span
-							class="form-control form-input">${empty member.answer ? 'NULL' : member.answer}</span>
-					</div>
+
+					<c:if test="${ userid == sessionid }">
 					<button
 						onclick="window.location.href='/member.do?command=edit-member'"
 						style="" type="button" id="submit-button">수정하기</button>
+					</c:if>
 					<%@include file="/WEB-INF/views/common/footer.jsp"%>
 				</form>
 			</div>
