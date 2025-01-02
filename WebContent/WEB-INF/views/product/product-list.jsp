@@ -5,12 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>상품 목록</title>
-<style>
-	table td, table th {
-	    text-align: center; /* 가로 중앙 정렬 */
-	    vertical-align: middle; /* 세로 중앙 정렬 */
-	}
-</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
