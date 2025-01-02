@@ -11,21 +11,28 @@ import team.left.framework.web.CommandHandler;
 import team.left.shoppingmall.global.PaginationTool;
 import team.left.shoppingmall.product.dao.ProductDao;
 import team.left.shoppingmall.product.model.ProductDto;
-import team.left.shoppingmall.purchase.model.ReceiptDto;
 
-public class ShowProductListGetAction implements CommandHandler {
+public class SearchProductListGetAction implements CommandHandler{
+	
+	private ProductDao dao;
 
-    private ProductDao dao;
-
-    public ShowProductListGetAction() {
+    public SearchProductListGetAction() {
         this.dao = new ProductDao();
     }
 
-    @Override
-    public String handleCommand(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    	
-        List<ProductDto> productList = dao.getProductList();
+
+	@Override
+	public String handleCommand(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		String productName = request.getParameter("keyword");
+		List<ProductDto> productList = null;
+		
+		if(productName == null) {
+			productList = dao.getProductList();
+		}else {
+			productList = dao.getProductsByName(productName);
+		}
         
         int pageCount = productList.size() / 7;
 		if(productList.size() % 7 != 0) pageCount++;
@@ -40,5 +47,6 @@ public class ShowProductListGetAction implements CommandHandler {
 		request.setAttribute("page", page);
 
         return "product/product-list";
-    }
+	}
+
 }
