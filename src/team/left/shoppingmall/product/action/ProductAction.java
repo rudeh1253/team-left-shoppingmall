@@ -7,23 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import team.left.framework.web.CommandHandler;
-import team.left.shoppingmall.product.dao.ProductDao;
-import team.left.shoppingmall.product.model.ProductDto;
 
-public class DeleteProductGetAction implements CommandHandler {
-	
-	private ProductDao dao;
-
-    public DeleteProductGetAction() {
-        this.dao = new ProductDao();
-    }
+public class ProductAction implements CommandHandler {
 
 	@Override
 	public String handleCommand(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int productId = Integer.parseInt(request.getParameter("productId"));
-		request.setAttribute("productId", productId);
-		dao.deleteProduct(productId);
+		// TODO Auto-generated method stub
 		return "product/productResult";
 	}
 
