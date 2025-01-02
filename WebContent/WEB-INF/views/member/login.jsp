@@ -23,7 +23,7 @@
 		        <div class="mb-3">
 		          <input type="password" class="form-control" name="password" placeholder="비밀번호를 입력하세요">
 		        </div>
-		        <button type="submit" class="btn btn-custom w-100">로그인</button>
+		        <button type="button" id="login-btn" class="btn btn-custom w-100">로그인</button>
 	      	</fieldset>
 	      </form>
 	    </div>
