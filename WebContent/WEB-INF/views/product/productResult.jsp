@@ -6,6 +6,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-컽
+	컽
 </body>
 </html>

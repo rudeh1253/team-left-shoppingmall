@@ -9,6 +9,10 @@
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="container">
+<<<<<<< HEAD
+		<table class="table table-hover  text-center align-middle">
+			<thead>
+=======
 		<div class="row justify-content-between mt-5 align-items-center">
 			<div class="col fs-1">상품 목록</div>
 			<div class="col text-end">
@@ -17,6 +21,7 @@
 		</div>
 		<table class="table table-hover text-center mt-3 align-middle">
 			<thead class="table-light">
+>>>>>>> c9f68148df082c66ed26c0152db7c04b6099a6a2
 				<tr>
 					<th scope="col">이미지</th>
 					<th scope="col">상품명</th>
