@@ -148,4 +148,24 @@ public class MemberDao {
             return Optional.empty();
         }
     }
+    
+    public Optional<String> findEmailByMemberNameAndTel(String name, String tel) {
+        String sql = "SELECT email FROM member WHERE member_name = ? AND tel = ?";
+        
+        try {
+            return Optional.of((String) JdbcSupport.selectOne(sql, MapUtil.getParamsOf(name, tel)).get("email"));
+        } catch (NoSuchElementException e) {
+            return Optional.empty();
+        }
+    }
+    
+    public Optional<String> findPasswordByEmailAndTel(String email, String tel) {
+        String sql = "SELECT password FROM member WHERE email = ? AND tel = ?";
+
+        try {
+            return Optional.of((String) JdbcSupport.selectOne(sql, MapUtil.getParamsOf(email, tel)).get("password"));
+        } catch (NoSuchElementException e) {
+            return Optional.empty();
+        } 
+    }
 }

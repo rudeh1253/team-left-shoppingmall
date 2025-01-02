@@ -26,8 +26,7 @@ public class InsertProductPostAction implements CommandHandler {
 		String productName = request.getParameter("productName");
 		int price = Integer.parseInt(request.getParameter("price"));
 		int stock = Integer.parseInt(request.getParameter("stock"));
-//		String thumbnail = request.getParameter("thumbnail");
-		String thumbnail = "1";
+		String thumbnail = request.getParameter("thumbnail");
 		int weight = Integer.parseInt(request.getParameter("weight"));
 		int screenSize = Integer.parseInt(request.getParameter("screenSize"));
 		String refreshRate = request.getParameter("refreshRate");

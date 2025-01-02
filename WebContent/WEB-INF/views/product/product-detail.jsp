@@ -72,18 +72,28 @@
     String formattedDate = today.toString(); // yyyy-MM-dd 형식
 %>
 <%@include file="/WEB-INF/views/common/header.jsp"%>
+<<<<<<< HEAD
 </div>
 <h1 class="text-center">상품 상세 정보</h1>
+=======
+<form action="/cart.do?command=add-cart" method="POST">
+<h1>제품 상세 정보</h1>
+>>>>>>> branch 'main' of https://github.com/rudeh1253/team-left-shoppingmall.git
 <div class="product-detail-container">
     <div class="thumbnail">
+<<<<<<< HEAD
         <img src="/resources/images/default-product-image.png" data-filename="default-product-image.png" alt="상품 이미지"/>
         </br></br><p><strong>가격:</strong>&nbsp${product.price}원</p>
+=======
+        <img src="${product.thumbnail}" />
+>>>>>>> branch 'main' of https://github.com/rudeh1253/team-left-shoppingmall.git
     </div>
     <div class="product-info">
         <p><strong>상품명:</strong>&nbsp${product.productName}</p>
         <p><strong>seller id:</strong>&nbsp${product.sellerId}</p>
         <dl><strong>설명:</strong>&nbsp${product.description}</dl>
     </div>
+<<<<<<< HEAD
     <div class="product-info">
     	<p><strong>화면 크기(inch):</strong>&nbsp${product.screenSize}</p>
         <p><strong>주사율:</strong>&nbsp${product.refreshRate}</p>
@@ -101,7 +111,12 @@
     	</form>
 		</div>
 </div>
+=======
+    <input type="hidden" name="productId" value="${product.productId}" />
+    <input type="submit"  value="장바구니 담기">
+>>>>>>> branch 'main' of https://github.com/rudeh1253/team-left-shoppingmall.git
 </div>
+</form>
 <!--
 <form action="cart.do?command=add-cart" method="post">
 	member id: <input type="number" name="member_id"><br>

@@ -13,6 +13,8 @@ import team.left.framework.web.CommandHandler;
 import team.left.shoppingmall.cart.dao.CartDao;
 import team.left.shoppingmall.cart.dao.CartDto;
 import team.left.shoppingmall.cart.dao.CartProductDto;
+import team.left.shoppingmall.global.CommonConstants;
+import team.left.shoppingmall.product.model.ProductSpecDto;
 
 public class AddCartAction implements CommandHandler{
 
@@ -27,12 +29,17 @@ public class AddCartAction implements CommandHandler{
 			return "product/product-detail";
 		}else {
 			request.setCharacterEncoding("utf-8");
-			int member_id = Integer.parseInt(request.getParameter("member_id"));
-			int product_id = Integer.parseInt(request.getParameter("product_id"));
-			int amount = Integer.parseInt(request.getParameter("amount"));
-			CartDto cart = new CartDto(member_id, product_id, amount);
+			int memberId = (int) request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY);
+			int productId = Integer.parseInt(request.getParameter("productId"));
+			int count = dao.checkCart(productId);
+			if(count!=0) {
+				HttpSession session = request.getSession();
+			    session.setAttribute("alertMessage", "이미 장바구니에 담긴 상품입니다.");
+			    return "redirect:/cart.do?command=show-cart";
+			}
+			int amount = 1;
+			CartDto cart = new CartDto(memberId, productId, amount);
 			dao.addCart(cart);
-		    int productId = Integer.parseInt(request.getParameter("productId"));
 		    int updatedAmount = 0;
 
 		    response.setContentType("application/json");
