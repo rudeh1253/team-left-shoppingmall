@@ -5,9 +5,10 @@
 	<div class="container">
 		<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
 			<a href="/" class="d-flex align-items-center fs-24 mb-2 mb-lg-0 link-body-emphasis text-decoration-none">Team Left</a>
-			<form action="product.do?command=search-product" method="POST" class="col-6 mb-2 mb-md-0 form-control-lg d-flex gap-2 flex-row" role="search">
-				<input type="search" class="form-control col-8" placeholder="상품 관련 검색어를 입력하세요!" name="keyword">
-				<input type="submit" class="form-control" value="검색" />
+			
+			<form action="product.do?command=search-product" method="POST" class="col-8 mb-md-0 form-control-lg d-flex gap-2 flex-row">
+			  <input type="text" class="form-control" name="keyword" placeholder="상품 이름을 검색하세요!" />
+			  <input type="submit" class="btn btn-outline-secondary" value="검색" />
 			</form>
 			<c:if test="${sessionScope.member eq null }">
 				<div class="d-flex gap-3">
