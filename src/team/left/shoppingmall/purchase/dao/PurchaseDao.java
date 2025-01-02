@@ -91,9 +91,11 @@ public class PurchaseDao {
 			pstmt.setInt(1, userid);
 			
 			ResultSet result = pstmt.executeQuery();
+			
 			while(result.next()) {
 				ReceiptDto dto = new ReceiptDto(
 					result.getString("thumbnail"),
+					
 					result.getString("product_name"),
 					result.getInt("price"),
 					result.getInt("amount"),
@@ -101,7 +103,9 @@ public class PurchaseDao {
 					convertState(result.getString("state"))
 				);
 				list.add(dto);
-			}	
+				System.out.println(dto.toString());
+			}
+			System.out.println(list);
 		}catch(SQLException e) {
 			throw new RuntimeException(e);
 		}finally {
