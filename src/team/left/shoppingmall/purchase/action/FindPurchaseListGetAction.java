@@ -25,14 +25,18 @@ public class FindPurchaseListGetAction implements CommandHandler{
 			throws ServletException, IOException {
 		
 		String command = request.getParameter("command");
-		int memberId = (Integer)request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY);
+		String userid = request.getParameter("userid");
+		
+		if(userid == null) {
+			 userid = (String) request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY);
+		}
 		List<ReceiptDto> receiptList = null;
 		
 		if("purchase".equals(command)) {
-			receiptList = purchaseDao.getPurchaseReceipt(memberId);
+			receiptList = purchaseDao.getPurchaseReceipt(Integer.parseInt(userid));
 			request.setAttribute("title", "구매내역");
 		}else {
-			receiptList = purchaseDao.getSellReceipt(memberId);
+			receiptList = purchaseDao.getSellReceipt(Integer.parseInt(userid));
 			request.setAttribute("title", "판매내역");
 		}
 		int pageCount = receiptList.size() / 7;
@@ -46,6 +50,7 @@ public class FindPurchaseListGetAction implements CommandHandler{
 		List<ReceiptDto> paginatedList = PaginationTool.getPaginatedList(receiptList, 7, page);
 		request.setAttribute("receiptList", paginatedList);
 		request.setAttribute("page", page);
+		request.setAttribute("userid", userid);
 		return "purchase/purchase-list";
 	}
 
