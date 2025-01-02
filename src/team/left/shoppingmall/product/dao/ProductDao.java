@@ -1,10 +1,8 @@
 package team.left.shoppingmall.product.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,20 +16,32 @@ public class ProductDao {
     private static DataSource dataSource = DataSourceContainer.getDataSource();
     
     // 상품 등록
-    public void insertProduct(ProductDto product) {
-    	String sql = "INSERT INTO product VALUES(PRODUCT_PK_SEQ.NEXTVAL, ?, SYSDATE, ?, ?, ?, ?, null, 'N')";
+    public void insertProduct(ProductSpecDto product) {
+    	String sql1 = "INSERT INTO product VALUES(PRODUCT_PK_SEQ.NEXTVAL, ?, SYSDATE, ?, ?, ?, ?, null, 'N')";
+    	String sql2 = "INSERT INTO product_spec VALUES(PRODUCT_PK_SEQ.CURRVAL, ?, ?, ?, ?, ?, ?, ?)";
     	try (
 			Connection con = dataSource.getConnection();
-	    	PreparedStatement stmt = con.prepareStatement(sql);
+	    	PreparedStatement stmt1 = con.prepareStatement(sql1);
+			PreparedStatement stmt2 = con.prepareStatement(sql2);
     	) {
-			stmt.setInt(1, product.getSellerId());
-			stmt.setString(2, product.getProductName());
-			stmt.setString(3, product.getDescription());
-			stmt.setInt(4, product.getPrice());
-			stmt.setInt(5, product.getStock());
-//			stmt.setString(6, product.getThumbnail());
-			int count = stmt.executeUpdate();
-			if (count <= 0) {
+			stmt1.setInt(1, product.getSellerId());
+			stmt1.setString(2, product.getProductName());
+			stmt1.setString(3, product.getDescription());
+			stmt1.setInt(4, product.getPrice());
+			stmt1.setInt(5, product.getStock());
+//			stmt1.setString(6, product.getThumbnail());
+			
+			stmt2.setInt(1, product.getWeight());
+			stmt2.setInt(2, product.getScreenSize());
+			stmt2.setString(3, product.getRefreshRate());
+			stmt2.setString(4, product.getDisplayResolution());
+			stmt2.setString(5, product.getChipset());
+			stmt2.setString(6, product.getCameraResolution());
+			stmt2.setInt(7, product.getBatteryCapacity());
+			
+			int count1 = stmt1.executeUpdate();
+			int count2 = stmt2.executeUpdate();
+			if (count1 <= 0 || count2 <= 0) {
 				throw new RuntimeException("행이 삽입되지 않았습니다.");
 			}
 		} catch (Exception e) {
@@ -40,20 +50,33 @@ public class ProductDao {
     } // end insertProduct
     
     // 상품 수정
-    public void updateProduct(ProductDto product) {
-    	String sql = "UPDATE product SET product_name=?, description=?, price=?, stock=?, thumbnail=null WHERE product_id=?";
+    public void updateProduct(ProductSpecDto product) {
+    	String sql1 = "UPDATE product SET product_name=?, description=?, price=?, stock=?, thumbnail=null WHERE product_id=?";
+    	String sql2 = "UPDATE product_spec SET weight=?, screen_size=?, refresh_rate=?, display_resolution=?, chipset=?, camera_resolution=?, battery_capacity=? WHERE product_id=?";
     	try (
 			Connection con = dataSource.getConnection();
-	    	PreparedStatement stmt = con.prepareStatement(sql);
+	    	PreparedStatement stmt1 = con.prepareStatement(sql1);
+			PreparedStatement stmt2 = con.prepareStatement(sql2);
     	) {
-    		stmt.setString(1, product.getProductName());
-    		stmt.setString(2, product.getDescription());
-    		stmt.setInt(3, product.getPrice());
-    		stmt.setInt(4, product.getStock());
-//			stmt.setString(5, product.getThumbnail());
-    		stmt.setInt(5, product.getProductId());
-    		int count = stmt.executeUpdate();
-    		if (count <= 0) {
+    		stmt1.setString(1, product.getProductName());
+    		stmt1.setString(2, product.getDescription());
+    		stmt1.setInt(3, product.getPrice());
+    		stmt1.setInt(4, product.getStock());
+//			stmt1.setString(5, product.getThumbnail());
+    		stmt1.setInt(5, product.getProductId());
+    		
+    		stmt2.setInt(1, product.getWeight());
+    		stmt2.setInt(2, product.getScreenSize());
+    		stmt2.setString(3, product.getRefreshRate());
+    		stmt2.setString(4, product.getDisplayResolution());
+    		stmt2.setString(5, product.getChipset());
+    		stmt2.setString(6, product.getCameraResolution());
+    		stmt2.setInt(7, product.getBatteryCapacity());
+    		stmt2.setInt(8, product.getProductId());
+    		
+    		int count1 = stmt1.executeUpdate();
+    		int count2 = stmt2.executeUpdate();
+    		if (count1 <= 0 || count2 <= 0) {
     			throw new RuntimeException("행이 수정되지 않았습니다.");
     		}
 		} catch (Exception e) {
