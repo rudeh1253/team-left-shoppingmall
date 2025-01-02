@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>삭제 실패</title>
 </head>
 <body>
 	<h1>삭제 실패</h1>

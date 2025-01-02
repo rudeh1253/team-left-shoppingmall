@@ -25,8 +25,8 @@ public class ShowProductListGetAction implements CommandHandler {
     public String handleCommand(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     	
-        List<ProductDto> productList = dao.getProductList();
         int userid = Integer.parseInt(request.getParameter("userid"));
+        List<ProductDto> productList = dao.getProductList(userid);
         
         int pageCount = productList.size() / 7;
 		if(productList.size() % 7 != 0) pageCount++;

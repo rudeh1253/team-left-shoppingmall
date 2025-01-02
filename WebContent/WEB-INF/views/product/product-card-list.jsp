@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>카드리스트</title>
+<title>Team Left 쇼핑몰</title>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp"%>
