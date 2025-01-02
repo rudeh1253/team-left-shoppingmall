@@ -13,6 +13,7 @@ public class InsertMemberGetAction implements CommandHandler {
     @Override
     public String handleCommand(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setAttribute("command", "insert-member");
         return "member/member-form";
     }
 }

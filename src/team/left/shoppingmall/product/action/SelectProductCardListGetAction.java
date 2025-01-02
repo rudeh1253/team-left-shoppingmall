@@ -26,15 +26,15 @@ public class SelectProductCardListGetAction implements CommandHandler {
 
 		List<ProductDto> productList = dao.getProductList();
 
-		int pageCount = productList.size() / 9;
-		if (productList.size() % 9 != 0) pageCount++;
+		int pageCount = productList.size() / 12;
+		if (productList.size() % 12 != 0) pageCount++;
 		request.setAttribute("pageCount", pageCount);
 
 		int page = 1;
 		String pageStr = request.getParameter("page");
 		if (pageStr != null) page = Integer.parseInt(pageStr);
 
-		List<ProductDto> paginatedList = PaginationTool.getPaginatedList(productList, 9, page);
+		List<ProductDto> paginatedList = PaginationTool.getPaginatedList(productList, 12, page);
 		request.setAttribute("productList", paginatedList);
 		request.setAttribute("page", page);
 

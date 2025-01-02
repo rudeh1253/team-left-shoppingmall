@@ -1,13 +1,25 @@
 function birthDateInit() {
     const today = new Date();
 
-    const year = today.getFullYear();
-    const month = today.getMonth() + 1;
-    const dayOfMonth = today.getDate();
+    const yearSelect = $("#year-select");
+    const monthSelect = $("#month-select");
+    const dayOfMonthSelect = $("#day-of-month-select");
+
+    const yearData = yearSelect.data("year");
+    const monthData = monthSelect.data("month");
+    const dayOfMonthData = dayOfMonthSelect.data("day-of-month");
+
+    const year = yearData && yearData !== "" ? parseInt(yearData) : today.getFullYear();
+    const month = monthData && monthData !== "" ? parseInt(monthData) : today.getMonth() + 1;
+    const dayOfMonth = dayOfMonthData && dayOfMonthData ? parseInt(dayOfMonthData) : today.getDate();
+
+    console.log("year=" + year);
+    console.log("month=" + month);
+    console.log("dayOfMonth=" + dayOfMonth);
 
     fillBirthDateSelectionInput(year, month, dayOfMonth);
 
-    $("#year-select").on("change", (e) => {
+    yearSelect.on("change", (e) => {
         const selectedYear = parseInt(e.target.value);
         console.log(e.target.value);
         const selectedMonth = parseInt($("#month-select option:selected").val());
@@ -17,7 +29,7 @@ function birthDateInit() {
         fillBirthDateSelectionInput(selectedYear, selectedMonth, 1);
     });
 
-    $("#month-select").on("change", (e) => {
+    monthSelect.on("change", (e) => {
         const selectedMonth = parseInt(e.target.value);
         const selectedYear = parseInt($("#year-select option:selected").val());
 

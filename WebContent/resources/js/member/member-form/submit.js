@@ -1,14 +1,20 @@
 function initSubmit() {
-    $("#submit-button").on("click", () => {
-        if (validate()) {
-            uploadFile(submit);
+    $("#submit-button").on("click", (e) => {
+        const isEdit = $(e.target).data("is-edit") === true;
+        console.log("isEdit=" + isEdit);
+        if (validate(isEdit)) {
+            uploadFile(submit, isEdit);
         }
     });
 }
 
-function validate() {
+function validate(isEdit) {
     let isAllValid = true;
     for (const item of elementSelectorToValidationCallback) {
+        if (isEdit && (item.id === "password" || item.id === "passwordCheck")) {
+            console.log("item.id=" + item.id);
+            continue;
+        }
         const isValid = item.func();
         const targetElem = $(item.input);
         if (isValid) {
@@ -25,10 +31,10 @@ function validate() {
     return isAllValid;
 }
 
-function uploadFile(callback) {
+function uploadFile(callback, isEdit) {
     const filename = $("#profile-image").data("filename");
     console.log("filename=" + filename);
-    if (filename !== "default-profile-image.png") {
+    if (filename !== "default-profile-image.png" && hasChangedAndIsEdit(isEdit)) {
         const file = $("#profile-image-file-select")[0].files[0];
         $.ajax({
             url: `/file.do?command=upload-file&filename=${filename}`,
@@ -40,7 +46,7 @@ function uploadFile(callback) {
             processData: false,
             success: (data) => {
                 console.log(data);
-                callback();
+                callback(isEdit);
             },
             error: (jqXHR, status, errorThrown) => {
                 console.error(jqXHR);
@@ -49,15 +55,18 @@ function uploadFile(callback) {
             }
         });
     } else {
-        callback();
+        callback(isEdit);
     }
 }
 
-function submit() {
+function hasChangedAndIsEdit(isEdit) {
+    const hasChanged = $("#profile-image").data("has-changed") === true;
+    return isEdit && hasChanged || !isEdit;
+}
+
+function submit(isEdit) {
     const filename = $("#profile-image").data("filename"); 
     const submitData = {
-        email: `${$("input[name='email-account']").val()}@${$("input[name='email-host']").val()}`,
-        password: $("input[name='password']").val(),
         memberName: $("input[name='member-name']").val(),
         year: $("#year-select").val(),
         month: $("#month-select").val(),
@@ -69,6 +78,11 @@ function submit() {
         company: $("input[name='company']").val() || null,
         answer: $("input[name='answer']").val(),
         profileImg: `/resources/images/${filename}`
+    }
+
+    if (!isEdit) {
+        submitData.email = `${$("input[name='email-account']").val()}@${$("input[name='email-host']").val()}`;
+        submitData.password = $("input[name='password']").val();
     }
 
     const signUpForm = $("#sign-up-form");
