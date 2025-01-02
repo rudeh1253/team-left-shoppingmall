@@ -18,6 +18,7 @@
 </head>
 <c:set var="isEdit" value="${empty command || command == 'edit-member'}" />
 <body data-is-edit="${isEdit}">
+	<%@include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="outer-box">
 		<div class="page-title">
 			<c:if test="${isEdit}">
@@ -187,5 +188,6 @@
 			</button>
 		</form>
 	</div>
+	<%@include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>

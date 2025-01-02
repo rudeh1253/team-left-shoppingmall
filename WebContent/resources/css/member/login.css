@@ -41,7 +41,8 @@
 
 .navigation-box {
 	display: flex;
-	justify-content: space-evenly;
+	width: 300px;
+	justify-content: center;
 	align-items: center;
 }
 

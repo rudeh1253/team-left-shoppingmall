@@ -27,6 +27,7 @@ public class ProductSpecDto {
 	private int price;
 	@NonNull
 	private int stock;
+	@NonNull
 	private String thumbnail;
 	@NonNull
 	private int weight;

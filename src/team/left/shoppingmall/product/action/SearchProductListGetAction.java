@@ -34,19 +34,19 @@ public class SearchProductListGetAction implements CommandHandler{
 			productList = dao.getProductsByName(productName);
 		}
         
-        int pageCount = productList.size() / 7;
-		if(productList.size() % 7 != 0) pageCount++;
+        int pageCount = productList.size() / 12;
+		if(productList.size() % 12 != 0) pageCount++;
 		request.setAttribute("pageCount", pageCount);
 		
 		int page = 1;
 		String pageStr = request.getParameter("page");
 		if(pageStr != null) page = Integer.parseInt(pageStr);
 
-		List<ProductDto> paginatedList = PaginationTool.getPaginatedList(productList, 7, page);
+		List<ProductDto> paginatedList = PaginationTool.getPaginatedList(productList, 12, page);
 		request.setAttribute("productList", paginatedList);
 		request.setAttribute("page", page);
 
-        return "product/product-list";
+        return "product/product-card-list";
 	}
 
 }

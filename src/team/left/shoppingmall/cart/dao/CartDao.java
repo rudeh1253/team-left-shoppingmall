@@ -52,9 +52,6 @@ public class CartDao {
 	            cart.setThumbnail(rs.getString("thumbnail"));
 	            cartList.add(cart);
 	        }
-	        if (cartList.isEmpty()) {
-	            throw new RuntimeException("아이디가 없습니다.");
-	        }
 	    } catch (SQLException e) {
 	        System.out.println(e.getMessage());
 	        throw new RuntimeException(e);
