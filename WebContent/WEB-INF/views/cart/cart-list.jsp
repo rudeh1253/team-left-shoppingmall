@@ -10,7 +10,8 @@
 
 </head>
 <body>
-	<div class="container mt-4">
+<%@include file="/WEB-INF/views/common/header.jsp"%>
+	<div class="container mt-4" style="min-height: 76vh">
 		<h2>장바구니</h2>
 		<div class="mb-3">
 			<a href="write.jsp" class="btn btn-primary">글 작성</a>
@@ -119,5 +120,6 @@
 			    });
 			});
 	</script>
+	<%@include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>
