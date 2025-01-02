@@ -33,7 +33,7 @@
 								<img src="/resources/images/default-product-image.png" data-filename="default-product-image.png" alt="상품 이미지" class="img-fluid" />
 							</div>
 						</td>
-						<td><a href="${product.productId}" class="link-underline link-underline-opacity-0">${product.productName }</a></td>
+						<td><a href="/product.do?command=detail-product&productId=${product.productId}" class="link-underline link-underline-opacity-0">${product.productName }</a></td>
 						<td>${product.price }</td>
 						<td>${product.stock }</td>
 						<td>${product.regDate }</td>
