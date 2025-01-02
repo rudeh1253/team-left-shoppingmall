@@ -40,7 +40,7 @@ public class ShowProductListGetAction implements CommandHandler {
 		request.setAttribute("productList", paginatedList);
 		request.setAttribute("page", page);
 		
-		request.setAttribute("cmd", "add-product");
+		request.setAttribute("isEdit", false);
 		request.setAttribute("userid", userid);
 
         return "product/product-list";
