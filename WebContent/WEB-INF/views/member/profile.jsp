@@ -25,7 +25,7 @@
 					<div class="input-box">
 						<label for="">프로필 사진</label>
 						<div class="profile-image-box">
-							<img id="profile-image" src="/resources/images/default-profile-image.png" data-filename="default-profile-image.png"> 
+							<img id="profile-image" src="${member.profile_img}" data-filename="default-profile-image.png"> 
 								<input id="profile-image-file-select" type="file" accept=".jpg,.png,.jpeg,.gif,.webp,.bmp">
 						</div>
 					</div>
@@ -68,8 +68,9 @@
 						<span class="form-control form-input">${empty member.company ? "NULL" : member.company}</span>
 					</div>
 					<div class="input-box">
-						<label for="">비밀번호 찾기 질문: 후배가 마라탕후루 사달라고 하면 뭐라고 하실 겁니까?<label style="font-size: 12px">* 수정 가능</label></label>
-						<span class="form-control form-input">${empty member.answer ? 'NULL' : member.answer}</span>
+						<label for="">비밀번호 찾기 질문: 고향이 어디세요<label
+							style="font-size: 12px">* 수정 가능</label></label> <span
+							class="form-control form-input">${empty member.answer ? 'NULL' : member.answer}</span>
 					</div>
 					<button style="" type="button" id="submit-button">수정하기</button>
 					<%@include file="/WEB-INF/views/common/footer.jsp"%>

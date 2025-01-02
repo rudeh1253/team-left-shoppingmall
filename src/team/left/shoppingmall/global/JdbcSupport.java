@@ -48,7 +48,10 @@ public class JdbcSupport {
         javaTypePerJdbcType.put(Types.NUMERIC, Integer.class);
         javaTypePerJdbcType.put(Types.VARCHAR, String.class);
         javaTypePerJdbcType.put(Types.DATE, java.sql.Date.class);
+        javaTypePerJdbcType.put(Types.TIMESTAMP, java.sql.Date.class);
+        javaTypePerJdbcType.put(Types.TIME, java.sql.Date.class);
         javaTypePerJdbcType.put(Types.BOOLEAN, Boolean.class);
+        javaTypePerJdbcType.put(Types.CHAR, String.class);
         JAVA_TYPE_PER_JDBC_TYPE = Collections.unmodifiableMap(javaTypePerJdbcType);
         
         Map<Class<?>, Function<Object, Object>> converters = new HashMap<>();
@@ -67,7 +70,16 @@ public class JdbcSupport {
             java.sql.Date date = (java.sql.Date) o;
             return LocalDate.of(date.getYear(), date.getMonth() + 1, date.getDate());
         });
+        reverseConverters.put(Types.TIMESTAMP, (o) -> {
+            java.sql.Date date = (java.sql.Date) o;
+            return LocalDate.of(date.getYear(), date.getMonth() + 1, date.getDate());
+        });
+        reverseConverters.put(Types.TIME, (o) -> {
+            java.sql.Date date = (java.sql.Date) o;
+            return LocalDate.of(date.getYear(), date.getMonth() + 1, date.getDate());
+        });
         reverseConverters.put(Types.BOOLEAN, (o) -> o);
+        reverseConverters.put(Types.CHAR, (o) -> o);
         REVERSE_CONVERTERS = reverseConverters;
     }
 
