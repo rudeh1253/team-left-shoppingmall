@@ -20,13 +20,15 @@ public class SelectMemberGetAction implements CommandHandler {
 
 		SelectMemberDto member = new SelectMemberDto();
 		SelectMemberDao dao = new SelectMemberDao();
+		
+		int sessionId = (int)request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY);
 
 		int id = 0;
 
 		if (request.getParameter("userid") != null) {
 			id = Integer.parseInt(request.getParameter("userid"));
 		} else if (request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY) != null) {
-			id = (Integer) request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY);
+			id = sessionId;
 		} else {
 			return "member/login";
 		} 
@@ -40,6 +42,7 @@ public class SelectMemberGetAction implements CommandHandler {
 
 		request.setAttribute("member", member);
 		request.setAttribute("userid", id);
+		request.setAttribute("sessionid", sessionId);
 
 		return "member/profile";
 	}
