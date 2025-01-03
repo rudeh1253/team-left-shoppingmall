@@ -31,7 +31,7 @@ function toggleMenu(menuId) {
 	height: 30px;
 	position: absolute;
 	right: 7px;
-	top: 34%;
+	top: 20px;
 	cursor: pointer;
 	border: 1px solid grey;
 	user-select: none;
@@ -45,7 +45,7 @@ function toggleMenu(menuId) {
 	width: 120px;
 	position: absolute;
 	right: -120px;
-	top: 8px;
+	top: 0px;
 	border: 2px solid grey;
 	cursor: pointer;
 	flex-direction: column;
