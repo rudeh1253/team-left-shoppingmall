@@ -64,7 +64,7 @@
 								</td>
 								<td style="width: 200px;">
 								    <a href="/product.do?command=detail-product&productId=${cart.productId}" class="text-decoration-none text-dark">
-								        ${cart.memberName}
+								        ${cart.productName}
 								    </a>
 								</td>
 								<td style="width: 80px;">${cart.sellerId}</td>
