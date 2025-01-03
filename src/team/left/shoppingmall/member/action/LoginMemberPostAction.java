@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import team.left.framework.web.CommandHandler;
 import team.left.shoppingmall.global.CommonConstants;
 import team.left.shoppingmall.member.dao.MemberDao;
+import team.left.shoppingmall.member.dao.MemberDto;
 
 public class LoginMemberPostAction implements CommandHandler {
     private final MemberDao memberDao = MemberDao.getInstance();
@@ -30,8 +31,9 @@ public class LoginMemberPostAction implements CommandHandler {
                     .orElseThrow(NoSuchElementException::new);
             HttpSession session = request.getSession();
             session.setAttribute(CommonConstants.MEMBER_SESSION_KEY, memberId);
-            session.setAttribute(CommonConstants.MEMBER_NAME_SESSION_KEY,
-                    this.memberDao.findMemberNameByMemberId(memberId));
+            MemberDto memberDto = this.memberDao.findMemberByMemberId(memberId);
+            session.setAttribute(CommonConstants.MEMBER_NAME_SESSION_KEY, memberDto.getMemberName());
+            session.setAttribute(CommonConstants.MEMBER_PROFILE_IMG_SESSION_KEY, memberDto.getProfileImg());
             result = "{\"success\":true}";
             response.setStatus(HttpServletResponse.SC_OK);
         } catch (NoSuchElementException e) {
