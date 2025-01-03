@@ -75,6 +75,10 @@ $(document).ready(function(e) {
             warningModal.show();
         }
     });
+    
+    $('#buy-btn').on('click', function () {
+        location.href="/purchase.do?command=purchase-product";
+    });
 });
 
 function calculateTotalPrice() {
