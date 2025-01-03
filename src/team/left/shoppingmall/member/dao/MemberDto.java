@@ -12,4 +12,5 @@ import lombok.Getter;
 public class MemberDto {
     private final String memberName;
     private final String profileImg;
+    private final String role;
 }
