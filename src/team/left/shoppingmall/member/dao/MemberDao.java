@@ -14,6 +14,7 @@ import java.util.Optional;
 import team.left.shoppingmall.global.DataSourceContainer;
 import team.left.shoppingmall.global.JdbcSupport;
 import team.left.shoppingmall.global.MapUtil;
+import team.left.shoppingmall.purchase.model.ShipInfoDto;
 
 public class MemberDao {
     private static final MemberDao singleton = new MemberDao();
@@ -162,7 +163,7 @@ public class MemberDao {
     }
     
     public MemberDto findMemberByMemberId(Integer memberId) {
-        String sql = "SELECT * FROM member_id = ?";
+        String sql = "SELECT * FROM member WHERE member_id = ?";
         Map<String, Object> result = JdbcSupport.selectOne(sql, MapUtil.getParamsOf(memberId));
         return MemberDto.builder()
                 .memberName((String) result.get("member_name"))
@@ -236,20 +237,28 @@ public class MemberDao {
         return (String) JdbcSupport.selectOne(sql, MapUtil.getParamsOf(memberId)).get("password");
     }
   
-    // 멤버 id로 멤버 배송주소 찾기
-    public String findAddressById(int memberId) {
-    	String address = "";
+    
+
+    
+    // 멤버 id로 배송정보 찾기
+    public ShipInfoDto findShipInfoById(int memberId) {
+    	ShipInfoDto shipInfo = null;
     	
     	Connection conn = null;
     	PreparedStatement pstmt = null;
     	try {
     		conn = DataSourceContainer.getDataSource().getConnection();
-    		String sql = "SELECT address FROM member WHERE member_id=?";
+    		String sql = "SELECT member_name, address, tel FROM member WHERE member_id=?";
     		pstmt = conn.prepareStatement(sql);
     		pstmt.setInt(1, memberId);
     		ResultSet result = pstmt.executeQuery();
     		if(result.next()) {
-    			address = result.getString("address");
+    			shipInfo = new ShipInfoDto(
+    				result.getString("member_name"),
+					result.getString("address"),
+					result.getString("tel"),
+					0
+				);
     		}
     		
     	}catch(Exception e) {
@@ -272,6 +281,6 @@ public class MemberDao {
     		}
     	}
     	
-    	return address;
+    	return shipInfo;
     }
 }
