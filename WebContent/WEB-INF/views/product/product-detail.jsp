@@ -87,7 +87,7 @@
 	<h1 style="margin-left: 350px;">제품 상세 정보</h1>
 	<div style="display: flex; justify-content: center; align-items: flex-start; padding-left: 300px; width: 80vw">
 	    <div class="thumbnail" style="flex: 0 0; padding-top: 20px;">
-	        <img src="/resources/images/default-product-image.png" data-filename="default-product-image.png" alt="상품 이미지" style="width: 500px; height: auto;"/>
+	        <img src="${product.thumbnail }" data-filename="${product.thumbnail }" alt="상품 이미지" style="width: 500px; height: auto;"/>
 		   
 	    </div>
 		<div class="product-detail-container product-detail" style="flex: 1; flex-direction: column;">
@@ -110,7 +110,7 @@
 		           <!--<input type="number" name="quantity" min="1" value="1" placeholder="수량">  -->
 	           <c:choose>
 				    <c:when test="${product.sellerId==memberId}">
-				        <input type="submit"  value="상세정보 수정" style="background-color: #007bff; color: white; font-size: 16px; padding: 10px 20px; border: none; border-radius: 25px; cursor: pointer;">
+				        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: #007bff; color: white; font-size: 16px; padding: 10px 20px; border: none; border-radius: 25px; cursor: pointer;">상세정보 수정</button>
 				    </c:when>
 				    <c:when test="${(member.role).equals('sell')}">
 				    </c:when>
@@ -124,7 +124,7 @@
 		</div>
 	</div>
 </form>
-
- <%@include file="/WEB-INF/views/common/footer.jsp"%>
+<%@include file="/WEB-INF/views/product/product-form-modal.jsp"%>
+<%@include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>

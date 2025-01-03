@@ -18,7 +18,7 @@
 		        	<a class="text-decoration-none" href="/product.do?command=detail-product&productId=${product.productId}">
 			            <div class="col">
 			                <div class="card h-100">
-			                    <img src="${product.thumbnail }" data-filename="default-product-image.png" class="card-img-top img-thumbnail" alt="상품 이미지">
+			                    <img src="${product.thumbnail }" data-filename="${product.thumbnail }" class="card-img-top img-thumbnail" alt="상품 이미지">
 			                    <div class="card-body">
 			                        <h5 class="card-title">${product.productName }</h5>
 			                        <p class="card-text">${product.price }</p>
