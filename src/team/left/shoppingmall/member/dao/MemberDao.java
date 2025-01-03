@@ -2,6 +2,7 @@ package team.left.shoppingmall.member.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -187,7 +188,6 @@ public class MemberDao {
     	try {
     		conn = DataSourceContainer.getDataSource().getConnection();
     		String sql = "UPDATE member SET point=point+" + price + " WHERE member_id=" + sellerId;
-    		System.out.println(sql);
     		pstmt = conn.prepareStatement(sql);
     		rowCount = pstmt.executeUpdate();
     		
@@ -212,5 +212,44 @@ public class MemberDao {
     	}
     	
     	return rowCount;
+    }
+    
+    // 멤버 id로 멤버 배송주소 찾기
+    public String findAddressById(int memberId) {
+    	String address = "";
+    	
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	try {
+    		conn = DataSourceContainer.getDataSource().getConnection();
+    		String sql = "SELECT address FROM member WHERE member_id=?";
+    		pstmt = conn.prepareStatement(sql);
+    		pstmt.setInt(1, memberId);
+    		ResultSet result = pstmt.executeQuery();
+    		if(result.next()) {
+    			address = result.getString("address");
+    		}
+    		
+    	}catch(Exception e) {
+    		throw new RuntimeException("멤버 포인트 업데이트 오류 발생");
+    	}finally {
+    		if(conn != null) {
+    			try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+    		}
+    		
+    		if(pstmt != null) {
+    			try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+    		}
+    	}
+    	
+    	return address;
     }
 }

@@ -46,7 +46,7 @@ public class InsertPurchasePostAction implements CommandHandler{
 		}
 		
 		// 구매 데이터 삽입
-		purchaseDao.insertPurchase(totalPrice, memberId);
+		purchaseDao.insertPurchase(totalPrice, memberDao.findAddressById(memberId), memberId);
 		
 		cartList.forEach((cart) -> {
 			// 구매-상품 데이터 삽입
