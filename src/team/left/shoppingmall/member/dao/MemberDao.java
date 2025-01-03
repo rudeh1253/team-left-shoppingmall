@@ -238,8 +238,44 @@ public class MemberDao {
         return (String) JdbcSupport.selectOne(sql, MapUtil.getParamsOf(memberId)).get("password");
     }
   
-    
-
+    // 멤버 id로 멤버 이름 가져오기
+    public String findNameById(int memberId) {
+    	String name = null;
+    	
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	try {
+    		conn = DataSourceContainer.getDataSource().getConnection();
+    		String sql = "SELECT member_name FROM member WHERE member_id=?";
+    		pstmt = conn.prepareStatement(sql);
+    		pstmt.setInt(1, memberId);
+    		ResultSet result = pstmt.executeQuery();
+    		if(result.next()) {
+    			name = result.getString("member_name");
+    		}
+    		
+    	}catch(Exception e) {
+    		throw new RuntimeException("멤버 포인트 업데이트 오류 발생");
+    	}finally {
+    		if(conn != null) {
+    			try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+    		}
+    		
+    		if(pstmt != null) {
+    			try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+    		}
+    	}
+    	
+    	return name;
+    }
     
     // 멤버 id로 배송정보 찾기
     public ShipInfoDto findShipInfoById(int memberId) {
