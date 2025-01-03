@@ -102,6 +102,45 @@
 					</div>
 				</div>
 			</c:if>
+			<c:if test="${isEdit}">
+				<button class="submit-button"
+				        type="button"
+				        data-bs-toggle="modal"
+				        data-bs-target="#password-change-modal"
+				        id="password-change-modal-trigger-button">비밀번호 변경</button>
+				<div class="modal fade" id="password-change-modal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header" id="body-before">
+								<h1 class="modal-title fs-5" id="exampleModalLabel">결과</h1>
+								<button type="button" class="btn-close"
+									data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body" id="modal-content">
+								<div style="margin-bottom: 28px">
+									<input type="password" class="form-control" name="current-password"
+										id="current-password-input" placeholder="현재 비밀번호를 입력하세요">
+								</div>
+								<div style="margin-bottom: 28px">
+									<input type="password" class="form-control" name="new-password"
+										id="new-password-input" placeholder="새 비밀번호를 입력하세요">
+								</div>
+								<div style="margin-bottom: 28px">
+									<input type="password" class="form-control" name="new-password-check"
+										id="new-password-check-input" placeholder="새 비밀번호를 다시 입력하세요">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" id="password-change-submit-button"
+									class="btn btn-primary">변경하기</button>
+								<button type="button" id="modal-close-button"
+									class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</c:if>
 			<div class="input-box">
 				<label for="">이름</label>
 				<div class="form-input-wrapper">
@@ -148,11 +187,23 @@
 				<div class="radio-box" class="form-check">
 					<div class="radio-item">
 						<label class="form-check-label">남</label>
-						<input class="form-check-input" type="radio" name="gender" value="M" checked>
+						<input class="form-check-input"
+						       type="radio"
+						       name="gender"
+						       <c:if test="${empty gender || gender == 'M'}">
+						           checked
+						       </c:if>
+						       value="M">
 					</div>
 					<div class="radio-item">
 						<label class="form-check-label">여</label>
-						<input class="form-check-input" type="radio" name="gender" value="W">
+						<input class="form-check-input"
+						       type="radio"
+						       name="gender"
+						       <c:if test="${!empty gender || gender == 'W'}">
+						           checked
+						       </c:if>
+						       value="W">
 					</div>
 				</div>
 			</div>
@@ -167,14 +218,21 @@
 						       name="role"
 						       value="sell"
 						       data-company="${company}"
-						       checked>
+						       <c:if test="${empty role || role == 'sell'}">
+						           checked
+						       </c:if>
+						       >
 					</div>
 					<div class="radio-item">
 						<label class="form-check-label">구매자</label>
 						<input class="form-check-input"
 						       type="radio"
 						       name="role"
-						       value="buy">
+						       value="buy"
+						       <c:if test="${not empty role && role == 'buy'}">
+						           checked
+						       </c:if>
+						       >
 					</div>
 				</div>
 			</div>

@@ -23,7 +23,7 @@ $(document).ready(function () {
                 setFormValidationFeedback(
                     $("#current-password-input"),
                     false,
-                    "비밀번호가 일치하지 않습니다"
+                    "비밀번호가 일치하지"
                 );
             }
         });
@@ -106,7 +106,7 @@ function validateNewPasswordCheck() {
     return true;
 }
 
-function setFormValidationFeedback(element, isValid, message) {
+function setFormValidationFeedbackForPasswordChange(element, isValid, message) {
     if (isValid) {
         element.removeClass("is-invalid");
         element.addClass("is-valid");
