@@ -72,9 +72,14 @@
         </div>
 
         <div class="text-center mt-4">
-            <button class="btn btn-primary">확인</button>
+            <button id="check-btn" onclick="goToPurchaseList('${command}', '${sessionScope.member}')" class="btn btn-primary">확인</button>
         </div>
     </div>
     <%@include file="/WEB-INF/views/common/footer.jsp"%>
+    <script>
+    	function goToPurchaseList(command, userid){
+    		location.href="/purchase.do?command=" + command + "&userid=" + userid;
+    	}
+    </script>
 </body>
 </html>

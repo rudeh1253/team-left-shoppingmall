@@ -39,11 +39,11 @@ public class FindPurchaseListGetAction implements CommandHandler{
 		if("purchase".equals(command)) {
 			receiptList = purchaseDao.getPurchaseReceipt(memberIdToSelect);
 			request.setAttribute("title", "구매내역");
-			//request.setAttribute("command", command);
+			request.setAttribute("command", command);
 		}else {
 			receiptList = purchaseDao.getSellReceipt(memberIdToSelect);
 			request.setAttribute("title", "판매내역");
-			//request.setAttribute("command", command);
+			request.setAttribute("command", command);
 		}
 		
 		int pageCount = receiptList.size() / 7;
