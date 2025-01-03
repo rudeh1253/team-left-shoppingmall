@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.sql.DataSource;
 
@@ -29,7 +31,7 @@ public class SelectMemberDao {
 				member.setPassword(result.getString("password"));
 				member.setMember_name(result.getString("member_name"));
 				member.setProfile_img(result.getString("profile_img"));
-				member.setBirth_date(result.getString("birth_date"));
+				member.setBirth_date(dateFormat(result.getDate("birth_date")));
 				member.setTel(result.getString("tel"));
 				member.setAddress(result.getString("address"));
 				member.setGender(result.getString("gender"));
@@ -46,5 +48,10 @@ public class SelectMemberDao {
 		}
 		return member;
 		
+	}
+	
+	private String dateFormat( Date date ) {
+		SimpleDateFormat Format = new SimpleDateFormat("yyyy년 MM월 dd일");
+		return Format.format(date);
 	}
 }

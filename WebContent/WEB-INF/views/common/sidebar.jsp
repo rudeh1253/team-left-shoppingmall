@@ -6,33 +6,27 @@
 		const urlParams = new URLSearchParams(window.location.search);
 		return urlParams.get('command');
 	}
-
-	function active(string){
-		if(string == "normal"){
-			document.getElementById('normal').classList.add("active");
-			document.getElementById('seller').classList.add("link-dark");
-		} else if (string =="seller"){
-			document.getElementById('seller').classList.add("active");
-			document.getElementById('normal').classList.add("link-dark");
-		}
+	
+	function classChanger(className){
+		const object = document.getElementById(className);
+		object.classList.add("active");
+		object.classList.remove("link-dark");
+		object.classList.add("fw-bold");
 	}
+
 	window.onload = function() {
 		const command = getCommandValue();
 		console.log("Command Value:", command);
 
 		// 'command' 값에 따라 특정 메뉴에 '▶' 표시
 		if (command === 'profile') {
-			document.getElementById('profile').innerText = '▶';
-			active("normal");
+			classChanger("profile");
 		} else if (command === 'purchase') {
-			document.getElementById('purchase').innerText = '▶';
-			active("normal");
+			classChanger("buy_list");
 		} else if (command === 'show-register-list') {
-			document.getElementById('show-register-list').innerText = '▶';
-			active("seller");
+			classChanger("register_list");
 		} else if (command === 'sell') {
-			document.getElementById('sell').innerText = '▶';
-			active("seller");
+			classChanger("sell_list");
 		}
 	};
 </script>
@@ -47,7 +41,7 @@
 			Left</a>
 		<hr>
 		<ul class="nav nav-pills flex-column mb-auto">
-			<li class="nav-item"><a href="#" id="normal" class="nav-link"
+			<li class="nav-item"><a href="#" class="nav-link text-dark fw-bold"
 				aria-current="page"> <svg class="bi me-2" width="16" height="16">
 						</svg> 일반 사용자
 			</a></li>
@@ -59,7 +53,7 @@
 							<span id="purchase" style="color: #94A5EB"></span></svg> 내 정보
 				</a></li>
 			</c:if>
-			<li class="nav-item"><a href="/member.do?command=profile&userid=${userid}"
+			<li class="nav-item"><a href="/member.do?command=profile&userid=${userid}" id="profile"
 				class="nav-link link-dark" aria-current="page"> <svg
 						class="bi me-2" width="16" height="16">
 						<span id="profile" style="color: #94A5EB"></span></svg>
@@ -67,7 +61,7 @@
 						<c:if test="${!isMyProfile}">프로필</c:if>
 			</a></li>
 			<c:if test="${empty role || role == 'buy'}">
-				<li class="nav-item"><a href="/purchase.do?command=purchase&userid=${ userid }"
+				<li class="nav-item"><a href="/purchase.do?command=purchase&userid=${ userid }" id="buy_list"
 					class="nav-link link-dark" aria-current="page"> <svg
 							class="bi me-2" width="16" height="16">
 							<span id="purchase" style="color: #94A5EB"></span></svg> 구매 내역
@@ -76,18 +70,18 @@
 			<c:if test="${not empty role && role == 'sell'}">
 			<hr>
 			
-				<li class="nav-item"><a href="#" id="seller" class="nav-link"
+				<li class="nav-item"><a href="#" id="seller" class="nav-link fw-bold text-dark"
 					aria-current="page"> <svg class="bi me-2" width="16" height="16">
 							</svg> 판매자
 				</a></li>
 				<hr>
-				<li class="nav-item"><a href="/purchase.do?command=sell&userid=${ userid }"
+				<li class="nav-item"><a href="/purchase.do?command=sell&userid=${ userid }" id="sell_list"
 					class="nav-link link-dark" aria-current="purchase"> <svg
 							class="bi me-2" width="16" height="16">
 							<span id="sell" style="color: #94A5EB"></span></svg> 판매 내역
 				</a></li>
 				<li class="nav-item"><a
-					href="/product.do?command=show-register-list&userid=${ userid }"
+					href="/product.do?command=show-register-list&userid=${ userid }" id="register_list"
 					class="nav-link link-dark" aria-current="page"> <svg
 							class="bi me-2" width="16" height="16">
 							<span id="show-register-list" style="color: #94A5EB"></span></svg> 물품 내역
