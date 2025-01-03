@@ -17,7 +17,7 @@
 	                	<c:if test="${!isEdit }">
 	                		action="/product.do?command=add-product"
 	                	</c:if>
-                	></form>
+                	>
 	                    <div class="text-center">
 	                        <img id="profile-image"
 								<c:if test="${isEdit }">
