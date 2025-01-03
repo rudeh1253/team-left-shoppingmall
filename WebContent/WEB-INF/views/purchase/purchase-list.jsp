@@ -26,9 +26,9 @@
                             <tr>
                                 <th scope="col">이미지</th>
                                 <th scope="col">상품 명</th>
-                                <th scope="col">가격</th>
                                 <th scope="col">수량</th>
                                 <th scope="col">합계</th>
+                                <th scope="col">결제일</th>
                                 <th scope="col">배송 상태</th>
                             </tr>
                         </thead>
@@ -41,9 +41,9 @@
                                         </div>
                                     </td>
                                     <td>${receipt.productName}</td>
-                                    <td>${receipt.price}원</td>
                                     <td>${receipt.amount}</td>
                                     <td>${receipt.totalPrice}원</td>
+                                    <td>${receipt.purchaseDate}</td>
                                     <td>${receipt.state}</td>
                                 </tr>
                             </c:forEach>

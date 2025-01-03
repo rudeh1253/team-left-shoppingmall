@@ -81,7 +81,7 @@ public class PurchaseDao {
 		
 		try {
 			conn = DataSourceContainer.getDataSource().getConnection();
-			String sql = "SELECT pr.thumbnail AS thumbnail, pr.product_name AS product_name, pr.price AS price, pupr.amount AS amount, pupr.price AS total_price, pu.state AS state "
+			String sql = "SELECT pr.thumbnail AS thumbnail, pr.product_name AS product_name, pu.purchase_date AS purchase_date, pupr.amount AS amount, pupr.price AS total_price, pu.state AS state "
 					+ "FROM product pr "
 					+ "JOIN purchase_product pupr ON pr.product_id = pupr.product_id "
 					+ "JOIN purchase pu ON pupr.purchase_id = pu.purchase_id "
@@ -96,9 +96,9 @@ public class PurchaseDao {
 				ReceiptDto dto = new ReceiptDto(
 					result.getString("thumbnail"),
 					result.getString("product_name"),
-					result.getInt("price"),
 					result.getInt("amount"),
 					result.getInt("total_price"),
+					result.getDate("purchase_date"),
 					convertState(result.getString("state"))
 				);
 				list.add(dto);
@@ -121,7 +121,7 @@ public class PurchaseDao {
 		
 		try {
 			conn = DataSourceContainer.getDataSource().getConnection();
-			String sql = "SELECT pr.thumbnail AS thumbnail, pr.product_name AS product_name, pr.price AS price, pupr.amount AS amount, pupr.price AS total_price, pu.state AS state "
+			String sql = "SELECT pr.thumbnail AS thumbnail, pr.product_name AS product_name, pu.purchase_date AS purchase_date, pupr.amount AS amount, pupr.price AS total_price, pu.state AS state "
 					+ "FROM product pr "
 					+ "JOIN purchase_product pupr ON pr.product_id = pupr.product_id "
 					+ "JOIN purchase pu ON pupr.purchase_id = pu.purchase_id "
@@ -135,13 +135,13 @@ public class PurchaseDao {
 				ReceiptDto dto = new ReceiptDto(
 					result.getString("thumbnail"),
 					result.getString("product_name"),
-					result.getInt("price"),
 					result.getInt("amount"),
 					result.getInt("total_price"),
+					result.getDate("purchase_date"),
 					convertState(result.getString("state"))
 				);
 				list.add(dto);
-			}	
+			}
 		}catch(SQLException e) {
 			throw new RuntimeException(e);
 		}finally {
