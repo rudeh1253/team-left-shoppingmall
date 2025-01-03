@@ -37,11 +37,13 @@ public class ShowProductGetAction implements CommandHandler {
             System.out.println(product.toString());
             
             SelectMemberDto member = dao.showMember(memberId);
+            SelectMemberDto seller = dao.showMember(product.getSellerId());
             
             // 조회 결과를 요청에 추가
             request.setAttribute("product", product);
             request.setAttribute("member", member);
             request.setAttribute("memberId", memberId);
+            request.setAttribute("seller", seller);
 
             // JSP로 포워딩
             return "product/product-detail";

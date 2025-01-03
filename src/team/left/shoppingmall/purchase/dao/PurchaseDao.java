@@ -14,7 +14,7 @@ import team.left.shoppingmall.purchase.model.ReceiptDto;
 public class PurchaseDao {
     
 	// 구매내역 저장
-	public int insertPurchase(int totalPrice, int userid) {
+	public int insertPurchase(int totalPrice, String location, int userid) {
 		int rowCount = 0;
 		
 		Connection conn = null;
@@ -22,12 +22,13 @@ public class PurchaseDao {
 		
 		try {
 			conn = DataSourceContainer.getDataSource().getConnection();
-			String sql = "INSERT INTO purchase VALUES (purchase_pk_seq.NEXTVAL, ?, sysdate, ?, ?)";
+			String sql = "INSERT INTO purchase VALUES (purchase_pk_seq.NEXTVAL, ?, ?, sysdate, ?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1,  userid);
-			pstmt.setString(2, "before");
-			pstmt.setInt(3, totalPrice);
+			pstmt.setString(2, location);
+			pstmt.setString(3, "before");
+			pstmt.setInt(4, totalPrice);
 			
 			rowCount = pstmt.executeUpdate();
 			if(rowCount < 1) {
@@ -81,7 +82,7 @@ public class PurchaseDao {
 		
 		try {
 			conn = DataSourceContainer.getDataSource().getConnection();
-			String sql = "SELECT pr.thumbnail AS thumbnail, pr.product_name AS product_name, pr.price AS price, pupr.amount AS amount, pupr.price AS total_price, pu.state AS state "
+			String sql = "SELECT pr.thumbnail AS thumbnail, pr.product_name AS product_name, pu.purchase_date AS purchase_date, pupr.amount AS amount, pupr.price AS total_price, pu.state AS state "
 					+ "FROM product pr "
 					+ "JOIN purchase_product pupr ON pr.product_id = pupr.product_id "
 					+ "JOIN purchase pu ON pupr.purchase_id = pu.purchase_id "
@@ -95,17 +96,14 @@ public class PurchaseDao {
 			while(result.next()) {
 				ReceiptDto dto = new ReceiptDto(
 					result.getString("thumbnail"),
-					
 					result.getString("product_name"),
-					result.getInt("price"),
 					result.getInt("amount"),
 					result.getInt("total_price"),
+					result.getDate("purchase_date"),
 					convertState(result.getString("state"))
 				);
 				list.add(dto);
-				System.out.println(dto.toString());
 			}
-			System.out.println(list);
 		}catch(SQLException e) {
 			throw new RuntimeException(e);
 		}finally {
@@ -124,7 +122,7 @@ public class PurchaseDao {
 		
 		try {
 			conn = DataSourceContainer.getDataSource().getConnection();
-			String sql = "SELECT pr.thumbnail AS thumbnail, pr.product_name AS product_name, pr.price AS price, pupr.amount AS amount, pupr.price AS total_price, pu.state AS state "
+			String sql = "SELECT pr.thumbnail AS thumbnail, pr.product_name AS product_name, pu.purchase_date AS purchase_date, pupr.amount AS amount, pupr.price AS total_price, pu.state AS state "
 					+ "FROM product pr "
 					+ "JOIN purchase_product pupr ON pr.product_id = pupr.product_id "
 					+ "JOIN purchase pu ON pupr.purchase_id = pu.purchase_id "
@@ -138,13 +136,13 @@ public class PurchaseDao {
 				ReceiptDto dto = new ReceiptDto(
 					result.getString("thumbnail"),
 					result.getString("product_name"),
-					result.getInt("price"),
 					result.getInt("amount"),
 					result.getInt("total_price"),
+					result.getDate("purchase_date"),
 					convertState(result.getString("state"))
 				);
 				list.add(dto);
-			}	
+			}
 		}catch(SQLException e) {
 			throw new RuntimeException(e);
 		}finally {

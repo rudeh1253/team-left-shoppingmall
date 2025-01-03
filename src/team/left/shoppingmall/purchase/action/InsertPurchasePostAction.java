@@ -1,6 +1,8 @@
 package team.left.shoppingmall.purchase.action;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import team.left.framework.web.CommandHandler;
 import team.left.shoppingmall.cart.dao.CartDao;
+import team.left.shoppingmall.cart.dao.CartProductDto;
 import team.left.shoppingmall.global.CommonConstants;
 import team.left.shoppingmall.member.dao.MemberDao;
 import team.left.shoppingmall.product.dao.ProductDao;
@@ -34,39 +37,34 @@ public class InsertPurchasePostAction implements CommandHandler{
 		
 		int memberId = (Integer)request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY);
 		int totalPrice = 0;
+
+		List<CartProductDto> cartList = cartDao.showCart(memberId);
 		
-		String[] sellerIdArray = request.getParameterValues("sellerId");
-		String[] productIdArray = request.getParameterValues("productId");
-		String[] amountArray = request.getParameterValues("amount");
-		String[] priceArray = request.getParameterValues("price");
-		
-		for(String price: priceArray) {
-			totalPrice += Integer.parseInt(price);
+		// 총 구매 가격
+		for(CartProductDto cart : cartList) {
+			totalPrice += cart.getPrice();
 		}
 		
-		int rowCount = purchaseDao.insertPurchase(totalPrice, memberId);
+		// 구매 데이터 삽입
+		purchaseDao.insertPurchase(totalPrice, memberDao.findAddressById(memberId), memberId);
 		
-		for(int i = 0; i < productIdArray.length; i++) {
-			PurchaseProductDto dto = new PurchaseProductDto(
-				0,
-				Integer.parseInt(productIdArray[i]),
-				Integer.parseInt(amountArray[i]),
-				Integer.parseInt(priceArray[i])
+		cartList.forEach((cart) -> {
+			// 구매-상품 데이터 삽입
+			purchaseDao.insertPurchaseProduct(
+				new PurchaseProductDto(cart.getProductId(), cart.getAmount(), cart.getPrice())
 			);
 			
-			rowCount = purchaseDao.insertPurchaseProduct(dto);
-			
 			// 판매자 포인트 증가
-			memberDao.updatePointByMemberId(Integer.parseInt(sellerIdArray[i]), Integer.parseInt(priceArray[i]));
+			memberDao.updatePointByMemberId(cart.getSellerId(), cart.getPrice());
 			
 			// 상품 재고수 변경
-			productDao.setProductStock(Integer.parseInt(productIdArray[i]), Integer.parseInt(amountArray[i]));
-			
-		}
+			productDao.setProductStock(cart.getProductId(), cart.getAmount());
+		});
+		
 		
 		// 장바구니 데이터 삭제
 		cartDao.deleteAllCart(memberId);
 		
-		return "redirect:/cart.do?command=show-cart";
+		return "redirect:/product.do?command=card-list-product";
 	}
 }
