@@ -44,7 +44,7 @@
                                             <img src="${receipt.thumbnail}" alt="상품 이미지" class="img-fluid" width="70px"/>
                                         </div>
                                     </td>
-                                    <td>${receipt.productName}</td>
+                                    <td><a href="/purchase.do?command=purchase-detail&purchaseId=${receipt.purchaseId}&productId=${receipt.productId}">${receipt.productName}</a></td>
                                     <td>${receipt.amount}</td>
                                     <td>${receipt.totalPrice}원</td>
                                     <td>${receipt.purchaseDate}</td>
