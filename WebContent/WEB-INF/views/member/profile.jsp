@@ -29,35 +29,91 @@
 								accept=".jpg,.png,.jpeg,.gif,.webp,.bmp">
 						</div>
 					</div>
-
-
+					<c:if test="${isMyProfile}">
+						<div class="input-box">
+							<label for="">이메일 
+								<c:if test="${isMyProfile}">
+									<label style="font-size: 12px">*수정 가능</label>
+								</c:if>
+							</label>
+							<div class="horizontal-input-set">
+								<span class="form-control form-input">${empty member.email ? 'NULL' : member.email}</span>
+							</div>
+						</div>
+					</c:if>
 					<div class="input-box">
 						<label for="">이름</label> <span class="form-control form-input">${empty member.member_name ? 'NULL' : member.member_name}</span>
 					</div>
+					<c:if test="${isMyProfile}">
+						<div class="input-box">
+							<label for="">전화번호
+								<c:if test="${isMyProfile}">
+									<label style="font-size: 12px">*수정 가능</label>
+								</c:if>
+							</label> <span class="form-control form-input">${empty member.tel ? 'NULL' : member.tel}</span>
+	
+						</div>
+					</c:if>
+					<c:if test="${isMyProfile}">
+						<div class="input-box">
+							<label for="">주소
+								<c:if test="${isMyProfile}">
+									<label style="font-size: 12px">*수정 가능</label>
+								</c:if>
+							</label> <span class="form-control form-input">${empty member.address ? 'NULL' : member.address}</span>
+						</div>
+					</c:if>
+					<c:if test="${isMyProfile}">
+						<div class="input-box">
+							<label for="">포인트</label> <span class="form-control form-input">${empty member.point ? 'NULL' : member.point}</span>
+						</div>
+					</c:if>
+					<c:if test="${isMyProfile}">
+						<div class="input-box">
+							<label for="">생년월일
+								<c:if test="${isMyProfile}">
+									<label style="font-size: 12px">*수정 가능</label>
+								</c:if>
+							</label> <span class="form-control form-input">${empty member.birth_date ? 'NULL' : member.birth_date}</span>
+						</div>
+					</c:if>
 					<div class="input-box">
-						<label for="">전화번호<label style="font-size: 12px">*수정
-								가능</label></label> <span class="form-control form-input">${empty member.tel ? 'NULL' : member.tel}</span>
-
+						<label>성별
+							<c:if test="${isMyProfile}">
+								<label style="font-size: 12px">*수정 가능</label>
+							</c:if>
+						</label> <span
+							class="form-control form-input">${empty member.gender ? 'NULL' : member.gender}</span>
 					</div>
-
-					<div class="input-box">
-						<label for="">포인트</label> <span class="form-control form-input">${empty member.point ? 'NULL' : member.point}</span>
-					</div>
-
-
 					<div class="input-box" id="role-input-box">
-						<label>역할<label style="font-size: 12px">* 수정 가능</label></label> <span
+						<label>역할
+							<c:if test="${isMyProfile}">
+								<label style="font-size: 12px">*수정 가능</label>
+							</c:if>
+						</label> <span
 							class="form-control form-input">${empty member.role ? 'NULL' : member.role}</span>
 					</div>
 					<div class="input-box" id="company-input-box">
-						<label for="">회사<label style="font-size: 12px">*수정
-								가능</label></label> <span class="form-control form-input">${empty member.company ? "NULL" : member.company}</span>
+						<label for="">회사
+							<c:if test="${isMyProfile}">
+								<label style="font-size: 12px">*수정 가능</label>
+							</c:if>
+						</label> <span class="form-control form-input">${empty member.company ? "NULL" : member.company}</span>
 					</div>
-
-					<c:if test="${ userid == sessionid }">
-					<button
-						onclick="window.location.href='/member.do?command=edit-member'"
-						style="" type="button" id="submit-button">수정하기</button>
+					<c:if test="${isMyProfile}">
+						<div class="input-box">
+							<label for="">비밀번호 찾기 질문: 고향이 어디세요
+								<c:if test="${isMyProfile}">
+									<label style="font-size: 12px">* 수정 가능</label>
+								</c:if>
+							</label> <span
+								class="form-control form-input">${empty member.answer ? 'NULL' : member.answer}</span>
+						</div>
+					</c:if>
+					<c:if test="${isMyProfile}">
+						<button
+							onclick="window.location.href='/member.do?command=edit-member'"
+							style="" type="button" id="submit-button">수정하기</button>
 					</c:if>
 					<%@include file="/WEB-INF/views/common/footer.jsp"%>
 				</form>
