@@ -16,24 +16,28 @@ function uploadFile(callback, isEdit) {
     const filename = $("#profile-image").data("filename");
     console.log("filename=" + filename);
     const file = $("#profile-image-file-select")[0].files[0];
-    $.ajax({
-        url: `/file.do?command=upload-file&filename=${filename}`,
-        type: "POST",
-        data: file,
-        dataType: "json",
-        cache: false,
-        contentType: file,
-        processData: false,
-        success: (data) => {
-            console.log(data);
-            callback(isEdit);
-        },
-        error: (jqXHR, status, errorThrown) => {
-            console.error(jqXHR);
-            console.error(status);
-            console.error(errorThrown);
-        }
-    });
+    if (file) {
+	    $.ajax({
+	        url: `/file.do?command=upload-file&filename=${filename}`,
+	        type: "POST",
+	        data: file,
+	        dataType: "json",
+	        cache: false,
+	        contentType: file,
+	        processData: false,
+	        success: (data) => {
+	            console.log(data);
+	            callback(isEdit);
+	        },
+	        error: (jqXHR, status, errorThrown) => {
+	            console.error(jqXHR);
+	            console.error(status);
+	            console.error(errorThrown);
+	        }
+	    });
+    } else {
+    	callback(isEdit);
+    }
 }
 
 function hasChangedAndIsEdit(isEdit) {
@@ -43,7 +47,8 @@ function hasChangedAndIsEdit(isEdit) {
 
 function submit(isEdit) {
     const filename = $("#profile-image").data("filename");
-    const profileImg = `/resources/images/${filename}`;
+    const parsed = filename.split("/");
+    const profileImg = `/resources/images/${parsed[parsed.length - 1]}`;
     $("#thumbnail").val(profileImg);
     $("#productModal").submit();
 }

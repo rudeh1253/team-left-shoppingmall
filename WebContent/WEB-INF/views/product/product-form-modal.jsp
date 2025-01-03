@@ -29,7 +29,7 @@
 							alt="상품 이미지" class="img-fluid" />
 	                        <input id="profile-image-file-select" type="file" accept=".jpg,.png,.jpeg,.gif,.webp,.bmp">
 	                    </div>
-	                    <input type="hidden" name="thumbnail" id="thumbnail">
+	                    <input type="hidden" name="thumbnail" id="thumbnail" value="${product.thumbnail }">
 	                    <input type="hidden" name="productId" value="${product.productId }">
                         <div class="row align-items-center mb-3">
                             <label for="productName" class="col-3 col-form-label fs-4 fw-bolder">상품명</label>
