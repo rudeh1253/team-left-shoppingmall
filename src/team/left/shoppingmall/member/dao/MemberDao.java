@@ -160,6 +160,11 @@ public class MemberDao {
         }
     }
     
+    public String findMemberNameByMemberId(Integer memberId) {
+        String sql = "SELECT member_name FROM member_id = ?";
+        return (String) JdbcSupport.selectOne(sql, MapUtil.getParamsOf(memberId)).get("member_name");
+    }
+    
     public Optional<String> findEmailByMemberNameAndTel(String name, String tel) {
         String sql = "SELECT email FROM member WHERE member_name = ? AND tel = ?";
         
