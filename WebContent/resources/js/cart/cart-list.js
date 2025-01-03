@@ -77,7 +77,7 @@ $(document).ready(function(e) {
     });
     
     $('#buy-btn').on('click', function () {
-        location.href="/purchase.do?command=purchase-product";
+        location.href="/purchase.do?command=purchase-process";
     });
 });
 
