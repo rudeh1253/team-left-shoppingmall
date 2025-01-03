@@ -10,11 +10,12 @@ import java.util.List;
 import team.left.shoppingmall.global.DataSourceContainer;
 import team.left.shoppingmall.purchase.model.PurchaseProductDto;
 import team.left.shoppingmall.purchase.model.ReceiptDto;
+import team.left.shoppingmall.purchase.model.ShipInfoDto;
 
 public class PurchaseDao {
     
 	// 구매내역 저장
-	public int insertPurchase(int totalPrice, String location, int userid) {
+	public int insertPurchase(ShipInfoDto shipInfo, int userid) {
 		int rowCount = 0;
 		
 		Connection conn = null;
@@ -22,13 +23,15 @@ public class PurchaseDao {
 		
 		try {
 			conn = DataSourceContainer.getDataSource().getConnection();
-			String sql = "INSERT INTO purchase VALUES (purchase_pk_seq.NEXTVAL, ?, ?, sysdate, ?, ?)";
+			String sql = "INSERT INTO purchase VALUES (purchase_pk_seq.NEXTVAL, ?, ?, sysdate, ?, ?, ?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1,  userid);
-			pstmt.setString(2, location);
+			pstmt.setInt(1, userid);
+			pstmt.setString(2, shipInfo.getAddress());
 			pstmt.setString(3, "before");
-			pstmt.setInt(4, totalPrice);
+			pstmt.setInt(4, shipInfo.getTotalPrice());
+			pstmt.setString(5, shipInfo.getName());
+			pstmt.setString(6, shipInfo.getTel());
 			
 			rowCount = pstmt.executeUpdate();
 			if(rowCount < 1) {
