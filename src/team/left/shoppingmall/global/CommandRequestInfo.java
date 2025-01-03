@@ -1,5 +1,7 @@
 package team.left.shoppingmall.global;
 
+import java.util.Arrays;
+
 import javax.servlet.http.HttpServletRequest;
 
 import lombok.EqualsAndHashCode;
@@ -32,5 +34,12 @@ public class CommandRequestInfo {
         String method = request.getMethod().trim().toUpperCase();
         
         return new CommandRequestInfo(requestUri, method, command);
+    }
+    
+    public static CommandRequestInfo of(String[] strs) {
+        if (strs.length != 3) {
+            throw new IllegalArgumentException("배열의 길이가 3이어야 함: str=" + Arrays.toString(strs) + ", strs.length=" + strs.length);
+        }
+        return new CommandRequestInfo(strs[0], strs[1], strs[2]);
     }
 }

@@ -34,6 +34,7 @@ public class LoginMemberPostAction implements CommandHandler {
             MemberDto memberDto = this.memberDao.findMemberByMemberId(memberId);
             session.setAttribute(CommonConstants.MEMBER_NAME_SESSION_KEY, memberDto.getMemberName());
             session.setAttribute(CommonConstants.MEMBER_PROFILE_IMG_SESSION_KEY, memberDto.getProfileImg());
+            session.setAttribute(CommonConstants.MEMBER_ROLE_SESSION_KEY, memberDto.getRole());
             result = "{\"success\":true}";
             response.setStatus(HttpServletResponse.SC_OK);
         } catch (NoSuchElementException e) {

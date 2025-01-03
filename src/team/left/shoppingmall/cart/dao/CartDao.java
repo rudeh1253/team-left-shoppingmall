@@ -12,6 +12,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import team.left.shoppingmall.cart.model.CartDto;
+import team.left.shoppingmall.cart.model.CartProductDto;
 import team.left.shoppingmall.global.DataSourceContainer;
 
 public class CartDao {
@@ -31,10 +33,9 @@ public class CartDao {
 	    Connection con = null;
 	    try {
 	        con = dataSource.getConnection();
-	        String sql = "select c.member_id, c.product_id, c.amount, p.seller_id, p.reg_date, p.product_name, "
-	        		+ "p.description, p.price, p.stock, p.thumbnail \r\n" 
-	        		+ "from cart c, product p "
-	        		+ "where member_id=? and c.product_id=p.product_id";
+	        String sql = "select c.member_id, c.product_id, c.amount, p.seller_id, p.reg_date, p.product_name, p.description, p.price, p.stock, p.thumbnail, m.member_name "
+				        + "from cart c, product p, member m "
+				        + "where c.member_id=? and c.product_id = p.product_id and p.seller_id=m.member_id";
 	        PreparedStatement stmt = con.prepareStatement(sql);
 	        stmt.setInt(1, memberId);
 	        ResultSet rs = stmt.executeQuery();
@@ -44,12 +45,12 @@ public class CartDao {
 	            cart.setProductId(rs.getInt("product_id"));
 	            cart.setAmount(rs.getInt("amount"));
 	            cart.setSellerId(rs.getInt("seller_id"));
-	            cart.setRegdate(rs.getDate("reg_date"));
 	            cart.setProductName(rs.getString("product_name"));
 	            cart.setDescription(rs.getString("description"));
 	            cart.setPrice(rs.getInt("price"));
 	            cart.setStock(rs.getInt("stock"));
 	            cart.setThumbnail(rs.getString("thumbnail"));
+	            cart.setMemberName(rs.getString("member_name"));
 	            cartList.add(cart);
 	        }
 	    } catch (SQLException e) {

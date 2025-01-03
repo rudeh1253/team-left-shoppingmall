@@ -168,6 +168,7 @@ public class MemberDao {
         return MemberDto.builder()
                 .memberName((String) result.get("member_name"))
                 .profileImg((String) result.get("profile_img"))
+                .role((String) result.get("role"))
                 .build();
     }
     

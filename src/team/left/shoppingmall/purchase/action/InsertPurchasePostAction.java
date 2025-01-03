@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import team.left.framework.web.CommandHandler;
 import team.left.shoppingmall.cart.dao.CartDao;
-import team.left.shoppingmall.cart.dao.CartProductDto;
+import team.left.shoppingmall.cart.model.CartProductDto;
 import team.left.shoppingmall.global.CommonConstants;
 import team.left.shoppingmall.member.dao.MemberDao;
 import team.left.shoppingmall.product.dao.ProductDao;

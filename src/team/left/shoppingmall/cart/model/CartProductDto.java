@@ -1,4 +1,4 @@
-package team.left.shoppingmall.cart.dao;
+package team.left.shoppingmall.cart.model;
 
 import java.util.Date;
 
@@ -20,4 +20,5 @@ public class CartProductDto {
 	private int price;
 	private int stock;
 	private String thumbnail;
+	private String memberName;
 }
