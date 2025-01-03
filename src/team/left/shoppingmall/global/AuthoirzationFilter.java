@@ -1,14 +1,18 @@
 package team.left.shoppingmall.global;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -18,25 +22,48 @@ import javax.servlet.http.HttpServletResponse;
 import team.left.shoppingmall.member.dao.MemberDao;
 
 public class AuthoirzationFilter implements Filter {
-    private static final Map<CommandRequestInfo, Set<String>> ALLOWED_ROLE;
-    private static final String GET = "GET";
-    private static final String POST = "POST";
-    
-    static {
-        Map<CommandRequestInfo, Set<String>> allowedRoleCache = new HashMap<>();
-        allowedRoleCache.put(new CommandRequestInfo("/product.do", GET, "add-product"), of("sell"));
-        ALLOWED_ROLE = Collections.unmodifiableMap(allowedRoleCache);
-    }
-    
-    private static Set<String> of(String... roles) {
-        Set<String> roleSet = new HashSet<>();
-        for (String role : roles) {
-            roleSet.add(role);
-        }
-        return roleSet;
-    }
+    private Map<CommandRequestInfo, Set<String>> allowedRoles = null;
     
     private final MemberDao memberDao = MemberDao.getInstance();
+    
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        ServletContext context = filterConfig.getServletContext();
+        InputStream is = context.getResourceAsStream("/authorization.properties");
+        
+        Properties properties = new Properties();
+        try {
+            properties.load(is);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        
+        Map<CommandRequestInfo, Set<String>> allowedRoles = new HashMap<>();
+        for (Object key : properties.keySet()) {
+            String keyInString = (String) key;
+            String[] parsed = keyInString.split(",");
+         
+            String uri = parsed[0];
+            String method = parsed[1];
+            String command = parsed[2];
+            String role = properties.getProperty(keyInString);
+            
+            Set<String> roles = new HashSet<>();
+            switch (role.trim().toUpperCase()) {
+            case "SELL":
+            case "BUY":
+                roles.add(role.trim().toLowerCase());
+                break;
+            default:
+                roles.add("sell");
+                roles.add("buy");
+            }
+            
+            allowedRoles.put(new CommandRequestInfo(uri, method, command), roles);
+        }
+        this.allowedRoles = Collections.unmodifiableMap(allowedRoles);
+        System.out.println("allowedRoles=" + this.allowedRoles);
+    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -48,15 +75,17 @@ public class AuthoirzationFilter implements Filter {
             throws IOException, ServletException{
         CommandRequestInfo requestInfo = CommandRequestInfo.from(request);
         System.out.println(requestInfo);
-        if (!ALLOWED_ROLE.containsKey(requestInfo)) {
+        if (!this.allowedRoles.containsKey(requestInfo)) {
             chain.doFilter(request, response);
             return;
         }
+        
         Integer memberId = (Integer) request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY);
-        String role = this.memberDao.findRoleByMemberId(memberId);
+//        String role = this.memberDao.findRoleByMemberId(memberId);
+        String role = (String) request.getSession().getAttribute(CommonConstants.MEMBER_ROLE_SESSION_KEY);
         System.out.println("role=" + role);
         
-        if (ALLOWED_ROLE.get(requestInfo).contains(role)) {
+        if (this.allowedRoles.get(requestInfo).contains(role)) {
             System.out.println("contains");
             chain.doFilter(request, response);
             return;
