@@ -15,12 +15,21 @@
 <script src="/resources/js/member/member-form/form-event.js"></script>
 <script src="/resources/js/member/member-form/member-form.js"></script>
 
+<style>
+
+.innerImg{
+	width: 200px !important;
+	height: 360px !important;
+}
+
+</style>
+
 </head>
 <c:set var="isEdit" value="${empty command || command == 'edit-member'}" />
 <body data-is-edit="${isEdit}">
 	<%@include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="outer-box">
-		<div class="page-title">
+		<div class="page-title" style="margin: 10 0 60 0">
 			<c:if test="${isEdit}">
 				프로필 수정
 			</c:if>
@@ -37,9 +46,8 @@
 		      </c:if>
 		      method="POST">
 			<div class="input-box">
-				<label for="">프로필 사진</label>
 				<div class="profile-image-box">
-					<img id="profile-image"
+					<img id="profile-image" class="innerImg"
 					     <c:if test="${isEdit}">
 					     	src="${profileImage}" data-filename="${profileImageFileName}" data-has-changed="false"
 					     </c:if>
@@ -48,7 +56,11 @@
 					     </c:if>
 					>
 					<input id="profile-image-file-select" type="file" accept=".jpg,.png,.jpeg,.gif,.webp,.bmp">
+					
 				</div>
+				<br/>
+				<label class="text-center" for="">프로필 사진</label>
+				<label class="text-center"  for=""> ★ 사진 해상도는 720px x 480px으로 추천 드립니다.★ </label>
 			</div>
 			<div class="input-box">
 				<label for="">이메일</label>
