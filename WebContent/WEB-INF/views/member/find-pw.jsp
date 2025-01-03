@@ -29,7 +29,7 @@
 	    </div>
 	  </div>
 	  <input id="modal-trigger" type="hidden" data-bs-toggle="modal" data-bs-target="#result-modal">
-	<%@include file="fragment/find-id-pw-modal.jsp"%>
+	<%@include file="fragment/modal-frame.jsp"%>
 	<%@include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>

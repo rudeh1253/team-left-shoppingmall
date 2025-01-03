@@ -23,7 +23,7 @@ function uploadFile(callback, isEdit) {
             data: file,
             dataType: "json",
             cache: false,
-            contentType: file.type,
+            contentType: file,
             processData: false,
             success: (data) => {
                 console.log(data);
