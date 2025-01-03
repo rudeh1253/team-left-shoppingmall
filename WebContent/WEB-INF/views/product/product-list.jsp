@@ -75,7 +75,14 @@ function toggleMenu(menuId) {
 			<div class="outer-box" style="padding: 0px; width: 52vw">
 				<div class="container">
 					<c:if test="${empty productList}">
-						<h1 class="text-center">등록한 물품이 없습니다!</h1>
+						<div class="d-flex justify-content-center mt-5 align-items-center" style="height:80vh;">
+							<div class="d-flex flex-column">
+								<h1 class="text-center fw-semibold">등록한 물품이 없습니다!</h1>
+								<hr>
+								<button type="button" class="btn btn-primary"
+									data-bs-toggle="modal" data-bs-target="#staticBackdrop">등록하기</button>
+							</div>
+						</div>
 					</c:if>
 					<c:if test="${!empty productList}">
 						<div class="container" style="min-height: 50vh">
