@@ -103,7 +103,6 @@
 		        <p><strong>배터리 용량:</strong>&nbsp${product.batteryCapacity}</p>
 		        </br></br></br>
 		        <div class="cart-form">
-		       <form action="cart.do?command=add-cart" method="post">
 		           <input type="hidden" name="product_id" value="${product.productId}">
 		           <input type="hidden" name="product_name" value="${product.productName}">
 		           <input type="hidden" name="price" value="${product.price}">
