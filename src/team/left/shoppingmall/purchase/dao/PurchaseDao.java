@@ -14,7 +14,7 @@ import team.left.shoppingmall.purchase.model.ReceiptDto;
 public class PurchaseDao {
     
 	// 구매내역 저장
-	public int insertPurchase(int totalPrice, int userid) {
+	public int insertPurchase(int totalPrice, String location, int userid) {
 		int rowCount = 0;
 		
 		Connection conn = null;
@@ -22,12 +22,13 @@ public class PurchaseDao {
 		
 		try {
 			conn = DataSourceContainer.getDataSource().getConnection();
-			String sql = "INSERT INTO purchase VALUES (purchase_pk_seq.NEXTVAL, ?, sysdate, ?, ?)";
+			String sql = "INSERT INTO purchase VALUES (purchase_pk_seq.NEXTVAL, ?, ?, sysdate, ?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1,  userid);
-			pstmt.setString(2, "before");
-			pstmt.setInt(3, totalPrice);
+			pstmt.setString(2, location);
+			pstmt.setString(3, "before");
+			pstmt.setInt(4, totalPrice);
 			
 			rowCount = pstmt.executeUpdate();
 			if(rowCount < 1) {

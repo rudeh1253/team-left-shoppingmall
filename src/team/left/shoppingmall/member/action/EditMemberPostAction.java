@@ -20,7 +20,6 @@ public class EditMemberPostAction implements CommandHandler {
     public String handleCommand(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String memberName = request.getParameter("memberName");
-        String email = request.getParameter("email");
         String address = request.getParameter("address");
         LocalDate birthDate = LocalDate.of(Integer.parseInt(request.getParameter("year")), Integer.parseInt(request.getParameter("month")), Integer.parseInt(request.getParameter("dayOfMonth")));
         String tel = request.getParameter("tel");

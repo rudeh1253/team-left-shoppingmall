@@ -8,12 +8,16 @@
 
 </head>
 <body>
-    <div style="flex: 1; display: flex; overflow: hidden;">
-        <%@include file="/WEB-INF/views/common/sidebar.jsp"%>
+	<div style="flex: 1; display: flex; overflow: hidden;">
+		<%@include file="/WEB-INF/views/common/sidebar.jsp"%>
 		<div class="d-flex justify-content-center"
 			style="flex: 1; padding: 1rem; overflow: auto; margin: 0 70px 60px 0">
 			<c:if test="${empty receiptList}">
-				<h1 class="text-center">거래한 물품이 없습니다!</h1>
+					<div class="d-flex justify-content-center mt-5 align-items-center" style="height: 80vh;">
+					<div class="d-flex flex-column">
+						<h1 class="text-center fw-semibold"> ${title} 목록이 없습니다.</h1>
+					</div>
+				</div>
 			</c:if>
 			<c:if test="${!empty receiptList}">
 			<div class="outer-box" style="padding: 0px; width: 52vw">
