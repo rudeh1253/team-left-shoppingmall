@@ -96,6 +96,13 @@ public class MemberDao {
         }));
     }
     
+    public void updatePasswordByMemberId(String newPassword, Integer memberId) {
+        String sql = "UPDATE member "
+                + "SET password = ? "
+                + "WHERE member_id = ?";
+        JdbcSupport.update(sql, MapUtil.getParamsOf(newPassword, memberId));
+    }
+    
     public boolean existsByMemberIdAndPassword(Integer memberId, String password) {
         String sql = "SELECT COUNT(*) AS count "
                 + "FROM member "
@@ -152,6 +159,11 @@ public class MemberDao {
         } catch (NoSuchElementException e) {
             return Optional.empty();
         }
+    }
+    
+    public String findMemberNameByMemberId(Integer memberId) {
+        String sql = "SELECT member_name FROM member_id = ?";
+        return (String) JdbcSupport.selectOne(sql, MapUtil.getParamsOf(memberId)).get("member_name");
     }
     
     public Optional<String> findEmailByMemberNameAndTel(String name, String tel) {
@@ -214,6 +226,12 @@ public class MemberDao {
     	return rowCount;
     }
     
+
+    public String findPasswordByMemberId(Integer memberId) {
+        String sql = "SELECT password FROM member WHERE member_id = ?";
+        return (String) JdbcSupport.selectOne(sql, MapUtil.getParamsOf(memberId)).get("password");
+    }
+  
     // 멤버 id로 멤버 배송주소 찾기
     public String findAddressById(int memberId) {
     	String address = "";
