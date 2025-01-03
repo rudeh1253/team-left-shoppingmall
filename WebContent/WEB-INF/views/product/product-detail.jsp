@@ -92,11 +92,11 @@
 	    </div>
 		<div class="product-detail-container product-detail" style="flex: 1; flex-direction: column;">
 		        <p style="font-size: 30px; font-weight: bold;">${product.productName}</p>
-		         <p>${member.member_name}</p>
+		         <p><a href="/member.do?command=profile&userid=${product.sellerId}" style="text-decoration: none;">${member.member_name}</a>&nbsp(${member.company})</p>
 		         <p style="font-size: 20px; font-weight: bold; color: blue;"><fmt:formatNumber value="${product.price}" pattern="#,###" />원</p>
 		        
 		        <dl><strong>설명:</strong>&nbsp${product.description}</dl>
-		       <p><strong>화면 크기(inch):</strong>&nbsp${product.screenSize}</p>
+		        <p><strong>화면 크기(inch):</strong>&nbsp${product.screenSize}</p>
 		        <p><strong>주사율:</strong>&nbsp${product.refreshRate}</p>
 		        <p><strong>화면 해상도:</strong>&nbsp${product.displayResolution}</p>
 		        <p><strong>카메라 해상도:</strong>&nbsp${product.cameraResolution}</p>
