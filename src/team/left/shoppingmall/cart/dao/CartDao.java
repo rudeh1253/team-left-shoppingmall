@@ -169,17 +169,18 @@ public class CartDao {
         }
     }
 	
-	public int checkCart(int productId) {
+	public int checkCart(int memberId, int productId) {
         Connection con = null;
         PreparedStatement stmt = null;
         int count = 0;
         try {
             con = dataSource.getConnection();
-            String sql = "select count(*) from cart WHERE product_id = ?";
+            String sql = "select count(*) from cart WHERE member_id = ? and product_id = ?";
             stmt = con.prepareStatement(sql);
-            stmt.setInt(1, productId);
+            stmt.setInt(1, memberId);
+            stmt.setInt(2, productId);
             ResultSet rs = stmt.executeQuery();
-	        while (rs.next()) { // 여러 행을 처리
+	        while (rs.next()) {
 	            count = rs.getInt("count(*)");
 	        }
 	    } catch (SQLException e) {
