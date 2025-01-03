@@ -7,6 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>장바구니</title>
+
+<script src="/resources/js/cart/cart-list.js"></script>
+
 <style>
 
 	td.xButton {
@@ -34,7 +37,6 @@
     <c:remove var="alertMessage" scope="session" />
 </c:if>
 	<div class="container mt-4" style="min-height: 76vh">
-	<form action="/purchase.do?command=purchase-product" method="POST">
 		<h2>장바구니</h2>
 		<c:choose>
             <c:when test="${not empty cartList}">
@@ -42,6 +44,7 @@
 				<table class="table table-hover text-center mt-3 align-middle">
 					<thead class="table-light">
 						<tr>
+							<th></th>
 							<th class="align-center" style="text-align: center;">이미지</th>
 							<th>상품명</th>
 							<th>판매자</th>
@@ -54,6 +57,7 @@
 					<tbody class="table-group-divider">
 						<c:forEach var="cart" items="${cartList}">
 							<tr class="align-middle" data-product-id="${cart.productId}" data-price="${cart.price}" data-amount="${cart.amount}">
+								<td><input type="checkbox" class="form-check-input" value="${cart.productId }"></td>
 								<td class="d-flex align-items-center justify-content-center">
 								    <a href="/product.do?command=detail-product&productId=${cart.productId}" class="d-flex align-items-center justify-content-center" style="text-decoration: none; color: inherit;">
 								        <img src="${cart.thumbnail}" alt="상품 이미지" style="height: 150px;" />
@@ -83,24 +87,22 @@
 									</button>
 								</td>
 							</tr>
-								<input type="hidden" name="memberId" value="${cart.memberId}" />
-								<input type="hidden" name="sellerId" value="${cart.sellerId}" />
-								<input type="hidden" name="productId" value="${cart.productId}" />
-								<input type="hidden" name="amount" value="${cart.amount}" /> 
-								<input type="hidden" name="price" value="${cart.price}" />
 						</c:forEach>
 					</tbody>
 					<tfoot>
 			            <tr class="totla-price align-middle">
-			                <td colspan="6" class="text-end"><strong>총 가격:</strong></td>
+			                <td colspan="7" class="text-end"><strong>총 가격:</strong></td>
 			                <td>
 			                    <span id="totalPrice">0</span>
 			                </td>
 			            </tr>
 		        	</tfoot>
 				</table>
-				<div class="text-end">
-					<input type="submit" value="구매" class="btn btn-primary" />
+				<div class="d-flex justify-content-end">
+					<div class="d-flex w-25">
+						<button type="button" id="compareBtn" class="btn btn-success btn-lg w-50 me-3">비교</button>
+						<button type="button" id="buy-btn" class="btn btn-primary btn-lg w-50" >구매</button>
+					</div>
 				</div>
 		</c:when>
             <c:otherwise>
@@ -110,93 +112,8 @@
                 </div>
             </c:otherwise>
         </c:choose>
-	</form>
 	</div>
-
-	<script>
-		$(document).ready(function(e) {
-			$(".increase-btn").on("click",
-				function(e) {
-					let requestUrl = "/cart.do?command=increase&productid="+ $(this).attr("id");
-					const productId = $(this).attr("id");
-					const amountElement = $("#amount-"+ productId);
-					let currentAmount = parseInt(amountElement.text(),10); // 현재 수량
-					currentAmount += 1; // 수량 증가
-					amountElement.text(currentAmount);
-					$("tr[data-product-id='" + productId + "']").attr("data-amount", currentAmount);
-					calculateTotalPrice();
-					$.ajax({
-						url : requestUrl, // 서버에서 수량을 업데이트하는 URL
-						type : 'GET'
-					});
-				});
-
-				$(".decrease-btn").on("click",function(e) {
-					const productId = $(this).attr("id");
-				    const amountElement = $("#amount-" + productId);
-				    let currentAmount = parseInt(amountElement.text(), 10);
-				    currentAmount -= 1;
-				    if (currentAmount <= 0) {
-				        requestUrl = "/cart.do?command=delete&productid=" + productId;
-				        alert("상품이 삭제되었습니다.");
-				        $("tr[data-product-id='" + productId + "']").attr("data-amount", currentAmount);
-					    calculateTotalPrice();
-				        $.ajax({
-				            url: requestUrl,
-				            type: 'GET',
-				            success: function () {
-				                location.reload();
-				            }
-				        });
-				    } else {
-				        requestUrl = "/cart.do?command=decrease&productid=" + productId;
-				        amountElement.text(currentAmount);
-				        $("tr[data-product-id='" + productId + "']").attr("data-amount", currentAmount);
-					    calculateTotalPrice();
-				        $.ajax({
-				            url: requestUrl,
-				            type: 'GET'
-				        });
-				    }
-
-				});
-				
-				$(".delete-btn").on("click", function() {
-			        var productId = $(this).data("product-id");
-			        let requestUrl = "/cart.do?command=delete&productid="+ $(this).attr("data-product-id");
-			        $.ajax({
-			            url: requestUrl,  // 요청을 보낼 URL
-			            type: 'GET',
-			            success: function(response) {
-			                alert("상품이 삭제되었습니다.");
-			                // 페이지 전체를 새로 고침하여 갱신
-			                location.reload();
-			            },
-			            error: function(xhr, status, error) {
-			                alert("삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
-			            }
-			        });
-			        $("button[data-product-id='" + productId + "']").closest("tr").remove();
-			    });
-			});
-		
-		function calculateTotalPrice() {
-	        let totalPrice = 0;
-	        // 모든 상품을 순회하면서 가격과 수량을 곱한 값을 totalPrice에 더함
-	        $("tr[data-price]").each(function() {
-	            const price = parseFloat($(this).attr('data-price'));
-	            const amount = parseInt($(this).attr('data-amount'));
-	            totalPrice += price * amount;
-	        });
-
-	        // 총합을 화면에 출력 (천 단위 구분 기호 추가)
-	        $('#totalPrice').text(totalPrice.toLocaleString());
-	    }
-
-	    // 페이지 로딩 시, 총합 계산
-	    window.onload = calculateTotalPrice;
-		
-	</script>
 	<%@include file="/WEB-INF/views/common/footer.jsp"%>
+	<%@include file="/WEB-INF/views/common/modal.jsp"%>
 </body>
 </html>
