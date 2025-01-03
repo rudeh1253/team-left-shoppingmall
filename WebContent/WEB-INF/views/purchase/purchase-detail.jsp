@@ -79,7 +79,6 @@
     <script>
     	function goToPurchaseList(command, userid){
     		location.href="/purchase.do?command=" + command + "&userid=" + userid;
-    		console.log(command, userid);
     	}
     </script>
 </body>
