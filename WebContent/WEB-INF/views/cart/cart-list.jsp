@@ -48,7 +48,6 @@
 							<th class="align-center" style="text-align: center;">이미지</th>
 							<th>상품명</th>
 							<th>판매자</th>
-							<th>담은 날짜</th>
 							<th>수량</th>
 							<th></th>
 							<th>가격</th>
@@ -65,11 +64,10 @@
 								</td>
 								<td style="width: 200px;">
 								    <a href="/product.do?command=detail-product&productId=${cart.productId}" class="text-decoration-none text-dark">
-								        ${cart.productName}
+								        ${cart.memberName}
 								    </a>
 								</td>
 								<td style="width: 80px;">${cart.sellerId}</td>
-								<td style="width: 110px;">${cart.regdate}</td>
 								<td class="align-items-center justify-content-center" >
 				                    <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
 				                        <span id="amount-${cart.productId}" class="d-flex align-items-center justify-content-center">${cart.amount}</span>
@@ -91,7 +89,7 @@
 					</tbody>
 					<tfoot>
 			            <tr class="totla-price align-middle">
-			                <td colspan="7" class="text-end"><strong>총 가격:</strong></td>
+			                <td colspan="6" class="text-end"><strong>총 가격:</strong></td>
 			                <td>
 			                    <span id="totalPrice">0</span>
 			                </td>
