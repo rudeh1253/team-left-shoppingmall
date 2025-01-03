@@ -4,7 +4,7 @@
 <header class="p-3 mb-3 border-bottom">
 	<div class="container z-3">
 		<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
-			<a href="/" class="d-flex align-items-center fs-24 mb-2 mb-lg-0 link-body-emphasis text-decoration-none">Team Left</a>
+			<a href="/" class="d-flex align-items-center fs-5 fw-bold mb-2 mb-lg-0 link-body-emphasis text-decoration-none">Team Left</a>
 
 			<form action="product.do" method="GET" class="col-6 mb-2 mb-md-0 form-control-lg d-flex gap-2 flex-row" role="search">
 				<!-- <input type="search" class="form-control col-8" placeholder="상품 관련 검색어를 입력하세요!" name="keyword" required>
@@ -28,12 +28,12 @@
 					</a>
 					<div class="dropdown text-end ms-2">
 						<a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-							<img src="/resources/images/default-profile-image.png" data-filename="default-profile-image.png" alt="프로필 이미지" width="32" height="32" class="rounded-circle">
+							<img src="${sessionScope.memberProfileImg }" data-filename="${sessionScope.memberProfileImg }" alt="프로필 이미지" width="32" height="32" class="rounded-circle">
 						</a>
 						<ul class="dropdown-menu text-small">
-							<li>${sessionScope.memberName }</li>
+							<li><span class="dropdown-item">${sessionScope.memberName }</span></li>
 							<li><a class="dropdown-item" href="/member.do?command=profile">마이페이지</a></li>
-							<li><a class="dropdown-item" href="/product.do?command=show-register-list&userid=${sessionScope.member}">상품 목록</a></li>
+							<%-- <li><a class="dropdown-item" href="/product.do?command=show-register-list&userid=${sessionScope.member}">상품 목록</a></li> --%>
 							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="/member.do?command=logout">로그아웃</a></li>
 						</ul>
