@@ -1,7 +1,6 @@
 package team.left.shoppingmall.purchase.action;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -16,6 +15,7 @@ import team.left.shoppingmall.member.dao.MemberDao;
 import team.left.shoppingmall.product.dao.ProductDao;
 import team.left.shoppingmall.purchase.dao.PurchaseDao;
 import team.left.shoppingmall.purchase.model.PurchaseProductDto;
+import team.left.shoppingmall.purchase.model.ShipInfoDto;
 
 public class InsertPurchasePostAction implements CommandHandler{
 	
@@ -45,8 +45,15 @@ public class InsertPurchasePostAction implements CommandHandler{
 			totalPrice += cart.getPrice();
 		}
 		
+		ShipInfoDto shipInfo = new ShipInfoDto(
+			request.getParameter("name"),
+			request.getParameter("address"),
+			request.getParameter("tel"),
+			totalPrice
+		);
+		
 		// 구매 데이터 삽입
-		purchaseDao.insertPurchase(totalPrice, memberDao.findAddressById(memberId), memberId);
+		purchaseDao.insertPurchase(shipInfo, memberId);
 		
 		cartList.forEach((cart) -> {
 			// 구매-상품 데이터 삽입
