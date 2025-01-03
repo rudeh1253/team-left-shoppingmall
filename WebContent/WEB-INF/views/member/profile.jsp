@@ -18,10 +18,9 @@
 		<div class="d-flex justify-content-center"
 			style="flex: 1; padding: 1rem; overflow: auto; margin: 50px 0 100px 0">
 			<div class="outer-box" style="padding: 0px; width: 600px">
-				<div class="page-title fw-bolder" style="padding: 20px">계정 보기</div>
+				<div class="page-title fw-bolder" style="padding: 50px">계정 보기</div>
 				<form class="form-box" id="sign-up-form">
 					<div class="input-box">
-						<label for="">프로필 사진</label>
 						<div class="profile-image-box">
 							<img id="profile-image" src="${member.profile_img}"
 								data-filename="default-profile-image.png"> <input
@@ -83,7 +82,7 @@
 								<label style="font-size: 12px">*수정 가능</label>
 							</c:if>
 						</label> <span
-							class="form-control form-input">${empty member.gender ? 'NULL' : member.gender}</span>
+							class="form-control form-input">${member.gender == 'W' ? '여성' : '남성'}</span>
 					</div>
 					<div class="input-box" id="role-input-box">
 						<label>역할
@@ -91,15 +90,17 @@
 								<label style="font-size: 12px">*수정 가능</label>
 							</c:if>
 						</label> <span
-							class="form-control form-input">${empty member.role ? 'NULL' : member.role}</span>
+							class="form-control form-input">${member.role == "sell" ? "판매자" : "구매자"}</span>
 					</div>
+					<c:if test="${ !empty member.company }">
 					<div class="input-box" id="company-input-box">
 						<label for="">회사
 							<c:if test="${isMyProfile}">
 								<label style="font-size: 12px">*수정 가능</label>
 							</c:if>
-						</label> <span class="form-control form-input">${empty member.company ? "NULL" : member.company}</span>
+						</label> <span class="form-control form-input">${member.company}</span>
 					</div>
+					</c:if>
 					<c:if test="${isMyProfile}">
 						<div class="input-box">
 							<label for="">비밀번호 찾기 질문: 고향이 어디세요
