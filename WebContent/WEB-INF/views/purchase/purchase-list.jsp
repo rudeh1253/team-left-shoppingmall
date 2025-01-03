@@ -8,27 +8,31 @@
 
 </head>
 <body>
-    <div style="flex: 1; display: flex; overflow: hidden;">
-        <%@include file="/WEB-INF/views/common/sidebar.jsp"%>
+	<div style="flex: 1; display: flex; overflow: hidden;">
+		<%@include file="/WEB-INF/views/common/sidebar.jsp"%>
 		<div class="d-flex justify-content-center"
 			style="flex: 1; padding: 1rem; overflow: auto; margin: 0 70px 60px 0">
-			<c:if test="${empty productList}">
-				<h1 class="text-center">거래한 물품이 없습니다!</h1>
+			<c:if test="${empty receiptList}">
+					<div class="d-flex justify-content-center mt-5 align-items-center" style="height: 80vh;">
+					<div class="d-flex flex-column">
+						<h1 class="text-center fw-semibold"> ${title} 목록이 없습니다.</h1>
+					</div>
+				</div>
 			</c:if>
-			<c:if test="${!empty productList}">
+			<c:if test="${!empty receiptList}">
 			<div class="outer-box" style="padding: 0px; width: 52vw">
                 <div class="container">
                     <div class="row justify-content-between mt-5 align-items-center">
                         <div class="col fs-1 fw-bolder">${title}</div>
                     </div>
-                    <table class="table table-hover text-center mt-3 align-middle">
+                    <table class="table table-hover text-center mt-3 align-middle min-vh-50">
                         <thead class="table-light">
                             <tr>
                                 <th scope="col">이미지</th>
                                 <th scope="col">상품 명</th>
-                                <th scope="col">가격</th>
                                 <th scope="col">수량</th>
                                 <th scope="col">합계</th>
+                                <th scope="col">결제일</th>
                                 <th scope="col">배송 상태</th>
                             </tr>
                         </thead>
@@ -41,9 +45,9 @@
                                         </div>
                                     </td>
                                     <td>${receipt.productName}</td>
-                                    <td>${receipt.price}원</td>
                                     <td>${receipt.amount}</td>
                                     <td>${receipt.totalPrice}원</td>
+                                    <td>${receipt.purchaseDate}</td>
                                     <td>${receipt.state}</td>
                                 </tr>
                             </c:forEach>

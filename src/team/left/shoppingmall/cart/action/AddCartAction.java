@@ -31,7 +31,8 @@ public class AddCartAction implements CommandHandler{
 			request.setCharacterEncoding("utf-8");
 			int memberId = (int) request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY);
 			int productId = Integer.parseInt(request.getParameter("product_id"));
-			int count = dao.checkCart(productId);
+			int count = dao.checkCart(memberId, productId);
+			System.out.println("개수는 " + count);
 			if(count!=0) {
 				HttpSession session = request.getSession();
 			    session.setAttribute("alertMessage", "이미 장바구니에 담긴 상품입니다.");

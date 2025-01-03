@@ -30,8 +30,8 @@ function toggleMenu(menuId) {
 	width: 30px;
 	height: 30px;
 	position: absolute;
-	right: -55px;
-	top: 25%;
+	right: 7px;
+	top: 20px;
 	cursor: pointer;
 	border: 1px solid grey;
 	user-select: none;
@@ -44,7 +44,7 @@ function toggleMenu(menuId) {
 	align-content: center;
 	width: 120px;
 	position: absolute;
-	right: -200px;
+	right: -120px;
 	top: 0px;
 	border: 2px solid grey;
 	cursor: pointer;
@@ -75,7 +75,14 @@ function toggleMenu(menuId) {
 			<div class="outer-box" style="padding: 0px; width: 52vw">
 				<div class="container">
 					<c:if test="${empty productList}">
-						<h1 class="text-center">등록한 물품이 없습니다!</h1>
+						<div class="d-flex justify-content-center mt-5 align-items-center" style="height:80vh;">
+							<div class="d-flex flex-column">
+								<h1 class="text-center fw-semibold">등록한 물품이 없습니다!</h1>
+								<hr>
+								<button type="button" class="btn btn-primary"
+									data-bs-toggle="modal" data-bs-target="#staticBackdrop">등록하기</button>
+							</div>
+						</div>
 					</c:if>
 					<c:if test="${!empty productList}">
 						<div class="container" style="min-height: 50vh">
@@ -83,8 +90,10 @@ function toggleMenu(menuId) {
 								<div class="col fs-1 fw-bolder">상품 목록</div>
 								<c:if test="${sessionScope.member ne null }">
 									<div class="col text-end">
-										<button type="button" class="btn btn-primary"
-											data-bs-toggle="modal" data-bs-target="#staticBackdrop">등록하기</button>
+										<c:if test="${isMyProfile }">
+											<button type="button" class="btn btn-primary"
+												data-bs-toggle="modal" data-bs-target="#staticBackdrop">등록하기</button>
+										</c:if>
 									</div>
 								</c:if>
 							</div>
@@ -115,18 +124,20 @@ function toggleMenu(menuId) {
 											<td>${product.price }</td>
 											<td>${product.stock }</td>
 											<td>${product.regDate }</td>
-											<td id="hamberger${status.index + 1}"
-												class="d-flex justify-content-center align-items-center border rounded hambergerButton"
-												onclick="toggleMenu('menu${status.index + 1}')"
-												draggable="false"
-												style="background-color: #0d6EFD; color: white">☰</td>
-											<td id="menu${status.index + 1}"
-												class="menu hidden hambergerMenu rounded border "><a
-												href="/purchase.do?id=${product.productId}"
-												class="text-decoration-none active bg-primary rounded text-light">수정하기</a>
-												<hr style="margin: 5px"> <a
-												href="/product.do?command=delete-product&productId=${product.productId}"
-												class="text-decoration-none active bg-danger rounded text-light">삭제하기</a></td>
+											<c:if test="${ isMyProfile }">
+												<td id="hamberger${status.index + 1}"
+													class="d-flex justify-content-center align-items-center border rounded hambergerButton"
+													onclick="toggleMenu('menu${status.index + 1}')"
+													draggable="false"
+													style="background-color: #0d6EFD; color: white">☰</td>
+												<td id="menu${status.index + 1}"
+													class="menu hidden hambergerMenu rounded border "><a
+													href="/purchase.do?id=${product.productId}"
+													class="text-decoration-none active bg-primary rounded text-light">수정하기</a>
+													<hr style="margin: 5px"> <a
+													href="/product.do?command=delete-product&productId=${product.productId}"
+													class="text-decoration-none active bg-danger rounded text-light">삭제하기</a></td>
+											</c:if>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -135,7 +146,7 @@ function toggleMenu(menuId) {
 								class="d-flex justify-content-center">
 								<ul class="pagination">
 									<li class="page-item"><a class="page-link"
-										href="/product.do?command=<%=request.getParameter("command")%>&page=1&userid=<%= request.getParameter("userid") %>"
+										href="/product.do?command=<%=request.getParameter("command")%>&page=1&userid=<%=request.getParameter("userid")%>"
 										aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 									</a></li>
 									<c:forEach var="i" begin="1" end="${pageCount}">
