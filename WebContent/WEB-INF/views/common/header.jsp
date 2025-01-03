@@ -7,9 +7,13 @@
 			<a href="/" class="d-flex align-items-center fs-24 mb-2 mb-lg-0 link-body-emphasis text-decoration-none">Team Left</a>
 
 			<form action="product.do" method="GET" class="col-6 mb-2 mb-md-0 form-control-lg d-flex gap-2 flex-row" role="search">
-				<input type="search" class="form-control col-8" placeholder="상품 관련 검색어를 입력하세요!" name="keyword" required>
+				<!-- <input type="search" class="form-control col-8" placeholder="상품 관련 검색어를 입력하세요!" name="keyword" required>
+				<input type="submit" class="form-control" value="검색" /> -->
 				<input type="hidden" name="command" value="search-product"/>
-				<input type="submit" class="form-control" value="검색" />
+				<div class="input-group">
+					<input type="search" class="form-control" name="keyword" placeholder="상품 관련 검색어를 입력하세요!"" aria-label="Recipient's username" aria-describedby="button-addon2" required>
+					<button class="btn btn-outline-secondary" type="submit">검색</button>
+				</div>
 			</form>
 			<c:if test="${sessionScope.member eq null }">
 				<div class="d-flex gap-3">
@@ -19,7 +23,7 @@
 			</c:if>
 			<c:if test="${sessionScope.member ne null }">
 				<div class="d-flex align-items-center">
-					<a href="/cart.do?command=show-cart" class="text-decoration-none d-flex align-items-center">
+					<a href="/cart.do?command=show-cart" class="text-decoration-none d-flex align-items-center me-3">
 						<i class="bi bi-cart" style="font-size: 1.5rem;"></i>
 					</a>
 					<div class="dropdown text-end ms-2">

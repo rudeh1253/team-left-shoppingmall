@@ -92,7 +92,7 @@
 	    </div>
 		<div class="product-detail-container product-detail" style="flex: 1; flex-direction: column;">
 		        <p style="font-size: 30px; font-weight: bold;">${product.productName}</p>
-		         <p><a href="/member.do?command=profile&userid=${product.sellerId}" style="text-decoration: none;">${member.member_name}</a>&nbsp(${member.company})</p>
+		         <p><a href="/member.do?command=profile&userid=${product.sellerId}" style="text-decoration: none;">${seller.member_name}</a>&nbsp(${seller.company})</p>
 		         <p style="font-size: 20px; font-weight: bold; color: blue;"><fmt:formatNumber value="${product.price}" pattern="#,###" />원</p>
 		        
 		        <dl><strong>설명:</strong>&nbsp${product.description}</dl>
