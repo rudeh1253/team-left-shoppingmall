@@ -132,7 +132,7 @@
 }
 
 /*.form-box input[type="submit"] {*/
-#submit-button {
+.submit-button {
 	width: 100%;
 	height: 46px;
 	background-color: #94A5EB;

@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import team.left.framework.web.CommandHandler;
 import team.left.shoppingmall.global.CommonConstants;
@@ -27,8 +28,10 @@ public class LoginMemberPostAction implements CommandHandler {
         try {
             Integer memberId = this.memberDao.findMemberIdByEmailPassword(email, password)
                     .orElseThrow(NoSuchElementException::new);
-            request.getSession().setAttribute(CommonConstants.MEMBER_SESSION_KEY, memberId);
-            
+            HttpSession session = request.getSession();
+            session.setAttribute(CommonConstants.MEMBER_SESSION_KEY, memberId);
+            session.setAttribute(CommonConstants.MEMBER_NAME_SESSION_KEY,
+                    this.memberDao.findMemberNameByMemberId(memberId));
             result = "{\"success\":true}";
             response.setStatus(HttpServletResponse.SC_OK);
         } catch (NoSuchElementException e) {

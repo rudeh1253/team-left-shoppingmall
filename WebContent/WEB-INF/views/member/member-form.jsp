@@ -190,7 +190,7 @@
 					<input class="form-control form-input" type="text" name="answer" value="${answer}">
 				</div>
 			</div>
-			<button type="button" id="submit-button" data-is-edit="${isEdit}">
+			<button type="button" class="submit-button" id="submit-button" data-is-edit="${isEdit}">
 				<c:if test="${isEdit}">
 					수정 완료
 				</c:if>
