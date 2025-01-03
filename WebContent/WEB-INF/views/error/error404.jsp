@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>존재하지 않는 페이지</title>
 </head>
 <body>
 
