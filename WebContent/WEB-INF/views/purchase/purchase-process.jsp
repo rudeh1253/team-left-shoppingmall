@@ -34,27 +34,6 @@
             </div>
         </div>
 
-        <!-- 무통장 입금 계좌 안내 섹션 -->
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                	무통장 입금 계좌 안내
-            </div>
-            <div class="card-body">
-                <p class="mb-2">아래 계좌로 입금해 주시면 확인 후 처리됩니다.</p>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <strong>은행명:</strong> 농협은행
-                    </li>
-                    <li class="list-group-item">
-                        <strong>계좌번호:</strong> 312-0023-9217-11
-                    </li>
-                    <li class="list-group-item">
-                        <strong>예금주:</strong> 김*수
-                    </li>
-                </ul>
-            </div>
-        </div>
-
         <!-- 결제 버튼 -->
         <div class="text-center mt-4">
         	<input type="hidden" name="command" value="purchase-product" />

@@ -42,7 +42,7 @@ public class InsertPurchasePostAction implements CommandHandler{
 		
 		// 총 구매 가격
 		for(CartProductDto cart : cartList) {
-			totalPrice += cart.getPrice();
+			totalPrice += cart.getAmount() * cart.getPrice();
 		}
 		
 		ShipInfoDto shipInfo = new ShipInfoDto(
