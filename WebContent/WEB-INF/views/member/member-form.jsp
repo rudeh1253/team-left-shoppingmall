@@ -136,11 +136,23 @@
 				<div class="radio-box" class="form-check">
 					<div class="radio-item">
 						<label class="form-check-label">남</label>
-						<input class="form-check-input" type="radio" name="gender" value="M" checked>
+						<input class="form-check-input"
+						       type="radio"
+						       name="gender"
+						       <c:if test="${empty gender || gender == 'M'}">
+						           checked
+						       </c:if>
+						       value="M">
 					</div>
 					<div class="radio-item">
 						<label class="form-check-label">여</label>
-						<input class="form-check-input" type="radio" name="gender" value="W">
+						<input class="form-check-input"
+						       type="radio"
+						       name="gender"
+						       <c:if test="${!empty gender || gender == 'W'}">
+						           checked
+						       </c:if>
+						       value="W">
 					</div>
 				</div>
 			</div>
@@ -155,14 +167,21 @@
 						       name="role"
 						       value="sell"
 						       data-company="${company}"
-						       checked>
+						       <c:if test="${empty role || role == 'sell'}">
+						           checked
+						       </c:if>
+						       >
 					</div>
 					<div class="radio-item">
 						<label class="form-check-label">구매자</label>
 						<input class="form-check-input"
 						       type="radio"
 						       name="role"
-						       value="buy">
+						       value="buy"
+						       <c:if test="${not empty role && role == 'buy'}">
+						           checked
+						       </c:if>
+						       >
 					</div>
 				</div>
 			</div>
