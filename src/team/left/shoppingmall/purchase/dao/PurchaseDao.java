@@ -85,7 +85,7 @@ public class PurchaseDao {
 		
 		try {
 			conn = DataSourceContainer.getDataSource().getConnection();
-			String sql = "SELECT pr.thumbnail AS thumbnail, pr.product_name AS product_name, pu.purchase_date AS purchase_date, pupr.amount AS amount, pupr.price AS total_price, pu.state AS state "
+			String sql = "SELECT pr.thumbnail AS thumbnail, pr.product_name AS product_name, pu.purchase_date AS purchase_date, pupr.amount AS amount, pu.total_price AS total_price, pu.state AS state "
 					+ "FROM product pr "
 					+ "JOIN purchase_product pupr ON pr.product_id = pupr.product_id "
 					+ "JOIN purchase pu ON pupr.purchase_id = pu.purchase_id "
@@ -125,7 +125,7 @@ public class PurchaseDao {
 		
 		try {
 			conn = DataSourceContainer.getDataSource().getConnection();
-			String sql = "SELECT pr.thumbnail AS thumbnail, pr.product_name AS product_name, pu.purchase_date AS purchase_date, pupr.amount AS amount, pupr.price AS total_price, pu.state AS state "
+			String sql = "SELECT pr.thumbnail AS thumbnail, pr.product_name AS product_name, pu.purchase_date AS purchase_date, pupr.amount AS amount, pu.total_price AS total_price, pu.state AS state "
 					+ "FROM product pr "
 					+ "JOIN purchase_product pupr ON pr.product_id = pupr.product_id "
 					+ "JOIN purchase pu ON pupr.purchase_id = pu.purchase_id "
