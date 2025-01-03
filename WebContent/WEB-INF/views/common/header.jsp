@@ -31,6 +31,7 @@
 							<img src="/resources/images/default-profile-image.png" data-filename="default-profile-image.png" alt="프로필 이미지" width="32" height="32" class="rounded-circle">
 						</a>
 						<ul class="dropdown-menu text-small">
+							<li>${sessionScope.memberName }</li>
 							<li><a class="dropdown-item" href="/member.do?command=profile">마이페이지</a></li>
 							<li><a class="dropdown-item" href="/product.do?command=show-register-list&userid=${sessionScope.member}">상품 목록</a></li>
 							<li><hr class="dropdown-divider"></li>
