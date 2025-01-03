@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>회원 정보</title>
 <link rel="stylesheet" href="/resources/css/member/member-form.css">
-
+<script src="/resources/js/member/profile.js"></script>
 </head>
 <body
 	style="height: 100%; margin: 0; display: flex; flex-direction: column;">
@@ -113,13 +113,61 @@
 					<c:if test="${isMyProfile}">
 						<button
 							onclick="window.location.href='/member.do?command=edit-member'"
-							style="" type="button" id="submit-button">수정하기</button>
+							style="" type="button" class="submit-button" id="submit-button">수정하기</button>
+						<button class="submit-button"
+						        type="button"
+						        data-bs-toggle="modal"
+						        data-bs-target="#password-change-modal"
+						        id="password-change-modal-trigger-button">비밀번호 변경</button>
+						<div class="modal fade" id="password-change-modal" tabindex="-1"
+							 aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header" id="body-before">
+										<h1 class="modal-title fs-5" id="exampleModalLabel">결과</h1>
+										<button type="button" class="btn-close" data-bs-dismiss="modal"
+											aria-label="Close"></button>
+									</div>
+									<div class="modal-body" id="modal-content">
+										<div style="margin-bottom: 28px">
+											<input type="password"
+											       class="form-control"
+											       name="password"
+											       id="current-password-input"
+											       placeholder="현재 비밀번호를 입력하세요">
+										</div>
+										<div style="margin-bottom: 28px">
+											<input type="password"
+											       class="form-control"
+											       name="password"
+											       id="new-password-input"
+											       placeholder="새 비밀번호를 입력하세요">
+										</div>
+										<div style="margin-bottom: 28px">
+											<input type="password"
+											       class="form-control"
+											       name="password"
+											       id="new-password-check-input"
+											       placeholder="새 비밀번호를 다시 입력하세요">
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button"
+												id="password-change-submit-button"
+										        class="btn btn-primary">변경하기</button>
+										<button type="button"
+												id="modal-close-button"
+										        class="btn btn-secondary"
+											    data-bs-dismiss="modal">닫기</button>
+									</div>
+								</div>
+							</div>
+						</div>
 					</c:if>
 					<%@include file="/WEB-INF/views/common/footer.jsp"%>
 				</form>
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

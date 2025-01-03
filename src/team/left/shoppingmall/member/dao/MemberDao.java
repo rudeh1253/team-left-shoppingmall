@@ -95,6 +95,13 @@ public class MemberDao {
         }));
     }
     
+    public void updatePasswordByMemberId(String newPassword, Integer memberId) {
+        String sql = "UPDATE member "
+                + "SET password = ? "
+                + "WHERE member_id = ?";
+        JdbcSupport.update(sql, MapUtil.getParamsOf(newPassword, memberId));
+    }
+    
     public boolean existsByMemberIdAndPassword(Integer memberId, String password) {
         String sql = "SELECT COUNT(*) AS count "
                 + "FROM member "
@@ -212,5 +219,10 @@ public class MemberDao {
     	}
     	
     	return rowCount;
+    }
+    
+    public String findPasswordByMemberId(Integer memberId) {
+        String sql = "SELECT password FROM member WHERE member_id = ?";
+        return (String) JdbcSupport.selectOne(sql, MapUtil.getParamsOf(memberId)).get("password");
     }
 }
