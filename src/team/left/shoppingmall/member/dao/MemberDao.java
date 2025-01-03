@@ -162,7 +162,7 @@ public class MemberDao {
     }
     
     public String findMemberNameByMemberId(Integer memberId) {
-        String sql = "SELECT member_name FROM member_id = ?";
+        String sql = "SELECT member_name FROM member where member_id = ?";
         return (String) JdbcSupport.selectOne(sql, MapUtil.getParamsOf(memberId)).get("member_name");
     }
     

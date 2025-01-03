@@ -27,7 +27,13 @@ public class ShowProductGetAction implements CommandHandler {
         try {
             // 상품 ID를 요청에서 가져오기
             String productId = request.getParameter("productId");
-            int memberId = (int) request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY);
+            Object memberIdObj = request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY);
+            int memberId = 0;
+            if (memberIdObj != null) {
+                memberId = (int) memberIdObj;
+            } else {
+                memberId = -1;
+            }
             if (productId == null || productId.isEmpty()) {
                 throw new IllegalArgumentException("상품 ID가 누락되었습니다.");
             }
@@ -36,14 +42,22 @@ public class ShowProductGetAction implements CommandHandler {
             ProductSpecDto product = dao.getProductSpecById(Integer.parseInt(productId));
             System.out.println(product.toString());
             
-            SelectMemberDto member = dao.showMember(memberId);
-            SelectMemberDto seller = dao.showMember(product.getSellerId());
-            
-            // 조회 결과를 요청에 추가
-            request.setAttribute("product", product);
-            request.setAttribute("member", member);
-            request.setAttribute("memberId", memberId);
-            request.setAttribute("seller", seller);
+            if(memberId>=0) {
+                SelectMemberDto member = dao.showMember(memberId);
+                request.setAttribute("member", member);               
+             }else {
+                SelectMemberDto member = new SelectMemberDto();
+                member.setRole("sell");
+                request.setAttribute("member", member);
+             }
+   
+             SelectMemberDto seller = dao.showMember(product.getSellerId());
+             
+             // 조회 결과를 요청에 추가
+             request.setAttribute("product", product);
+             request.setAttribute("memberId", memberId);
+             request.setAttribute("seller", seller);
+             request.setAttribute("isEdit", true);
 
             // JSP로 포워딩
             return "product/product-detail";

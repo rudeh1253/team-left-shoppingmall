@@ -38,7 +38,7 @@ public class UpdateProductPostAction implements CommandHandler {
 		String description = request.getParameter("description");
 		ProductSpecDto product = new ProductSpecDto(productId, 1, productName, description, price, stock, thumbnail, weight, screenSize, refreshRate, displayResolution, chipset, cameraResolution, batteryCapacity);
 		dao.updateProduct(product);
-		return "redirect:/product.do?command=product";
+		return "redirect:/product.do?command=detail-product&productId=" + productId;
 	}
 
 }
