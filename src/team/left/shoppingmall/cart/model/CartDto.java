@@ -1,4 +1,4 @@
-package team.left.shoppingmall.cart.dao;
+package team.left.shoppingmall.cart.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

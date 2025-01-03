@@ -1,7 +1,6 @@
 package team.left.shoppingmall.cart.action;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import team.left.framework.web.CommandHandler;
 import team.left.shoppingmall.cart.dao.CartDao;
-import team.left.shoppingmall.cart.dao.CartProductDto;
 
 public class ChangeAmountAction implements CommandHandler{
 

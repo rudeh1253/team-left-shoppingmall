@@ -2,7 +2,6 @@ package team.left.shoppingmall.cart.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,10 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import team.left.framework.web.CommandHandler;
 import team.left.shoppingmall.cart.dao.CartDao;
-import team.left.shoppingmall.cart.dao.CartDto;
-import team.left.shoppingmall.cart.dao.CartProductDto;
+import team.left.shoppingmall.cart.model.CartDto;
 import team.left.shoppingmall.global.CommonConstants;
-import team.left.shoppingmall.product.model.ProductSpecDto;
 
 public class AddCartAction implements CommandHandler{
 
