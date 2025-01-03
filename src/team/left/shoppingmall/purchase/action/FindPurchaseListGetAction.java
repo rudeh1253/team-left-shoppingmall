@@ -39,9 +39,11 @@ public class FindPurchaseListGetAction implements CommandHandler{
 		if("purchase".equals(command)) {
 			receiptList = purchaseDao.getPurchaseReceipt(memberIdToSelect);
 			request.setAttribute("title", "구매내역");
+			//request.setAttribute("command", command);
 		}else {
 			receiptList = purchaseDao.getSellReceipt(memberIdToSelect);
 			request.setAttribute("title", "판매내역");
+			//request.setAttribute("command", command);
 		}
 		
 		int pageCount = receiptList.size() / 7;
@@ -53,11 +55,13 @@ public class FindPurchaseListGetAction implements CommandHandler{
 		if(pageStr != null) page = Integer.parseInt(pageStr);
 
 		List<ReceiptDto> paginatedList = PaginationTool.getPaginatedList(receiptList, 7, page);
+		
 		request.setAttribute("receiptList", paginatedList);
 		request.setAttribute("page", page);
 		request.setAttribute("userid", memberIdToSelect);
 		request.setAttribute("role", this.memberDao.findRoleByMemberId(memberIdToSelect));
 		request.setAttribute("isMyProfile", isMyProfile);
+		
 		return "purchase/purchase-list";
 	}
 

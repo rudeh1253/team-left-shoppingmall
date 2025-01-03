@@ -7,13 +7,15 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ReceiptDto {
-	private int purchaseId;
-	private int productId;
-	private String thumbnail;
+public class PurchaseDetailDto {
 	private String productName;
+	private String sellerName;
 	private int amount;
-	private int totalPrice;
+	private int price;
+	private String buyerName;
 	private Date purchaseDate;
 	private String state;
+	private String getterName;
+	private String tel;
+	private String address;
 }
