@@ -234,7 +234,7 @@ public class ProductDao {
     // 상품 이름으로 상품 목록 가져오기
     public List<ProductDto> getProductsByName(String productName){
     	 List<ProductDto> productList = new ArrayList<>();
-         String sql = "SELECT * FROM product WHERE is_deleted = 'N' AND product_name LIKE '%" + productName + "%'";
+         String sql = "SELECT * FROM product WHERE is_deleted = 'N' AND lower(product_name) LIKE lower('%" + productName + "%')";
          
          try (
          		Connection con = dataSource.getConnection();
