@@ -161,9 +161,13 @@ public class MemberDao {
         }
     }
     
-    public String findMemberNameByMemberId(Integer memberId) {
-        String sql = "SELECT member_name FROM member_id = ?";
-        return (String) JdbcSupport.selectOne(sql, MapUtil.getParamsOf(memberId)).get("member_name");
+    public MemberDto findMemberByMemberId(Integer memberId) {
+        String sql = "SELECT * FROM member_id = ?";
+        Map<String, Object> result = JdbcSupport.selectOne(sql, MapUtil.getParamsOf(memberId));
+        return MemberDto.builder()
+                .memberName((String) result.get("member_name"))
+                .profileImg((String) result.get("profile_img"))
+                .build();
     }
     
     public Optional<String> findEmailByMemberNameAndTel(String name, String tel) {
