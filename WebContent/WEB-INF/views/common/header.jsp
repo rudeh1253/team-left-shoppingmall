@@ -10,11 +10,13 @@
 				<input type="hidden" name="command" value="search-product"/>
 				<div class="input-group">
 					<input type="search" class="form-control" name="keyword" placeholder="상품 관련 검색어를 입력하세요!"" aria-label="Recipient's username" aria-describedby="button-addon2" required>
-					<button class="btn btn-outline-secondary" type="submit">검색</button>
+					<button class="btn bg-primary fw-bold d-flex align-items-center justify-content-center " type="submit" style="position: absolute; right: 0; z-index: 99; height: 38px; width:50px">
+					<img width=20 alt="" src="/resources/images/search-icon.png">
+					</button>
 				</div>
 			</form>
 			<c:if test="${sessionScope.member eq null }">
-				<div class="d-flex gap-3">
+				<div class="d-flex gap-3" style="color:grey">
 					<a class="text-decoration-none text-reset" href="/member.do?command=login">로그인</a>
 					<a class="text-decoration-none text-reset" href="/member.do?command=insert-member">회원가입</a>
 				</div>
@@ -28,7 +30,7 @@
 					</c:if>
 					<div class="dropdown text-end ms-2">
 						<a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-							<img src="${sessionScope.memberProfileImg }" data-filename="${sessionScope.memberProfileImg }" alt="프로필 이미지" width="32" height="32" class="rounded-circle">
+							<img style="object-fit:contain;" src="${sessionScope.memberProfileImg }" data-filename="${sessionScope.memberProfileImg }" alt="프로필 이미지" width="32" height="32" class="rounded-circle">
 						</a>
 						<ul class="dropdown-menu text-small">
 							<li><span class="dropdown-item">${sessionScope.memberName }</span></li>
