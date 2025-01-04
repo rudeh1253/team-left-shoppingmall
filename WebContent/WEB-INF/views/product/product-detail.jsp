@@ -84,7 +84,7 @@
 		    <form action="/cart.do?command=add-cart" method="POST">
 	    </c:otherwise>
 	</c:choose>
-	<h1 style="margin-left: 350px;">상품 상세 정보</h1>
+	<h1 class="fw-bold" style="margin-left: 350px; margin-top:50px">상품 상세 정보</h1>
 	<div style="display: flex; justify-content: center; align-items: flex-start; padding-left: 300px; width: 80vw">
 	    <div class="thumbnail" style="flex: 0 0; padding-top: 20px;">
 	        <img src="${product.thumbnail }" data-filename="${product.thumbnail }" alt="상품 이미지" style="width: 500px; height: auto;"/>
@@ -96,12 +96,12 @@
 		         <p style="font-size: 20px; font-weight: bold; color: blue;"><fmt:formatNumber value="${product.price}" pattern="#,###" />원</p>
 		        
 		        <dl><strong>설명:</strong>&nbsp${product.description}</dl>
-		        <p><strong>화면 크기(inch):</strong>&nbsp${product.screenSize}</p>
-		        <p><strong>주사율:</strong>&nbsp${product.refreshRate}</p>
+		        <p><strong>화면 크기(inch):</strong>&nbsp${product.screenSize} inch</p>
+		        <p><strong>주사율:</strong>&nbsp${product.refreshRate} hz</p>
 		        <p><strong>화면 해상도:</strong>&nbsp${product.displayResolution}</p>
-		        <p><strong>카메라 해상도:</strong>&nbsp${product.cameraResolution}</p>
-		        <p><strong>배터리 용량:</strong>&nbsp${product.batteryCapacity}</p>
-		        </br></br></br>
+		        <p><strong>카메라 해상도:</strong>&nbsp${product.cameraResolution} 화소</p>
+		        <p><strong>배터리 용량:</strong>&nbsp${product.batteryCapacity} mAh</p>
+		        </br>
 		        <div class="cart-form">
 		           <input type="hidden" name="product_id" value="${product.productId}">
 		           <input type="hidden" name="product_name" value="${product.productName}">
@@ -120,6 +120,7 @@
 	       </form>
 	 
 		</div>
+		<br><br>
 		</div>
 	</div>
 </form>
