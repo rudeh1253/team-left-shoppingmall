@@ -30,12 +30,16 @@ public class SellProductGetAction implements CommandHandler {
         Integer memberIdToSelect = memberIdFromParameter != null ? Integer.parseInt(memberIdFromParameter) : loginMemberId;
 		
 		receiptList = purchaseDao.getSellCount(loginMemberId);
+		int totalMoney = purchaseDao.getTotalMoney(loginMemberId);
+		
+		 String formattedMoney = String.format("%,d", totalMoney);
 
 		
 		request.setAttribute("receiptList", receiptList);
 		request.setAttribute("userid", loginMemberId);
 		request.setAttribute("role", memberDao.findRoleByMemberId(loginMemberId));
 		request.setAttribute("isMyProfile", isMyProfile);
+		request.setAttribute("totalMoney", formattedMoney);
 		
 		
 		return "product/product-sell-chart";
