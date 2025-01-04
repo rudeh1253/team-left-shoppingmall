@@ -41,7 +41,19 @@
 		var data = google.visualization.arrayToDataTable(chartData);
 
 		var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-		chart.draw(data);
+		
+		var options = {
+				curveType : 'function',
+				legend : {
+					position : 'bottom'
+				},
+				animation:{
+					startup: 'true',
+					duration: 1000,
+					easing: 'inAndOut'
+				}
+			};
+		chart.draw(data,options);
 	}
 </script>
 
@@ -77,6 +89,11 @@
 			curveType : 'function',
 			legend : {
 				position : 'bottom'
+			},
+			animation:{
+				startup: 'true',
+				duration: 1000,
+				easing: 'inAndOut'
 			}
 		};
 

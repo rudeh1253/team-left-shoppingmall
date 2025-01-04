@@ -27,7 +27,7 @@
 			<div class="col-md-4 text-end">
 				<ul class="list-group">
 					<li class="list-group-item">${productList[0].productName }</li>
-					<li class="list-group-item">${productList[0].sellerId }</li>
+					<li class="list-group-item">너구리</li>
 					<li class="list-group-item">${productList[0].price }</li>
 					<li class="list-group-item">${productList[0].weight }</li>
 					<li class="list-group-item">${productList[0].screenSize }</li>
@@ -57,7 +57,7 @@
 			<div class="col-md-4 text-start">
 				<ul class="list-group">
 					<li class="list-group-item">${productList[1].productName }</li>
-					<li class="list-group-item">${productList[1].sellerId }</li>
+					<li class="list-group-item">너구리</li>
 					<li class="list-group-item">${productList[1].price }</li>
 					<li class="list-group-item">${productList[1].weight }</li>
 					<li class="list-group-item">${productList[1].screenSize }</li>
