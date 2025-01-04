@@ -21,7 +21,7 @@
 			                    <img src="${product.thumbnail }" data-filename="${product.thumbnail }" class="card-img-top img-thumbnail" alt="상품 이미지">
 			                    <div class="card-body">
 			                        <h5 class="card-title">${product.productName }</h5>
-			                        <p class="card-text">${product.price }</p>
+			                        <p class="card-text"><fmt:formatNumber value="${product.price }" pattern="#,###" />원</p>
 			                    </div>
 			                </div>
 			            </div>
