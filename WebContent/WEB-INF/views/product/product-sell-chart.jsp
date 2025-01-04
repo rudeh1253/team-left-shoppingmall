@@ -64,6 +64,8 @@
                         <div>
                             <h2 class="fw-bolder" style="white-space: nowrap;">가장 많이 판매된 제품</h2>
                             <span class="text-warning fw-bold" id="mostSell" style="font-size: 1.5rem;"></span>
+                            <hr>
+                            <span class="fw-bold" id="mostSell" style="font-size: 1.5rem;white-space: nowrap;"> 총 판매 수익률 : ${totalMoney} 원 </span>
                         </div>
                     </div>
 

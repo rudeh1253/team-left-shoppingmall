@@ -244,6 +244,33 @@ public class PurchaseDao {
 	    
 	    return list;
 	}
+	
+	// 총 수익률
+	public int getTotalMoney(int userid) {
+	    int totalMoney = 0;
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+
+	    try {
+	        conn = DataSourceContainer.getDataSource().getConnection();
+	        
+	        String sql = "SELECT SUM(pp.amount * pp.price) AS total_money FROM purchase_product pp JOIN product pt ON pp.product_id = pt.product_id WHERE pt.seller_id = ?";
+	        
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, userid); 
+	        ResultSet result = pstmt.executeQuery();
+	        System.out.println(result);
+	        if(result.next()) {
+	        	totalMoney = result.getInt("total_money");
+	        }
+	    } catch(SQLException e) {
+	        throw new RuntimeException(e); 
+	    } finally {
+	        closeConnection(conn, pstmt);
+	    }
+	    
+	    return totalMoney;
+	}
 
 	
 	// 멤버 id로 배송정보 찾기
