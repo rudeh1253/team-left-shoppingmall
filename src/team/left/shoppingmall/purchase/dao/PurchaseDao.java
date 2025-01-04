@@ -11,6 +11,7 @@ import team.left.shoppingmall.global.DataSourceContainer;
 import team.left.shoppingmall.member.dao.MemberDao;
 import team.left.shoppingmall.product.model.ProductCountDto;
 import team.left.shoppingmall.product.model.ProductDto;
+import team.left.shoppingmall.product.model.ProductMoneyEachYearDto;
 import team.left.shoppingmall.purchase.model.PurchaseDetailDto;
 import team.left.shoppingmall.purchase.model.PurchaseProductDto;
 import team.left.shoppingmall.purchase.model.ReceiptDto;
@@ -271,6 +272,46 @@ public class PurchaseDao {
 	    
 	    return totalMoney;
 	}
+	
+	// 연도별 총 수익률
+	public List<ProductMoneyEachYearDto> getSellMoneyEachYear(int userid) {
+	    List<ProductMoneyEachYearDto> list = new ArrayList<>();
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+
+	    try {
+	        conn = DataSourceContainer.getDataSource().getConnection();
+	        
+	        String sql = "SELECT EXTRACT(YEAR FROM p.PURCHASE_DATE) AS purchase_year, SUM(pp.amount * pp.price) AS total_money " + 
+	        		"FROM purchase_product pp " + 
+	        		"JOIN product pt " + 
+	        		"ON pp.product_id = pt.product_id " + 
+	        		"JOIN purchase p " + 
+	        		"ON pp.purchase_id = p.purchase_id " + 
+	        		"WHERE pt.seller_id = ? " + 
+	        		"GROUP BY EXTRACT(YEAR FROM p.PURCHASE_DATE) " + 
+	        		"ORDER BY purchase_year ";
+	        
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, userid); 
+	        ResultSet result = pstmt.executeQuery();
+	        
+	        while(result.next()) {
+	        	
+	        	ProductMoneyEachYearDto dto = new ProductMoneyEachYearDto();
+	            dto.setYear(result.getString("purchase_year"));
+	            dto.setMoney(result.getString("total_money"));
+	            list.add(dto);
+	        }
+	    } catch(SQLException e) {
+	        throw new RuntimeException(e); 
+	    } finally {
+	        closeConnection(conn, pstmt);
+	    }
+	    
+	    return list;
+	}
+	
 
 	
 	// 멤버 id로 배송정보 찾기
