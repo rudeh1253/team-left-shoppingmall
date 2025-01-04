@@ -29,7 +29,7 @@
     
     <filter>
         <filter-name>authorizationFilter</filter-name>
-        <filter-class>team.left.shoppingmall.global.AuthoirzationFilter</filter-class>
+        <filter-class>team.left.shoppingmall.global.AuthorizationFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>authorizationFilter</filter-name>

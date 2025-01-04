@@ -131,10 +131,12 @@ function toggleMenu(menuId) {
 													draggable="false"
 													style="background-color: #0d6EFD; color: white">☰</td>
 												<td id="menu${status.index + 1}"
-													class="menu hidden hambergerMenu rounded border "><a
-													href="/purchase.do?id=${product.productId}"
+													class="menu hidden hambergerMenu rounded border">
+													<a
+													href="/product.do?command=detail-product&productId=${product.productId}"
 													class="text-decoration-none active bg-primary rounded text-light">수정하기</a>
-													<hr style="margin: 5px"> <a
+													<hr style="margin: 5px"> 
+													<a
 													href="/product.do?command=delete-product&productId=${product.productId}"
 													class="text-decoration-none active bg-danger rounded text-light">삭제하기</a></td>
 											</c:if>

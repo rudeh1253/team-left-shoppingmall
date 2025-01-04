@@ -58,7 +58,7 @@ public class InsertPurchasePostAction implements CommandHandler{
 		cartList.forEach((cart) -> {
 			// 구매-상품 데이터 삽입
 			purchaseDao.insertPurchaseProduct(
-				new PurchaseProductDto(cart.getProductId(), cart.getAmount(), cart.getPrice())
+				new PurchaseProductDto(cart.getProductId(), cart.getAmount(), cart.getPrice() * cart.getAmount())
 			);
 			
 			// 판매자 포인트 증가

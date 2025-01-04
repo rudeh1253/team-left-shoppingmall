@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import team.left.shoppingmall.member.dao.MemberDao;
 
-public class AuthoirzationFilter implements Filter {
+public class AuthorizationFilter implements Filter {
     private Map<CommandRequestInfo, Set<String>> allowedRoles = null;
     
     private final MemberDao memberDao = MemberDao.getInstance();
@@ -74,19 +74,14 @@ public class AuthoirzationFilter implements Filter {
     private void process(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException{
         CommandRequestInfo requestInfo = CommandRequestInfo.from(request);
-        System.out.println(requestInfo);
         if (!this.allowedRoles.containsKey(requestInfo)) {
             chain.doFilter(request, response);
             return;
         }
         
-        Integer memberId = (Integer) request.getSession().getAttribute(CommonConstants.MEMBER_SESSION_KEY);
-//        String role = this.memberDao.findRoleByMemberId(memberId);
         String role = (String) request.getSession().getAttribute(CommonConstants.MEMBER_ROLE_SESSION_KEY);
-        System.out.println("role=" + role);
         
         if (this.allowedRoles.get(requestInfo).contains(role)) {
-            System.out.println("contains");
             chain.doFilter(request, response);
             return;
         }
