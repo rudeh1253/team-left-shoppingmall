@@ -32,10 +32,9 @@ public class AuthenticationFilter implements Filter {
         }
         
         this.blackList = properties.keySet().stream()
-                .map((e) -> (String) e)
-                .map((endpoint) -> CommandRequestInfo.of(endpoint.split(",")))
-                .collect(Collectors.toSet());
-        System.out.println("blackList=" + this.blackList);
+	        .map((e) -> (String) e)
+	        .map((endpoint) -> CommandRequestInfo.of(endpoint.split(",")))
+	        .collect(Collectors.toSet());
     }
 
     @Override
