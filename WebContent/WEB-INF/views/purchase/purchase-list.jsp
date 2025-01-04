@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+	<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -46,7 +46,7 @@
                                     </td>
                                     <td><a class="link-dark link-underline link-underline-opacity-0" href="/purchase.do?command=purchase-detail&purchaseId=${receipt.purchaseId}&productId=${receipt.productId}">${receipt.productName}</a></td>
                                     <td>${receipt.amount}</td>
-                                    <td>${receipt.totalPrice}원</td>
+                                    <td><fmt:formatNumber value="${receipt.totalPrice}" pattern="#,###" />원</td>
                                     <td>${receipt.purchaseDate}</td>
                                     <td>${receipt.state}</td>
                                 </tr>

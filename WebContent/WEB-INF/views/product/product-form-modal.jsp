@@ -5,7 +5,14 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-2 ps-5 fw-bolder" id="staticBackdropLabel">상품 등록</h1>
+            	<c:choose>
+            		<c:when test="${isEdit}">
+		                <h1 class="modal-title fs-2 ps-5 fw-bolder" id="staticBackdropLabel">상품 수정</h1>
+            		</c:when>
+            		<c:otherwise>
+            			<h1 class="modal-title fs-2 ps-5 fw-bolder" id="staticBackdropLabel">상품 등록</h1>
+            		</c:otherwise>
+            	</c:choose>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
