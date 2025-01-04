@@ -84,7 +84,7 @@
 					href="/product.do?command=show-register-list&userid=${ userid }" id="register_list"
 					class="nav-link link-dark" aria-current="page"> <svg
 							class="bi me-2" width="16" height="16">
-							<span id="show-register-list" style="color: #94A5EB"></span></svg> 물품 등록 내역
+							<span id="show-register-list" style="color: #94A5EB"></span></svg> 상품 등록 내역
 				</a></li>
 			</c:if>
 		</ul>
