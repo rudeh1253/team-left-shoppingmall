@@ -23,7 +23,7 @@
 				<form class="form-box" id="sign-up-form">
 					<div class="input-box">
 						<div class="profile-image-box">
-							<img id="profile-image" src="${member.profile_img}"
+							<img id="profile-image" src="${member.profile_img}" style="object-fit: contain;"
 								data-filename="default-profile-image.png"> <input
 								id="profile-image-file-select" type="file"
 								accept=".jpg,.png,.jpeg,.gif,.webp,.bmp">

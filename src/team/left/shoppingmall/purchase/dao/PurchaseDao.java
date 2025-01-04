@@ -9,6 +9,8 @@ import java.util.List;
 
 import team.left.shoppingmall.global.DataSourceContainer;
 import team.left.shoppingmall.member.dao.MemberDao;
+import team.left.shoppingmall.product.model.ProductCountDto;
+import team.left.shoppingmall.product.model.ProductDto;
 import team.left.shoppingmall.purchase.model.PurchaseDetailDto;
 import team.left.shoppingmall.purchase.model.PurchaseProductDto;
 import team.left.shoppingmall.purchase.model.ReceiptDto;
@@ -212,6 +214,37 @@ public class PurchaseDao {
 		
 		return detailDto;
 	}
+	
+	// 판매내역 이름, 갯수로 가져오기
+	public List<ProductCountDto> getSellCount(int userid) {
+	    List<ProductCountDto> list = new ArrayList<>();
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+
+	    try {
+	        conn = DataSourceContainer.getDataSource().getConnection();
+	        
+	        String sql = "SELECT pt.product_name,  SUM(pp.amount) AS count FROM purchase_product pp JOIN product pt ON pp.product_id = pt.product_id WHERE pt.seller_id = ? GROUP BY pt.product_name ";
+	        
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, userid); 
+	        ResultSet result = pstmt.executeQuery();
+	        System.out.println(result);
+	        while(result.next()) {
+	        	ProductCountDto dto = new ProductCountDto();
+	            dto.setProductName(result.getString("product_name"));
+	            dto.setCount(result.getInt("count"));
+	            list.add(dto);
+	        }
+	    } catch(SQLException e) {
+	        throw new RuntimeException(e); 
+	    } finally {
+	        closeConnection(conn, pstmt);
+	    }
+	    
+	    return list;
+	}
+
 	
 	// 멤버 id로 배송정보 찾기
     public ShipInfoDto findShipInfoById(int memberId) {
