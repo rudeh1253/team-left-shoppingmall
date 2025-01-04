@@ -32,13 +32,13 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.5); /* 어두운 투명 레이어 */
+        background-color: rgba(0, 0, 0, 0.5);
         z-index: 0;
     }
 
     .container {
         position: relative;
-        z-index: 1; /* 비디오 위에 위치 */
+        z-index: 1;
         text-align: center;
         color: white;
     }
