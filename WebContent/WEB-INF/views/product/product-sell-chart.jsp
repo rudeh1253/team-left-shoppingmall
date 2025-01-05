@@ -116,7 +116,7 @@
 					차트</h1>
 
 				<div class="outer-box"
-					style="padding: 30px; width: 90%; border-radius: 15px; height: 600px">
+					style="padding: 30px; width: 90%; border-radius: 15px; height: 500px">
 					<div class="d-flex"
 						style="width: 100%; justify-content: space-between; padding-bottom: 80px">
 

@@ -19,7 +19,9 @@ public class SuccessGetAction implements CommandHandler{
 	@Override
 	public String handleCommand(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			
+		
+
+		
 		return "member/fragment/success";
 	}
 

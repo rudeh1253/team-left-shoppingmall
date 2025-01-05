@@ -72,6 +72,6 @@ public class InsertPurchasePostAction implements CommandHandler{
 		// 장바구니 데이터 삭제
 		cartDao.deleteAllCart(memberId);
 		
-		return "redirect:/product.do?command=card-list-product";
+		return "redirect:/member.do?command=success";
 	}
 }
