@@ -47,18 +47,24 @@
     <script>
         // TossPayments 객체를 생성합니다. (clientKey는 실제 발급 받은 클라이언트 키로 교체)
         var tossPayments = TossPayments("test_ck_Gv6LjeKD8aNRyzAAX1vY3wYxAdXy");
-
+        
         document.getElementById("buy-complete-btn").addEventListener("click", function(e) {
-            e.preventDefault(); // 폼 제출을 막고 결제 처리
 
+        	var name = document.getElementById("name").value;
+        	var addressInput = document.getElementById("address");
+        	var address = addressInput.value.replace(/\s+/g, ""); // 모든 공백 제거
+        	addressInput.value = address;
+            var tel = document.getElementById("tel").value;
+            var url = "http://localhost:8080/member.do?command=success" + "&name=" + name + "&address=" + address + "&tel=" + tel;
+    		console.log(url)
             // 결제 요청
             tossPayments.requestPayment('카드', {
-                amount: 10000, // 실제 결제 금액으로 변경 (예시: 10000원)
+                amount: 1130, // 실제 결제 금액으로 변경 (예시: 10000원)
                 orderId: "a4CWyWY5m89PNh7xJwhk1", // 실제 주문 ID로 교체
-                orderName: "티셔츠", // 실제 주문 상품명으로 교체
-                customerName: document.getElementById("name").value, // 수령인 이름
-                customerEmail: "customer123@example.com", // 고객 이메일 (실제 값으로 교체)
-                successUrl: "http://localhost:8080/member.do?command=success", // 성공시 리디렉션 URL
+                orderName: "갤럭시 폴드6 실버", // 실제 주문 상품명으로 교체
+                customerName: "none", // 수령인 이름
+                customerEmail: "none", // 고객 이메일 (실제 값으로 교체)
+                successUrl: url, // 성공시 리디렉션 URL
                 failUrl: "http://localhost:8080/your_fail_url" // 실패시 리디렉션 URL
             }).then(function(response) {
                 // 결제 요청 후 응답 처리
