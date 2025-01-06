@@ -47,7 +47,7 @@ public class InsertPurchasePostAction implements CommandHandler{
 		
 		ShipInfoDto shipInfo = new ShipInfoDto(
 			request.getParameter("name"),
-			request.getParameter("address"),
+			request.getParameter("address").replaceAll("@", " "),
 			request.getParameter("tel"),
 			totalPrice
 		);

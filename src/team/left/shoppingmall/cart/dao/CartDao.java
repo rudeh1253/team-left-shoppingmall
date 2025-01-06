@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 import team.left.shoppingmall.cart.model.CartDto;
 import team.left.shoppingmall.cart.model.CartProductDto;
 import team.left.shoppingmall.global.DataSourceContainer;
+import team.left.shoppingmall.purchase.model.ReceiptDto;
 
 public class CartDao {
     private static DataSource dataSource = DataSourceContainer.getDataSource();
@@ -193,6 +194,40 @@ public class CartDao {
         return count;
         
     }
+	
+	/**
+	 * 회원 장바구니의 총 가격을 가져온다.
+	 * 
+	 * @parameter 회원ID 
+	 * @return 장바구니 총 가격
+	 */
+	public int findTotalPriceByMemberId(int memberId) {
+		int totalPrice = 0;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = DataSourceContainer.getDataSource().getConnection();
+			String sql = "SELECT SUM(p.price * c.amount) AS total_price FROM cart c "
+					   + "JOIN product p on c.product_id=p.product_id "
+					   + "WHERE c.member_id=? "
+					   + "GROUP BY c.member_id";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memberId);
+			
+			ResultSet result = pstmt.executeQuery();
+			if(result.next()) {
+				totalPrice = result.getInt("total_price");
+			}
+		}catch(SQLException e) {
+			throw new RuntimeException(e);
+		}finally {
+			closeConnection(conn);
+		}
+		
+		return totalPrice;
+	}
 	
 	private void closeConnection(Connection con) {
 		if(con!=null) {
